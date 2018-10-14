@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\system\SystemManager.cpp" />
+    <ClCompile Include="src\system\System.cpp" />
+    <ClCompile Include="src\system\Input.cpp" />
+    <ClCompile Include="src\system\FpsManager.cpp" />
+    <ClCompile Include="src\scene\SceneManager.cpp" />
+    <ClCompile Include="src\scene\SceneChanger.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\game\GameScene.cpp" />
+    <ClCompile Include="src\game\GameRender.cpp" />
+    <ClCompile Include="src\game\Game.cpp" />
+    <ClCompile Include="src\assets\Images.cpp" />
+    <ClCompile Include="src\assets\AssetsManager.cpp" />
+    <ClCompile Include="src\title\TitleScene.cpp" />
+    <ClCompile Include="src\title\TitleRender.cpp" />
+    <ClCompile Include="src\title\Title.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\system\SystemManager.hpp" />
+    <ClInclude Include="src\system\System.hpp" />
+    <ClInclude Include="src\system\Input.hpp" />
+    <ClInclude Include="src\system\FpsManager.hpp" />
+    <ClInclude Include="src\scene\SceneManager.hpp" />
+    <ClInclude Include="src\scene\SceneChanger.hpp" />
+    <ClInclude Include="src\scene\Scene.hpp" />
+    <ClInclude Include="src\game\GameScene.hpp" />
+    <ClInclude Include="src\game\GameRender.hpp" />
+    <ClInclude Include="src\game\Game.hpp" />
+    <ClInclude Include="src\assets\Images.hpp" />
+    <ClInclude Include="src\assets\AssetsManager.hpp" />
+    <ClInclude Include="src\title\TitleScene.hpp" />
+    <ClInclude Include="src\title\TitleRender.hpp" />
+    <ClInclude Include="src\title\Title.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="common.props" />
+  </ItemGroup>
+</Project>
