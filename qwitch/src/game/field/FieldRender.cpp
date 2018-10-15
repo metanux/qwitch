@@ -28,7 +28,7 @@ FieldRender::FieldRender()
 void FieldRender::render(const Field& aField) const
 {
     //----- 描画オブジェクトを取得
-    std::vector<FieldObject> objects;
+    std::vector<std::reference_wrapper<const FieldObject>> objects;
 
     // 地形ブロック
     const Terrain& terrain = aField.terrain();
@@ -37,11 +37,20 @@ void FieldRender::render(const Field& aField) const
         const Block& block = terrain.block(i);
         objects.push_back(block);
     }
+    // キャラクター
+    const Characters& charas = aField.characters();
+    int countCharas = charas.countCharacter();
+    for (int i = 0; i < countCharas; i++) {
+        const Character& chara = charas.character(i);
+        objects.push_back(chara);
+    }
 
     //----- 描画オブジェクトを描画順にソート
-    
+
+
     //----- オブジェクトの描画
     int countObjects = (int)objects.size();
+    printf("%d %d %d\n", countBlocks, countCharas, countObjects);
     for (int i = 0; i < countObjects; i++) {
         renderObject(aField, objects[i]);
     }
@@ -58,7 +67,7 @@ void FieldRender::renderObject(
 {
     int x = calcRenderPosX(aField, aObject);
     int y = calcRenderPosY(aField, aObject);
-    int image = Images::ins().block(0);
+    int image = aObject.image();
     DxLib::DrawGraph(x, y, image, TRUE);
 }
 

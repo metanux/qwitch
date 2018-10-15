@@ -17,6 +17,7 @@ namespace game {
 class Block : public FieldObject {
 public:
     Block();
+    int image() const;
 
     /// getter
 

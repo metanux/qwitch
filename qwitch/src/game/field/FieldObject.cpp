@@ -15,7 +15,7 @@ namespace game {
 //
 FieldObject::FieldObject()
 {
-    printf("objectCreate");
+    printf("objectCreate\n");
 }
 
 //---------------------------------------------------------------------

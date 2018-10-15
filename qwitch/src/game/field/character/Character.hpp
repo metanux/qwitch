@@ -18,6 +18,8 @@ class Character : public FieldObject {
 public:
     Character();
 
+    int image() const;
+
     /// getter
 
 private:

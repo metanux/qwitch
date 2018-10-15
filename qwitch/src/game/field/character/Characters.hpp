@@ -19,6 +19,9 @@ class Characters {
 public:
     Characters();
 
+    /// キャラクター数
+    int countCharacter() const;
+
     /// getter
     const Character& character(int aIndex) const;
 

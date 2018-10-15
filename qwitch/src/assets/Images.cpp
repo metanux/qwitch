@@ -44,6 +44,12 @@ void Images::load()
     }
 
     //-----
+    for (int i = 0; i < 1; i++) {
+        int image = DxLib::LoadGraph("assets/images/character/0.png");
+        mCharacter.push_back(image);
+    }
+
+    //-----
     mTitleBack = DxLib::LoadGraph("assets/images/title/back.png");
 }
 
@@ -55,6 +61,11 @@ void Images::load()
 int Images::block(int aIndex) const
 {
     return mBlock[aIndex];
+}
+//---------------------------------------------------------------------
+int Images::character(int aIndex) const
+{
+    return mCharacter[aIndex];
 }
 //---------------------------------------------------------------------
 int Images::titleBack() const

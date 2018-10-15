@@ -18,6 +18,9 @@ class FieldObject {
 public:
     FieldObject();
 
+    /// 描画に使用する画像ハンドルを返却
+    virtual int image() const = 0;
+
     /// @name setter
     //@{
     void setPos(const Vector3d& aPos);
