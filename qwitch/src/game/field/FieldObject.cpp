@@ -3,31 +3,19 @@
 //  
 // 
 //
-#include "Images.hpp"
-#include "DxLib.h"
-
+#include "FieldObject.hpp"
+#include <stdio.h>
 namespace qwitch {
+namespace game {
 
 //---------------------------------------------------------------------
 // 
 //  
 // 
 //
-Images::Images()
-    : mBlock()
-    , mTitleBack()
+FieldObject::FieldObject()
 {
-}
-
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-Images& Images::ins()
-{
-    static Images instance;
-    return instance;
+    printf("objectCreate");
 }
 
 //---------------------------------------------------------------------
@@ -35,16 +23,14 @@ Images& Images::ins()
 //  
 // 
 //
-void Images::load()
+void FieldObject::setPos(const Vector3d& aPos)
 {
-    //-----
-    for (int i = 0; i < 1; i++) {
-        int image = DxLib::LoadGraph("assets/images/block/0.png");
-        mBlock.push_back(image);
-    }
-
-    //-----
-    mTitleBack = DxLib::LoadGraph("assets/images/title/back.png");
+    mPos = aPos;
+}
+//---------------------------------------------------------------------
+void FieldObject::setSize(const Vector3d& aSize)
+{
+    mSize = aSize;
 }
 
 //---------------------------------------------------------------------
@@ -52,14 +38,15 @@ void Images::load()
 //  
 // 
 //
-int Images::block(int aIndex) const
+const Vector3d& FieldObject::pos() const
 {
-    return mBlock[aIndex];
+    return mPos;
 }
 //---------------------------------------------------------------------
-int Images::titleBack() const
+const Vector3d& FieldObject::size() const
 {
-    return mTitleBack;
+    return mSize;
 }
 
+} // namespace game
 } // namespace qwitch

@@ -3,8 +3,7 @@
 //  
 // 
 //
-#include "Field.hpp"
-#include "DxLib.h"
+#include "Terrain.hpp"
 
 namespace qwitch {
 namespace game {
@@ -14,8 +13,12 @@ namespace game {
 //  
 // 
 //
-Field::Field()
+Terrain::Terrain()
+    : mBlocks()
 {
+    /// デバッグ用
+    Block block;
+    mBlocks.push_back(block);
 }
 
 //---------------------------------------------------------------------
@@ -23,8 +26,9 @@ Field::Field()
 //  
 // 
 //
-void Field::update()
+int Terrain::countBlocks() const
 {
+    return (int)mBlocks.size();
 }
 
 //---------------------------------------------------------------------
@@ -32,9 +36,9 @@ void Field::update()
 //  
 // 
 //
-const Terrain& Field::terrain() const
+const Block& Terrain::block(int aIndex) const
 {
-    return mTerrain;
+    return mBlocks[aIndex];
 }
 
 } // namespace game

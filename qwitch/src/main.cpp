@@ -18,12 +18,12 @@ int WINAPI WinMain(
     int nCmdShow)
 {
     //----- デバッグ用コンソール
-    /*
+    
     AllocConsole();
     FILE* fp;
     freopen_s(&fp, "CONOUT$", "w", stdout);
     freopen_s(&fp, "CONIN$", "r", stdin);
-    */
+    
 
     //----- ゲーム処理
     qwitch::SystemManager systemManager;

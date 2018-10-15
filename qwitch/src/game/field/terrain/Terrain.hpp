@@ -4,7 +4,8 @@
 // 
 //
 #pragma once
-#include "game/field/terrain/Terrain.hpp"
+#include "game/field/terrain/Block.hpp"
+#include <vector>
 
 namespace qwitch {
 namespace game {
@@ -14,18 +15,19 @@ namespace game {
 //  
 // 
 //
-class Field {
+class Terrain {
 public:
-    Field();
-    void update();
+    Terrain();
+
+    /// ブロック数のカウント
+    int countBlocks() const;
 
     /// getter
-    const Terrain& terrain() const;
+    const Block& block(int aIndex) const;
 
 private:
     /// member
-    /// 地形データ
-    Terrain mTerrain;
+    std::vector<Block> mBlocks;
 };
 
 } // namespace game

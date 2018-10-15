@@ -22,7 +22,10 @@
     <ClCompile Include="src\assets\AssetsManager.cpp" />
     <ClCompile Include="src\assets\Images.cpp" />
     <ClCompile Include="src\game\field\Field.cpp" />
+    <ClCompile Include="src\game\field\FieldObject.cpp" />
     <ClCompile Include="src\game\field\FieldRender.cpp" />
+    <ClCompile Include="src\game\field\terrain\Block.cpp" />
+    <ClCompile Include="src\game\field\terrain\Terrain.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameRender.cpp" />
     <ClCompile Include="src\game\GameScene.cpp" />
@@ -37,12 +40,16 @@
     <ClCompile Include="src\title\Title.cpp" />
     <ClCompile Include="src\title\TitleRender.cpp" />
     <ClCompile Include="src\title\TitleScene.cpp" />
+    <ClCompile Include="src\util\Vector3d.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\assets\AssetsManager.hpp" />
     <ClInclude Include="src\assets\Images.hpp" />
     <ClInclude Include="src\game\field\Field.hpp" />
+    <ClInclude Include="src\game\field\FieldObject.hpp" />
     <ClInclude Include="src\game\field\FieldRender.hpp" />
+    <ClInclude Include="src\game\field\terrain\Block.hpp" />
+    <ClInclude Include="src\game\field\terrain\Terrain.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
     <ClInclude Include="src\game\GameRender.hpp" />
     <ClInclude Include="src\game\GameScene.hpp" />
@@ -56,6 +63,7 @@
     <ClInclude Include="src\title\Title.hpp" />
     <ClInclude Include="src\title\TitleRender.hpp" />
     <ClInclude Include="src\title\TitleScene.hpp" />
+    <ClInclude Include="src\util\Vector3d.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

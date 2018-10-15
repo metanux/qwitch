@@ -19,12 +19,14 @@ public:
     void load();
 
     /// getter
+    int block(int aIndex) const;
     int titleBack() const;
 
 private:
     Images();
 
     /// member
+    std::vector<int> mBlock;
     int mTitleBack;
 };
 

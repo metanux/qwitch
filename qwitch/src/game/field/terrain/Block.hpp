@@ -4,7 +4,7 @@
 // 
 //
 #pragma once
-#include "game/field/terrain/Terrain.hpp"
+#include "game/field/FieldObject.hpp"
 
 namespace qwitch {
 namespace game {
@@ -14,18 +14,14 @@ namespace game {
 //  
 // 
 //
-class Field {
+class Block : public FieldObject {
 public:
-    Field();
-    void update();
+    Block();
 
     /// getter
-    const Terrain& terrain() const;
 
 private:
     /// member
-    /// 地形データ
-    Terrain mTerrain;
 };
 
 } // namespace game

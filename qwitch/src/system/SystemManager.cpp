@@ -62,7 +62,7 @@ int SystemManager::initialize()
         DxLib::SetWindowSizeChangeEnableFlag(TRUE) ||
         //DxLib::SetWindowSizeExtendRate(0.8) ||
         DxLib::ChangeWindowMode(TRUE) ||
-        DxLib::SetWindowText("dungeon") ||
+        DxLib::SetWindowText("qwitch") ||
         DxLib::SetOutApplicationLogValidFlag(FALSE) ||
         DxLib::DxLib_Init() ||
         DxLib::SetDrawScreen(DX_SCREEN_BACK) ||
