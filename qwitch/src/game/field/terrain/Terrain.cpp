@@ -17,8 +17,14 @@ Terrain::Terrain()
     : mBlocks()
 {
     /// デバッグ用
-    Block block;
-    mBlocks.push_back(block);
+    for (int y = 0; y < 2; y++) {
+        for (int x = 0; x < 2; x++) {
+            Block block;
+            block.setPos(Vector3d(32 * x, 32 * y, 0));
+            block.setSize(Vector3d(32, 32, 32));
+            mBlocks.push_back(block);
+        }
+    }
 }
 
 //---------------------------------------------------------------------
