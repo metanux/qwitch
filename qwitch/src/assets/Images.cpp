@@ -14,10 +14,7 @@ namespace qwitch {
 // 
 //
 Images::Images()
-    : mBlock()
-    , mChara()
-    , mMonster()
-    , mTitleBack()
+    : mTitleBack()
 {
 }
 
@@ -39,7 +36,7 @@ Images& Images::ins()
 //
 void Images::load()
 {
-
+    mTitleBack = DxLib::LoadGraph("assets/images/title/back.png");
 }
 
 //---------------------------------------------------------------------
@@ -47,21 +44,6 @@ void Images::load()
 //  
 // 
 //
-int Images::block(int aIndex) const
-{
-    return mBlock[aIndex];
-}
-//---------------------------------------------------------------------
-int Images::chara(int aKind, int aIndex) const
-{
-    return mChara[aKind][aIndex];
-}
-//---------------------------------------------------------------------
-int Images::monster(int aKind, int aIndex) const
-{
-    return mMonster[aKind][aIndex];
-}
-//---------------------------------------------------------------------
 int Images::titleBack() const
 {
     return mTitleBack;
