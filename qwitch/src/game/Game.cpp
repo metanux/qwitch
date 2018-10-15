@@ -28,6 +28,18 @@ Game::Game()
 //
 void Game::update()
 {
+    if (Input::ins().key(KEY_INPUT_UP)) {
+        mField.playerMove(-1, -1);
+    }
+    if (Input::ins().key(KEY_INPUT_RIGHT)) {
+        mField.playerMove(1, -1);
+    }
+    if (Input::ins().key(KEY_INPUT_DOWN)) {
+        mField.playerMove(1, 1);
+    }
+    if (Input::ins().key(KEY_INPUT_LEFT)) {
+        mField.playerMove(-1, 1);
+    }
 }
 
 //---------------------------------------------------------------------

@@ -19,6 +19,9 @@ class Characters {
 public:
     Characters();
 
+    /// 移動
+    void move(int aIndex, const Vector3d& aPos);
+
     /// キャラクター数
     int countCharacter() const;
 

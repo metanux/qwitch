@@ -15,7 +15,16 @@ namespace game {
 //
 FieldObject::FieldObject()
 {
-    printf("objectCreate\n");
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void FieldObject::move(const Vector3d& aPos)
+{
+    mPos += aPos;
 }
 
 //---------------------------------------------------------------------

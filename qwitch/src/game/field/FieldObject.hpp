@@ -21,6 +21,9 @@ public:
     /// 描画に使用する画像ハンドルを返却
     virtual int image() const = 0;
 
+    /// 移動
+    void move(const Vector3d& aPos);
+
     /// @name setter
     //@{
     void setPos(const Vector3d& aPos);

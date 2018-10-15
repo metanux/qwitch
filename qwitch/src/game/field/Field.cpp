@@ -35,6 +35,17 @@ void Field::update()
 //  
 // 
 //
+void Field::playerMove(int aX, int aY)
+{
+    int playerIndex = 0;
+    mCharacters.move(playerIndex, Vector3d(aX, aY, 0));
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 const Camera& Field::camera() const
 {
     return mCamera;

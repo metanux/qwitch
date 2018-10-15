@@ -21,6 +21,9 @@ public:
     Field();
     void update();
 
+    ///
+    void playerMove(int aX, int aY);
+
     /// getter
     const Camera& camera() const;
     const Terrain& terrain() const;
@@ -28,9 +31,11 @@ public:
 
 private:
     /// member
-    /// 地形データ
+    /// カメラ
     Camera mCamera;
+    /// 地形データ
     Terrain mTerrain;
+    /// キャラクター
     Characters mCharacters;
 };
 

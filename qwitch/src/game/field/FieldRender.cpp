@@ -50,7 +50,6 @@ void FieldRender::render(const Field& aField) const
 
     //----- オブジェクトの描画
     int countObjects = (int)objects.size();
-    printf("%d %d %d\n", countBlocks, countCharas, countObjects);
     for (int i = 0; i < countObjects; i++) {
         renderObject(aField, objects[i]);
     }

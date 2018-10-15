@@ -27,6 +27,16 @@ Characters::Characters()
 //  
 // 
 //
+void Characters::move(int aIndex, const Vector3d& aPos)
+{
+    mCharacters[aIndex].move(aPos);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 int Characters::countCharacter() const
 {
     return (int)mCharacters.size();
