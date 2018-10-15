@@ -22,6 +22,8 @@
     <ClCompile Include="src\assets\AssetsManager.cpp" />
     <ClCompile Include="src\assets\Images.cpp" />
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
+    <ClCompile Include="src\game\field\character\Character.cpp" />
+    <ClCompile Include="src\game\field\character\Characters.cpp" />
     <ClCompile Include="src\game\field\Field.cpp" />
     <ClCompile Include="src\game\field\FieldObject.cpp" />
     <ClCompile Include="src\game\field\FieldRender.cpp" />
@@ -47,6 +49,8 @@
     <ClInclude Include="src\assets\AssetsManager.hpp" />
     <ClInclude Include="src\assets\Images.hpp" />
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
+    <ClInclude Include="src\game\field\character\Character.hpp" />
+    <ClInclude Include="src\game\field\character\Characters.hpp" />
     <ClInclude Include="src\game\field\Field.hpp" />
     <ClInclude Include="src\game\field\FieldObject.hpp" />
     <ClInclude Include="src\game\field\FieldRender.hpp" />

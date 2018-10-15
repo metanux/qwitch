@@ -17,6 +17,7 @@ namespace game {
 Field::Field()
     : mCamera()
     , mTerrain()
+    , mCharacters()
 {
 }
 
@@ -42,6 +43,11 @@ const Camera& Field::camera() const
 const Terrain& Field::terrain() const
 {
     return mTerrain;
+}
+//---------------------------------------------------------------------
+const Characters& Field::characters() const
+{
+    return mCharacters;
 }
 
 } // namespace game

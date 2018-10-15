@@ -24,6 +24,8 @@
     <ClCompile Include="src\util\Vector3d.cpp" />
     <ClCompile Include="src\game\field\terrain\Block.cpp" />
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
+    <ClCompile Include="src\game\field\character\Character.cpp" />
+    <ClCompile Include="src\game\field\character\Characters.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -48,6 +50,8 @@
     <ClInclude Include="src\util\Vector3d.hpp" />
     <ClInclude Include="src\game\field\terrain\Block.hpp" />
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
+    <ClInclude Include="src\game\field\character\Character.hpp" />
+    <ClInclude Include="src\game\field\character\Characters.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />
