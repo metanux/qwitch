@@ -17,6 +17,7 @@ namespace game {
 // 
 //
 GameRender::GameRender()
+    : mFieldRender()
 {
 }
 
@@ -27,6 +28,9 @@ GameRender::GameRender()
 //
 void GameRender::render(const Game& aGame) const
 {
+    //----- 
+    const Field& field = aGame.field();
+    mFieldRender.render(field);
 }
 
 } // namespace game

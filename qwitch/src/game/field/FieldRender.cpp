@@ -3,10 +3,10 @@
 //  
 // 
 //
-#include "Game.hpp"
+#include "FieldRender.hpp"
 #include "DxLib.h"
-#include "system/Input.hpp"
-#include "scene/SceneChanger.hpp"
+#include "assets/Images.hpp"
+#include "system/System.hpp"
 
 namespace qwitch {
 namespace game {
@@ -16,8 +16,7 @@ namespace game {
 //  
 // 
 //
-Game::Game()
-    : mField()
+FieldRender::FieldRender()
 {
 }
 
@@ -26,18 +25,8 @@ Game::Game()
 //  
 // 
 //
-void Game::update()
+void FieldRender::render(const Field& aField) const
 {
-}
-
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-const Field& Game::field() const
-{
-    return mField;
 }
 
 } // namespace game

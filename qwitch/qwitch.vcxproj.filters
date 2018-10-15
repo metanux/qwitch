@@ -17,6 +17,8 @@
     <ClCompile Include="src\title\TitleScene.cpp" />
     <ClCompile Include="src\title\TitleRender.cpp" />
     <ClCompile Include="src\title\Title.cpp" />
+    <ClCompile Include="src\game\field\Field.cpp" />
+    <ClCompile Include="src\game\field\FieldRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -34,6 +36,8 @@
     <ClInclude Include="src\title\TitleScene.hpp" />
     <ClInclude Include="src\title\TitleRender.hpp" />
     <ClInclude Include="src\title\Title.hpp" />
+    <ClInclude Include="src\game\field\Field.hpp" />
+    <ClInclude Include="src\game\field\FieldRender.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

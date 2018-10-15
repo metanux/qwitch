@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="src\assets\AssetsManager.cpp" />
     <ClCompile Include="src\assets\Images.cpp" />
+    <ClCompile Include="src\game\field\Field.cpp" />
+    <ClCompile Include="src\game\field\FieldRender.cpp" />
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameRender.cpp" />
     <ClCompile Include="src\game\GameScene.cpp" />
@@ -39,6 +41,8 @@
   <ItemGroup>
     <ClInclude Include="src\assets\AssetsManager.hpp" />
     <ClInclude Include="src\assets\Images.hpp" />
+    <ClInclude Include="src\game\field\Field.hpp" />
+    <ClInclude Include="src\game\field\FieldRender.hpp" />
     <ClInclude Include="src\game\Game.hpp" />
     <ClInclude Include="src\game\GameRender.hpp" />
     <ClInclude Include="src\game\GameScene.hpp" />

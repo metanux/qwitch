@@ -4,6 +4,7 @@
 // 
 //
 #pragma once
+#include "game/field/Field.hpp"
 
 namespace qwitch {
 namespace game {
@@ -19,9 +20,11 @@ public:
     void update();
 
     /// getter
+    const Field& field() const;
 
 private:
     /// member
+    Field mField;
 };
 
 } // namespace game

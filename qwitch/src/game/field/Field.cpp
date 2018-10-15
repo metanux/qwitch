@@ -3,9 +3,8 @@
 //  
 // 
 //
-#pragma once
-#include "game/Game.hpp"
-#include "game/field/FieldRender.hpp"
+#include "Field.hpp"
+#include "DxLib.h"
 
 namespace qwitch {
 namespace game {
@@ -15,13 +14,18 @@ namespace game {
 //  
 // 
 //
-class GameRender {
-public:
-    GameRender();
-    void render(const Game& aGame) const;
-private:
-    FieldRender mFieldRender;
-};
+Field::Field()
+{
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Field::update()
+{
+}
 
 } // namespace game
 } // namespace qwitch

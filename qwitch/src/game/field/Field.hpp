@@ -4,8 +4,6 @@
 // 
 //
 #pragma once
-#include "game/Game.hpp"
-#include "game/field/FieldRender.hpp"
 
 namespace qwitch {
 namespace game {
@@ -15,12 +13,15 @@ namespace game {
 //  
 // 
 //
-class GameRender {
+class Field {
 public:
-    GameRender();
-    void render(const Game& aGame) const;
+    Field();
+    void update();
+
+    /// getter
+
 private:
-    FieldRender mFieldRender;
+    /// member
 };
 
 } // namespace game
