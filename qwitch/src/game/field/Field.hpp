@@ -22,6 +22,7 @@ public:
     void update();
     void updateCharacters();
     void updateCharacter(int aIndex);
+    void updateCamera();
 
     /// プレイキャラクターの移動処理
     void playerMove(int aX, int aY);

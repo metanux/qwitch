@@ -5,6 +5,7 @@
 //
 #include "Field.hpp"
 #include "DxLib.h"
+#include "system/System.hpp"
 
 namespace qwitch {
 namespace game {
@@ -28,10 +29,13 @@ Field::Field()
 //
 void Field::update()
 {
-    //----- キャラクターの更新処理
+    //----- キャラクターの更新
     updateCharacters();
 
-    //----- 表示地形
+    //----- カメラの更新
+    updateCamera();
+
+    //----- 表示地形の更新
     mTerrain.updateDisplayBlocks(mCamera);
 }
 
@@ -74,14 +78,40 @@ void Field::updateCharacter(int aIndex)
 //  
 // 
 //
+void Field::updateCamera()
+{
+    //----- スクロール位置更新
+    const Character& player = mCharacters.character(0);
+
+    double posX = 0;
+    posX -= System::ins().windowSizeX() / 2;
+    posX += mCharacters.character(0).size().x() / 2;
+    posX += player.pos().x();
+    posX -= player.pos().y();
+
+    double posY = 0;
+    posY -= System::ins().windowSizeY() / 2;
+    posY += mCharacters.character(0).size().y() / 2;
+    posY += player.pos().x() / 2;
+    posY += player.pos().y() / 2;
+    posY -= player.pos().z();
+
+    mCamera.setScrollPos(Vector3d(posX, posY, 0));
+
+    //----- 状態更新
+    mCamera.update();
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Field::playerMove(int aX, int aY)
 {
     //----- プレイヤーオブジェクトの移動
     int playerIndex = 0;
     characterMove(playerIndex, Vector3d(aX, aY, 0));
-
-    //------ カメラスクロール
-
 }
 
 //---------------------------------------------------------------------
