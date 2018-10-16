@@ -16,7 +16,10 @@ namespace game {
 //
 class Block : public FieldObject {
 public:
+    static const int PIXEL_SIZE;
+
     Block();
+
     int image() const;
 
     /// getter

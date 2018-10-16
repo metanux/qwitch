@@ -28,6 +28,7 @@ Game::Game()
 //
 void Game::update()
 {
+    //----- 入力処理
     if (Input::ins().key(KEY_INPUT_UP)) {
         mField.playerMove(-1, -1);
     }
@@ -40,6 +41,12 @@ void Game::update()
     if (Input::ins().key(KEY_INPUT_LEFT)) {
         mField.playerMove(-1, 1);
     }
+    if (Input::ins().key(KEY_INPUT_Z) == 1) {
+        mField.playerJump();
+    }
+
+    //----- 状態更新処理
+    mField.update();
 }
 
 //---------------------------------------------------------------------
