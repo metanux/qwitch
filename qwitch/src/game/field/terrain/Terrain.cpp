@@ -84,9 +84,13 @@ void Terrain::load(int aAreaIndex, int aAreaNum)
     // デバッグ用
     for (int y = 0; y < 48; y++) {
         for (int x = 0; x < 48; x++) {
-            createBlock(x, y, 0, 1);
+            createBlock(x, y, 0, 0);
         }
     }
+    createBlock(3, 4, 1, 1);
+    createBlock(4, 4, 1, 1);
+    createBlock(3, 5, 1, 0);
+    createBlock(4, 5, 1, 0);
 }
 
 //---------------------------------------------------------------------
@@ -110,6 +114,7 @@ void Terrain::createBlock(
     int pz = aZ * sz;
     block.setPos(Vector3d(px, py, pz));
     block.setSize(Vector3d(sx, sy, sz));
+    block.setKind(aBlockKind);
 
     //----- ブロック追加
     mBlocks.push_back(block);
@@ -117,7 +122,6 @@ void Terrain::createBlock(
     //----- 当たり判定の設定
     mCollision[aZ][aY][aX] = 1;
 }
-
 
 //---------------------------------------------------------------------
 // 

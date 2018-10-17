@@ -38,18 +38,23 @@ Images& Images::ins()
 void Images::load()
 {
     //-----
-    for (int i = 0; i < 1; i++) {
-        int image = DxLib::LoadGraph("assets/images/block/0.png");
-        mBlock.push_back(image);
+    char url[100];
+
+    //----- ブロック
+    int blockNum = 2;
+    mBlock.resize(blockNum);
+    for (int i = 0; i < blockNum; i++) {
+        sprintf_s(url, "assets/images/block/%d.png", i);
+        mBlock[i] = DxLib::LoadGraph(url);
     }
 
-    //-----
+    //----- キャラクター
     for (int i = 0; i < 1; i++) {
         int image = DxLib::LoadGraph("assets/images/character/0.png");
         mCharacter.push_back(image);
     }
 
-    //-----
+    //----- タイトル画面
     mTitleBack = DxLib::LoadGraph("assets/images/title/back.png");
 }
 

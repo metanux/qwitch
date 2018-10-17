@@ -22,7 +22,18 @@ const int Block::PIXEL_SIZE = 32;
 // 
 //
 Block::Block()
+    : mKind()
 {
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Block::setKind(int aKind)
+{
+    mKind = aKind;
 }
 
 //---------------------------------------------------------------------
@@ -32,7 +43,7 @@ Block::Block()
 //
 int Block::image() const
 {
-    return Images::ins().block(0);
+    return Images::ins().block(mKind);
 }
 
 } // namespace game

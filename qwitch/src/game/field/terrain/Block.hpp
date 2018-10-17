@@ -16,16 +16,21 @@ namespace game {
 //
 class Block : public FieldObject {
 public:
+    /// 1ブロックのピクセルサイズ
     static const int PIXEL_SIZE;
 
+    /// コンストラクタ
     Block();
 
-    int image() const;
+    /// setter
+    void setKind(int aKind);
 
     /// getter
+    int image() const;
 
 private:
     /// member
+    int mKind;
 };
 
 } // namespace game
