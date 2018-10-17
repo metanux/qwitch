@@ -36,7 +36,7 @@ void Field::update()
     updateCamera();
 
     //----- 表示地形の更新
-    mTerrain.updateDisplayBlocks(mCamera);
+    mTerrain.update(mCamera);
 }
 
 //---------------------------------------------------------------------

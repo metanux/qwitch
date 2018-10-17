@@ -26,6 +26,9 @@
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
     <ClCompile Include="src\game\field\character\Character.cpp" />
     <ClCompile Include="src\game\field\character\Characters.cpp" />
+    <ClCompile Include="src\util\FileReader.cpp" />
+    <ClCompile Include="src\assets\Data.cpp" />
+    <ClCompile Include="src\assets\data\TerrainData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -52,6 +55,9 @@
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
     <ClInclude Include="src\game\field\character\Character.hpp" />
     <ClInclude Include="src\game\field\character\Characters.hpp" />
+    <ClInclude Include="src\util\FileReader.hpp" />
+    <ClInclude Include="src\assets\Data.hpp" />
+    <ClInclude Include="src\assets\data\TerrainData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

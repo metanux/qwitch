@@ -32,9 +32,13 @@ Terrain::Terrain()
 //  
 // 
 //
-void Terrain::update()
+void Terrain::update(const Camera& camera)
 {
+    //----- 地形データの読込み
 
+
+    //----- 描画ブロックの更新
+    updateDisplayBlocks(camera);
 }
 
 //---------------------------------------------------------------------
@@ -52,7 +56,7 @@ void Terrain::updateDisplayBlocks(
     double cx = camera.fieldPos().x();
     double cy = camera.fieldPos().y();
     double cz = camera.fieldPos().z();
-    double renderSize = 300;
+    double renderSize = 600;
     int countBlocks = (int)mBlocks.size();
     for (int i = 0; i < countBlocks; i++) {
         // 描画範囲外の確認
@@ -87,8 +91,6 @@ void Terrain::load(int aAreaIndex, int aAreaNum)
             createBlock(x, y, 0, 0);
         }
     }
-    createBlock(3, 4, 1, 1);
-    createBlock(4, 4, 1, 1);
     createBlock(3, 5, 1, 0);
     createBlock(4, 5, 1, 0);
 }

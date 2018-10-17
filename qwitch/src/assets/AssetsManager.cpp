@@ -6,6 +6,7 @@
 #include "AssetsManager.hpp"
 #include "DxLib.h"
 #include "assets/Images.hpp"
+#include "assets/Data.hpp"
 
 namespace qwitch {
 
@@ -38,7 +39,10 @@ AssetsManager& AssetsManager::ins()
 //
 void AssetsManager::load()
 {
-    //----- 画像読み込み
+    //----- データ読込み
+    Data::ins().load();
+
+    //----- 画像読込み
     Images::ins().load();
 }
 
