@@ -92,6 +92,11 @@ const Character& Characters::character(int aIndex) const
 {
     return mCharacters[aIndex];
 }
+//---------------------------------------------------------------------
+const Character& Characters::player() const
+{
+    return mCharacters[0];
+}
 
 } // namespace game
 } // namespace qwitch

@@ -27,6 +27,10 @@ public:
     /// 力を加える
     void addForce(const Vector3d& aForce);
 
+    /// field座標をwindow座標に変換
+    double convertWindowPosX() const;
+    double convertWindowPosY() const;
+
     /// @name setter
     //@{
     void setPos(const Vector3d& aPos);

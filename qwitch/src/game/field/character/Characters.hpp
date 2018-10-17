@@ -38,6 +38,7 @@ public:
 
     /// getter
     const Character& character(int aIndex) const;
+    const Character& player() const;
 
 private:
     std::vector<Character> mCharacters;

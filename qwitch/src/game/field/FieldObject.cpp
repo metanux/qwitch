@@ -45,6 +45,30 @@ void FieldObject::addForce(const Vector3d& aForce)
 //  
 // 
 //
+double FieldObject::convertWindowPosX() const
+{
+    double posX = 0;
+    posX += mPos.x();
+    posX -= mPos.y();
+    posX -= mSize.x();
+    return posX;
+}
+//---------------------------------------------------------------------
+double FieldObject::convertWindowPosY() const
+{
+    double posY = 0;
+    posY += mPos.x() / 2;
+    posY += mPos.y() / 2;
+    posY -= mPos.z();
+    posY -= mSize.z();
+    return posY;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void FieldObject::setPos(const Vector3d& aPos)
 {
     mPos = aPos;

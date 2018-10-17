@@ -95,7 +95,7 @@ int SystemManager::update()
 
     //----- 描画処理
     mSceneManager.render();
-    DxLib::DrawFormatString(1150, 10, GetColor(255, 0, 0), "FPS【%lf】", mFpsManager.fps());
+    DxLib::DrawFormatString(0, 0, GetColor(255, 0, 0), "FPS【%lf】", mFpsManager.fps());
     DxLib::ScreenFlip();
     return 0;
 }

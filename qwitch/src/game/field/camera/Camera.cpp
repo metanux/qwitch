@@ -4,6 +4,9 @@
 // 
 //
 #include "Camera.hpp"
+#include "system/System.hpp"
+#include "DxLib.h"
+#include "game/field/terrain/Block.hpp"
 
 namespace qwitch {
 namespace game {
@@ -14,6 +17,9 @@ namespace game {
 // 
 //
 Camera::Camera()
+    : mFieldPos()
+    , mScrollPos()
+    , mWindowPos()
 {
     //mPos.move(-300, -100, 0);
 }
@@ -25,10 +31,7 @@ Camera::Camera()
 //
 void Camera::update()
 {
-    double dx = (mPos.x() - mScrollPos.x()) / -10;
-    double dy = (mPos.y() - mScrollPos.y()) / -10;
-    double dz = (mPos.z() - mScrollPos.z()) / -10;
-    mPos.move(dx, dy, dz);
+    updatePos();
 }
 
 //---------------------------------------------------------------------
@@ -36,11 +39,25 @@ void Camera::update()
 //  
 // 
 //
-void Camera::setScrollPos(const Vector3d& aPos)
+void Camera::update(const FieldObject& aObject)
 {
-    mScrollPos.setX(aPos.x());
-    mScrollPos.setY(aPos.y());
-    mScrollPos.setZ(aPos.z());
+    //----- スクロール位置更新
+    /*
+    double posX = 0;
+    posX -= System::ins().windowSizeX() / 2;
+    posX += aObject.convertWindowPosX();
+
+    double posY = 0;
+    posY -= System::ins().windowSizeY() / 2;
+    posY += aObject.convertWindowPosY();
+
+    mScrollPos.setX(posX);
+    mScrollPos.setY(posY);
+    */
+    mScrollPos = aObject.pos();
+
+    //----- 更新
+    update();
 }
 
 //---------------------------------------------------------------------
@@ -48,9 +65,42 @@ void Camera::setScrollPos(const Vector3d& aPos)
 //  
 // 
 //
-const Vector3d& Camera::pos() const
+void Camera::updatePos()
 {
-    return mPos;
+    //----- スクロール
+    double dx = (mFieldPos.x() - mScrollPos.x()) / -10;
+    double dy = (mFieldPos.y() - mScrollPos.y()) / -10;
+    double dz = (mFieldPos.z() - mScrollPos.z()) / -10;
+    mFieldPos.move(dx, dy, dz);
+
+    //----- ウィンドウ座標の設定
+    double posX = 0;
+    posX += mFieldPos.x();
+    posX -= mFieldPos.y();
+    posX -= System::ins().windowSizeX() / 2;
+    mWindowPos.setX(posX);
+
+    double posY = 0;
+    posY += mFieldPos.x() / 2;
+    posY += mFieldPos.y() / 2;
+    posY -= mFieldPos.z();
+    posY -= System::ins().windowSizeY() / 2;
+    mWindowPos.setY(posY);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+const Vector3d& Camera::windowPos() const
+{
+    return mWindowPos;
+}
+//---------------------------------------------------------------------
+const Vector3d& Camera::fieldPos() const
+{
+    return mFieldPos;
 }
 
 } // namespace game

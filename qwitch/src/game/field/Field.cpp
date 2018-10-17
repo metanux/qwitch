@@ -80,26 +80,9 @@ void Field::updateCharacter(int aIndex)
 //
 void Field::updateCamera()
 {
-    //----- スクロール位置更新
-    const Character& player = mCharacters.character(0);
-
-    double posX = 0;
-    posX -= System::ins().windowSizeX() / 2;
-    posX += mCharacters.character(0).size().x() / 2;
-    posX += player.pos().x();
-    posX -= player.pos().y();
-
-    double posY = 0;
-    posY -= System::ins().windowSizeY() / 2;
-    posY += mCharacters.character(0).size().y() / 2;
-    posY += player.pos().x() / 2;
-    posY += player.pos().y() / 2;
-    posY -= player.pos().z();
-
-    mCamera.setScrollPos(Vector3d(posX, posY, 0));
-
     //----- 状態更新
-    mCamera.update();
+    const Character& player = mCharacters.player();
+    mCamera.update(player);
 }
 
 //---------------------------------------------------------------------

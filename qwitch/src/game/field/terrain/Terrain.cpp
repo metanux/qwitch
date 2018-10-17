@@ -45,12 +45,28 @@ void Terrain::update()
 void Terrain::updateDisplayBlocks(
     const Camera& camera)
 {
-    //-----
+    //----- 描画ブロックリストの初期化
     mDisplayBlocks.clear();
 
-    //-----
+    //----- 描画ブロックの構成
+    double cx = camera.fieldPos().x();
+    double cy = camera.fieldPos().y();
+    double cz = camera.fieldPos().z();
+    double renderSize = 300;
     int countBlocks = (int)mBlocks.size();
     for (int i = 0; i < countBlocks; i++) {
+        // 描画範囲外の確認
+        double px = mBlocks[i].pos().x();
+        double py = mBlocks[i].pos().y();
+        double pz = mBlocks[i].pos().z();
+        if (px < cx - renderSize) { continue; }
+        if (py < cy - renderSize) { continue; }
+        if (pz < cz - renderSize) { continue; }
+        if (px > cx + renderSize) { continue; }
+        if (py > cy + renderSize) { continue; }
+        if (pz > cz + renderSize) { continue; }
+
+        // リストに追加
         mDisplayBlocks.push_back(mBlocks[i]);
     }
 }

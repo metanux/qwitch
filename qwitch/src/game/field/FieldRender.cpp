@@ -81,10 +81,8 @@ int FieldRender::calcRenderPosX(
     const FieldObject& aObject) const
 {
     int x = 0;
-    x += (int)aObject.pos().x();
-    x -= (int)aObject.pos().y();
-    x -= (int)aObject.size().x();
-    x -= (int)aField.camera().pos().x();
+    x += (int)aObject.convertWindowPosX();
+    x -= (int)aField.camera().windowPos().x();
     return x;
 }
 
@@ -98,11 +96,8 @@ int FieldRender::calcRenderPosY(
     const FieldObject& aObject) const
 {
     int y = 0;
-    y += (int)aObject.pos().x() / 2;
-    y += (int)aObject.pos().y() / 2;
-    y -= (int)aObject.pos().z();
-    y -= (int)aObject.size().z();
-    y -= (int)aField.camera().pos().y();
+    y += (int)aObject.convertWindowPosY();
+    y -= (int)aField.camera().windowPos().y();
     return y;
 }
 
