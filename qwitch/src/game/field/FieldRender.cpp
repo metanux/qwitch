@@ -49,7 +49,6 @@ void FieldRender::render(const Field& aField) const
 
     //----- 描画オブジェクトを描画順にソート
 
-
     //----- オブジェクトの描画
     int countObjects = (int)objects.size();
     for (int i = 0; i < countObjects; i++) {

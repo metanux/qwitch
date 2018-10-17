@@ -14,7 +14,7 @@ namespace game {
 //  
 // 
 //
-const int Block::PIXEL_SIZE = 16;
+const int Block::PIXEL_SIZE = 32;
 
 //---------------------------------------------------------------------
 // 

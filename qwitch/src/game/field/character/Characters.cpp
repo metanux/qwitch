@@ -17,7 +17,7 @@ Characters::Characters()
     : mCharacters()
 {
     Character character;
-    character.setPos(Vector3d(0, 0, 16));
+    character.setPos(Vector3d(0, 0, 32));
     character.setSize(Vector3d(32, 32, 64));
     mCharacters.push_back(character);
 }
