@@ -50,7 +50,6 @@ void Terrain::updateDisplayBlocks(
 
     //-----
     int countBlocks = (int)mBlocks.size();
-    printf("da%d\n", countBlocks);
     for (int i = 0; i < countBlocks; i++) {
         mDisplayBlocks.push_back(mBlocks[i]);
     }
@@ -119,6 +118,14 @@ bool Terrain::isCollision(const FieldObject& aObject) const
     int sy = (int)aObject.size().y();
     int sz = (int)aObject.size().z();
 
+    //----- 範囲外の対応
+    if (px < 0) { return true; }
+    if (py < 0) { return true; }
+    if (pz < 0) { return true; }
+    if (px + sx - 1 >= AREA_BLOCK_NUM * Block::PIXEL_SIZE) { return true; }
+    if (py + sy - 1 >= AREA_BLOCK_NUM * Block::PIXEL_SIZE) { return true; }
+    if (pz + sz - 1 >= AREA_BLOCK_NUM * Block::PIXEL_SIZE) { return true; }
+
     //----- 探索範囲
     int rangeXmin = px / Block::PIXEL_SIZE;
     int rangeYmin = py / Block::PIXEL_SIZE;
@@ -127,14 +134,15 @@ bool Terrain::isCollision(const FieldObject& aObject) const
     int rangeYmax = (py + sy - 1) / Block::PIXEL_SIZE;
     int rangeZmax = (pz + sz - 1) / Block::PIXEL_SIZE;
 
-    //-----
+    /*
     rangeXmin = (rangeXmin < 0) ? 0 : rangeXmin;
     rangeYmin = (rangeYmin < 0) ? 0 : rangeYmin;
     rangeZmin = (rangeZmin < 0) ? 0 : rangeZmin;
     rangeXmax = (rangeXmax >= AREA_BLOCK_NUM) ? (int)(AREA_BLOCK_NUM - 1) : rangeXmax;
     rangeYmax = (rangeYmax >= AREA_BLOCK_NUM) ? (int)(AREA_BLOCK_NUM - 1) : rangeYmax;
     rangeZmax = (rangeZmax >= AREA_BLOCK_NUM) ? (int)(AREA_BLOCK_NUM - 1) : rangeZmax;
-
+    */
+    
     //----- 判定
     for (int z = rangeZmin; z <= rangeZmax; z++) {
         for (int y = rangeYmin; y <= rangeYmax; y++) {
@@ -145,8 +153,6 @@ bool Terrain::isCollision(const FieldObject& aObject) const
             }
         }
     }
-    return false;
-
     return false;
 }
 

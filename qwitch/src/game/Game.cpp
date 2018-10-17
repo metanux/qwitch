@@ -41,7 +41,7 @@ void Game::update()
     if (Input::ins().key(KEY_INPUT_LEFT)) {
         mField.playerMove(-1, 1);
     }
-    if (Input::ins().key(KEY_INPUT_Z) == 1) {
+    if (Input::ins().key(KEY_INPUT_C) == 1) {
         mField.playerJump();
     }
 
