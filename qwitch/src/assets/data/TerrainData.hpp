@@ -5,6 +5,7 @@
 //
 #pragma once
 #include <vector>
+#include "util/Vector3d.hpp"
 
 namespace qwitch {
 
@@ -24,12 +25,18 @@ public:
         int aZ,
         int aKind);
 
-    /// getter
+    /// 
+    void setPos(const Vector3d& aPos);
+
+    /// ブロック数のカウント
     int countBlock() const;
+
+    /// getter
     int x(int aIndex) const;
     int y(int aIndex) const;
     int z(int aIndex) const;
     int kind(int aIndex) const;
+    const Vector3d& pos() const;
 
 private:
     /// member
@@ -37,6 +44,8 @@ private:
     std::vector<int> mY;
     std::vector<int> mZ;
     std::vector<int> mKind;
+    /// (0, 0, 0)の座標
+    Vector3d mPos;
 };
 
 } // namespace qwitch

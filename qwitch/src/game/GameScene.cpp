@@ -56,6 +56,7 @@ void GameScene::render() const
 //
 void GameScene::change()
 {
+    mGame.initialize();
 }
 
 //---------------------------------------------------------------------

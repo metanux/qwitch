@@ -17,6 +17,7 @@ TerrainData::TerrainData()
     , mY()
     , mZ()
     , mKind()
+    , mPos()
 {
 }
 
@@ -35,6 +36,16 @@ void TerrainData::addBlock(
     mY.push_back(aY);
     mZ.push_back(aZ);
     mKind.push_back(aKind);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void TerrainData::setPos(const Vector3d& aPos)
+{
+    mPos = aPos;
 }
 
 //---------------------------------------------------------------------
@@ -65,6 +76,11 @@ int TerrainData::z(int aIndex) const
 int TerrainData::kind(int aIndex) const
 {
     return mKind[aIndex];
+}
+//---------------------------------------------------------------------
+const Vector3d& TerrainData::pos() const
+{
+    return mPos;
 }
 
 } // namespace qwitch

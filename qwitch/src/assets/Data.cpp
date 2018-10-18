@@ -37,23 +37,40 @@ Data& Data::ins()
 //
 void Data::load()
 {
+    //----- 地形データの読込み
+    loadTerrain();
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Data::loadTerrain()
+{
     //-----
     char url[100];
 
     //----- 地形データの読み込み
     int countTerrain = 1;
     for (int i = 0; i < countTerrain; i++) {
-        // ファイルオープン
+        //--- ファイルオープン
         sprintf_s(url, "assets/data/terrain/%d.dat", i);
         FileReader file(url);
 
-        // ファイル読込み
-        // ブロック数
+        //--- ファイル読込み
+        TerrainData terrain;
+
+        // (0,0,0)の座標
         file.nextLine();
-        int countBlock = file.nextInteger();
+        int x = file.nextInteger();
+        int y = file.nextInteger();
+        int z = file.nextInteger();
+        terrain.setPos(Vector3d(x, y, z));
 
         // ブロック
-        TerrainData terrain;
+        file.nextLine();
+        int countBlock = file.nextInteger();
         for (int j = 0; j < countBlock; j++) {
             file.nextLine();
             int x = file.nextInteger();
@@ -63,6 +80,7 @@ void Data::load()
             terrain.addBlock(x, y, z, kind);
             printf("%d %d %d %d\n", x, y, z, kind);
         }
+        mTerrain.push_back(terrain);
     }
 }
 

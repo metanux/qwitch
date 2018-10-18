@@ -26,6 +26,9 @@ private:
     /// コンストラクタ
     Data();
 
+    /// 地形データの読込み
+    void loadTerrain();
+
     /// member
     std::vector<TerrainData> mTerrain;
 };

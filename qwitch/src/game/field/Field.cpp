@@ -90,6 +90,16 @@ void Field::updateCamera()
 //  
 // 
 //
+void Field::load(int aFieldIndex)
+{
+    mTerrain.load(0);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Field::playerMove(int aX, int aY)
 {
     //----- プレイヤーオブジェクトの移動

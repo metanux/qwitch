@@ -17,6 +17,7 @@ namespace game {
 class Game {
 public:
     Game();
+    void initialize();
     void update();
 
     /// getter

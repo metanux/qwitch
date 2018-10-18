@@ -4,6 +4,7 @@
 // 
 //
 #include "Terrain.hpp"
+#include "assets/Data.hpp"
 
 namespace qwitch {
 namespace game {
@@ -15,16 +16,21 @@ namespace game {
 //
 Terrain::Terrain()
     : mBlocks()
+    , mSortedBlocks()
     , mDisplayBlocks()
     , mCollision()
-    , mArea0MapPos()
-{        
-    mArea0MapPos.setX(AREA_BLOCK_NUM);
-    mArea0MapPos.setY(AREA_BLOCK_NUM);
-    mArea0MapPos.setZ(AREA_BLOCK_NUM);
+    , mArea0Pos()
+{
+    mArea0Pos.setX(0);
+    mArea0Pos.setY(0);
+    mArea0Pos.setZ(0);
 
-    // デバッグ用
-    load(0, 0);
+    mBlocks.resize(AREA_NUM);
+
+    mAreaIndex.resize(AREA_NUM);
+    for (int i = 0; i < AREA_NUM; i++) {
+        mAreaIndex[i] = i;
+    }
 }
 
 //---------------------------------------------------------------------
@@ -35,7 +41,30 @@ Terrain::Terrain()
 void Terrain::update(const Camera& camera)
 {
     //----- 地形データの読込み
+    double cx = camera.fieldPos().x();
+    double cy = camera.fieldPos().y();
+    double cz = camera.fieldPos().z();
+    int size = AREA_BLOCK_NUM * Block::PIXEL_SIZE;
+    int minX = (int)mArea0Pos.x() + size;
+    int minY = (int)mArea0Pos.y() + size;
+    int minZ = (int)mArea0Pos.z() + size;
+    int maxX = minX + size;
+    int maxY = minY + size;
+    int maxZ = minZ + size;
 
+    // エリアの境界なら更新
+    int dx = 0;
+    int dy = 0;
+    int dz = 0;
+    dx = (cx < minX) ? -1 : 0;
+    dy = (cy < minY) ? -1 : 0;
+    dz = (cz < minZ) ? -1 : 0;
+    dx = (cx > maxX) ? 1 : 0;
+    dy = (cy > maxY) ? 1 : 0;
+    dz = (cz > maxZ) ? 1 : 0;
+    if (dx != 0 || dy != 0 || dz != 0) {
+        scroll(dx, dy, dz);
+    }
 
     //----- 描画ブロックの更新
     updateDisplayBlocks(camera);
@@ -57,21 +86,21 @@ void Terrain::updateDisplayBlocks(
     double cy = camera.fieldPos().y();
     double cz = camera.fieldPos().z();
     double renderSize = 600;
-    int countBlocks = (int)mBlocks.size();
-    for (int i = 0; i < countBlocks; i++) {
+    int count = (int)mSortedBlocks.size();
+    for (int i = 0; i < count; i++) {
         // 描画範囲外の確認
-        double px = mBlocks[i].pos().x();
-        double py = mBlocks[i].pos().y();
-        double pz = mBlocks[i].pos().z();
+        const Block& block = mSortedBlocks[i];
+        double px = block.pos().x();
+        double py = block.pos().y();
+        double pz = block.pos().z();
         if (px < cx - renderSize) { continue; }
         if (py < cy - renderSize) { continue; }
         if (pz < cz - renderSize) { continue; }
         if (px > cx + renderSize) { continue; }
         if (py > cy + renderSize) { continue; }
         if (pz > cz + renderSize) { continue; }
-
         // リストに追加
-        mDisplayBlocks.push_back(mBlocks[i]);
+        mDisplayBlocks.push_back(block);
     }
 }
 
@@ -80,19 +109,103 @@ void Terrain::updateDisplayBlocks(
 //  
 // 
 //
-void Terrain::load(int aAreaIndex, int aAreaNum)
+void Terrain::load(
+    int aCenterTerrainIndex)
 {
-    //----- データ消去
+    //----- (0,0,0)の座標設定
+    mArea0Pos.setX(0);
+    mArea0Pos.setY(0);
+    mArea0Pos.setZ(0);
 
-    //----- 地形データ読み込み
-    // デバッグ用
-    for (int y = 0; y < 48; y++) {
-        for (int x = 0; x < 48; x++) {
-            createBlock(x, y, 0, 0);
+    //----- マップ読込み
+    loadArea(CENTER_AREA_INDEX, aCenterTerrainIndex);
+
+    //----- ブロックのソート
+    sortBlocks();
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Terrain::loadArea(
+    int aAreaIndex,
+    int aTerrainIndex)
+{
+    //----- 読込むエリア位置のデータ消去
+    deleteBlocks(aAreaIndex);
+
+    //----- データ読込み
+    const TerrainData& data = Data::ins().terrain(aTerrainIndex);
+    int count = data.countBlock();
+    for (int i = 0; i < count; i++) {
+        createBlock(
+            aAreaIndex,
+            data.x(i),
+            data.y(i),
+            data.z(i),
+            data.kind(i),
+            data.pos()
+        );
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Terrain::scroll(
+    int dx,
+    int dy,
+    int dz)
+{
+
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Terrain::sortBlocks()
+{
+    for (int i = 0; i < AREA_NUM; i++) {
+        int count = (int)mBlocks[i].size();
+        for (int j = 0; j < count; j++) {
+            const Block& block = mBlocks[i][j];
+            insertSortedBlocks(block);
         }
     }
-    createBlock(3, 5, 1, 0);
-    createBlock(4, 5, 1, 0);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Terrain::insertSortedBlocks(const Block& aBlock)
+{
+    int lb = 0;
+    int ub = (int)mSortedBlocks.size();
+    while (ub - lb > 1) {
+        int mid = (lb + ub) / 2;
+        const Block& block = mSortedBlocks[mid];
+        if (block.pos().z() > aBlock.pos().z()) {
+            ub = mid;
+        }
+        else if (block.pos().y() > aBlock.pos().y()) {
+            ub = mid;
+        }
+        else if (block.pos().x() > aBlock.pos().x()) {
+            ub = mid;
+        }
+        else {
+            lb = mid;
+        }
+    }
+    mSortedBlocks.insert(mSortedBlocks.begin() + ub, aBlock);
 }
 
 //---------------------------------------------------------------------
@@ -101,28 +214,52 @@ void Terrain::load(int aAreaIndex, int aAreaNum)
 // 
 //
 void Terrain::createBlock(
+    int aAreaIndex,
     int aX,
     int aY,
     int aZ,
-    int aBlockKind)
+    int aBlockKind,
+    const Vector3d& aAreaPos)
 {
     //----- ブロック生成
     Block block;
     int sx = Block::PIXEL_SIZE;
     int sy = Block::PIXEL_SIZE;
     int sz = Block::PIXEL_SIZE;
-    int px = aX * sx;
-    int py = aY * sy;
-    int pz = aZ * sz;
+    int px = aX * sx + (int)aAreaPos.x();
+    int py = aY * sy + (int)aAreaPos.y();
+    int pz = aZ * sz + (int)aAreaPos.z();
     block.setPos(Vector3d(px, py, pz));
     block.setSize(Vector3d(sx, sy, sz));
     block.setKind(aBlockKind);
 
     //----- ブロック追加
-    mBlocks.push_back(block);
+    int index = mAreaIndex[aAreaIndex];
+    mBlocks[index].push_back(block);
     
     //----- 当たり判定の設定
-    mCollision[aZ][aY][aX] = 1;
+    mCollision[index][aZ][aY][aX] = 1;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Terrain::deleteBlocks(int aAreaIndex)
+{
+    //----- ブロックの削除
+    int index = mAreaIndex[aAreaIndex];
+    mBlocks[index].clear();
+
+    //----- 当たり判定
+    for (int z = 0; z < AREA_BLOCK_NUM; z++) {
+        for (int y = 0; y < AREA_BLOCK_NUM; y++) {
+            for (int x = 0; x < AREA_BLOCK_NUM; x++) {
+                mCollision[index][z][y][x] = 0;
+            }
+        }
+    }
 }
 
 //---------------------------------------------------------------------
@@ -133,21 +270,22 @@ void Terrain::createBlock(
 bool Terrain::isCollision(const FieldObject& aObject) const
 {
     //----- 
-    int px = (int)aObject.pos().x();
-    int py = (int)aObject.pos().y();
-    int pz = (int)aObject.pos().z();
+    int px = (int)aObject.pos().x() - (int)mArea0Pos.x();
+    int py = (int)aObject.pos().y() - (int)mArea0Pos.y();
+    int pz = (int)aObject.pos().z() - (int)mArea0Pos.z();
     int sx = (int)aObject.size().x();
     int sy = (int)aObject.size().y();
     int sz = (int)aObject.size().z();
 
     //----- 範囲外の対応
+    /*
     if (px < 0) { return true; }
     if (py < 0) { return true; }
     if (pz < 0) { return true; }
     if (px + sx - 1 >= AREA_BLOCK_NUM * Block::PIXEL_SIZE) { return true; }
     if (py + sy - 1 >= AREA_BLOCK_NUM * Block::PIXEL_SIZE) { return true; }
     if (pz + sz - 1 >= AREA_BLOCK_NUM * Block::PIXEL_SIZE) { return true; }
-
+    */
     //----- 探索範囲
     int rangeXmin = px / Block::PIXEL_SIZE;
     int rangeYmin = py / Block::PIXEL_SIZE;
@@ -155,7 +293,7 @@ bool Terrain::isCollision(const FieldObject& aObject) const
     int rangeXmax = (px + sx - 1) / Block::PIXEL_SIZE;
     int rangeYmax = (py + sy - 1) / Block::PIXEL_SIZE;
     int rangeZmax = (pz + sz - 1) / Block::PIXEL_SIZE;
-
+    
     /*
     rangeXmin = (rangeXmin < 0) ? 0 : rangeXmin;
     rangeYmin = (rangeYmin < 0) ? 0 : rangeYmin;
@@ -169,7 +307,7 @@ bool Terrain::isCollision(const FieldObject& aObject) const
     for (int z = rangeZmin; z <= rangeZmax; z++) {
         for (int y = rangeYmin; y <= rangeYmax; y++) {
             for (int x = rangeXmin; x <= rangeXmax; x++) {
-                if (mCollision[z][y][x]) {
+                if (collision(x, y, z)) {
                     return true;
                 }
             }
@@ -196,6 +334,27 @@ const Block& Terrain::block(int aIndex) const
 int Terrain::blockNum() const
 {
     return (int)mDisplayBlocks.size();
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+int Terrain::collision(int aX, int aY, int aZ) const
+{
+    int x = aX % AREA_BLOCK_NUM;
+    int y = aY % AREA_BLOCK_NUM;
+    int z = aZ % AREA_BLOCK_NUM;
+    int dx = aX / AREA_BLOCK_NUM;
+    int dy = aY / AREA_BLOCK_NUM;
+    int dz = aZ / AREA_BLOCK_NUM;
+    int index = 0;
+    index += dx;
+    index += dy * AREA_NUM_1;
+    index += dz * AREA_NUM_1 * AREA_NUM_1;
+    index = mAreaIndex[index];
+    return mCollision[index][z][y][x];
 }
 
 } // namespace game
