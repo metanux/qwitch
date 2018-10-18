@@ -4,6 +4,7 @@
 // 
 //
 #include "TerrainData.hpp"
+#include "game/field/terrain/Terrain.hpp"
 
 namespace qwitch {
 
@@ -18,7 +19,12 @@ TerrainData::TerrainData()
     , mZ()
     , mKind()
     , mPos()
+    , mId()
 {
+    mId.resize(game::Terrain::AREA_NUM);
+    for (int i = 0; i < game::Terrain::AREA_NUM; i++) {
+        mId[i] = -1;
+    }
 }
 
 //---------------------------------------------------------------------
@@ -46,6 +52,11 @@ void TerrainData::addBlock(
 void TerrainData::setPos(const Vector3d& aPos)
 {
     mPos = aPos;
+}
+//---------------------------------------------------------------------
+void TerrainData::setId(int aAreaIndex, int aTerrainId)
+{
+    mId[aAreaIndex] = aTerrainId;
 }
 
 //---------------------------------------------------------------------
@@ -81,6 +92,11 @@ int TerrainData::kind(int aIndex) const
 const Vector3d& TerrainData::pos() const
 {
     return mPos;
+}
+//---------------------------------------------------------------------
+int TerrainData::id(int aAreaIndex) const
+{
+    return mId[aAreaIndex];
 }
 
 } // namespace qwitch

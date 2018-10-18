@@ -6,6 +6,7 @@
 #include "Data.hpp"
 #include "DxLib.h"
 #include "util/FileReader.hpp"
+#include "game/field/terrain/Terrain.hpp"
 
 namespace qwitch {
 
@@ -52,7 +53,7 @@ void Data::loadTerrain()
     char url[100];
 
     //----- 地形データの読み込み
-    int countTerrain = 1;
+    int countTerrain = 3;
     for (int i = 0; i < countTerrain; i++) {
         //--- ファイルオープン
         sprintf_s(url, "assets/data/terrain/%d.dat", i);
@@ -67,6 +68,17 @@ void Data::loadTerrain()
         int y = file.nextInteger();
         int z = file.nextInteger();
         terrain.setPos(Vector3d(x, y, z));
+
+        // 近接するエリア
+        file.nextLine();
+        int countArea = file.nextInteger();
+        for (int j = 0; j < countArea; j++) {
+            file.nextLine();
+            int areaIndex = file.nextInteger();
+            int terrainId = file.nextInteger();
+            terrain.setId(areaIndex, terrainId);
+        }
+        terrain.setId(game::Terrain::CENTER_AREA_INDEX, i);
 
         // ブロック
         file.nextLine();

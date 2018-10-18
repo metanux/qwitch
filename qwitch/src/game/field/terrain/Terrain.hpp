@@ -18,6 +18,18 @@ namespace game {
 //
 class Terrain {
 public:
+    /// エリア1辺（x,y,z）のブロック数
+    static const int AREA_BLOCK_NUM = 16;
+
+    /// ボックスあたりのエリアの数
+    static const int AREA_NUM = 27;
+
+    /// ボックス1辺（x,y,z）のエリア数
+    static const int AREA_NUM_1 = 3;
+
+    /// ボックスの中心位置のインデクス
+    static const int CENTER_AREA_INDEX = 13;
+
     /// コンストラクタ
     Terrain();
 
@@ -43,18 +55,6 @@ public:
     int blockNum() const;
 
 private:
-    /// エリア1辺（x,y,z）のブロック数
-    static const int AREA_BLOCK_NUM = 16;
-
-    /// ボックスあたりのエリアの数
-    static const int AREA_NUM = 27;
-
-    /// ボックス1辺（x,y,z）のエリア数
-    static const int AREA_NUM_1 = 3;
-
-    /// ボックスの中心位置のインデクス
-    static const int CENTER_AREA_INDEX = 13;
-
     /// 表示ブロックの更新
     void updateDisplayBlocks(const Camera& camera);
 
@@ -63,7 +63,7 @@ private:
     /// @param aTerrainIndex 読み込む地形データの番号
     void loadArea(
         int aAreaIndex,
-        int aTerrainIndex);
+        int aTerrainId);
 
     /// エリア移動
     void scroll(
@@ -88,11 +88,22 @@ private:
         int aBlockKind,
         const Vector3d& aAreaPos);
 
+    /// 配列にブロックを追加する
+    void addBlock(
+        int aAreaIndex,
+        const Block& block);
+
     /// ブロックの削除
-    void deleteBlocks(int aAreaIndex);
+    void deleteArea(int aAreaIndex);
 
     /// 当たり判定
     int collision(int aX, int aY, int aZ) const;
+
+    /// 当たり判定の設定
+    void setCollision(int aAreaIndex, int aX, int aY, int aZ);
+
+    /// areaIndexへの変換
+    int convertAreaIndex(int aX, int aY, int aZ) const;
 
     /// member
     /// カメラ位置周辺のブロック
@@ -113,6 +124,9 @@ private:
 
     /// 
     std::vector<int> mAreaIndex;
+
+    /// 中心位置のterrainId
+    int mCenterTerrainId;
 };
 
 } // namespace game

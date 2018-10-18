@@ -27,6 +27,7 @@ public:
 
     /// 
     void setPos(const Vector3d& aPos);
+    void setId(int aAreaIndex, int aTerrainId);
 
     /// ブロック数のカウント
     int countBlock() const;
@@ -37,6 +38,7 @@ public:
     int z(int aIndex) const;
     int kind(int aIndex) const;
     const Vector3d& pos() const;
+    int id(int aAreaIndex) const;
 
 private:
     /// member
@@ -46,6 +48,8 @@ private:
     std::vector<int> mKind;
     /// (0, 0, 0)の座標
     Vector3d mPos;
+    /// 近傍のエリアID
+    std::vector<int> mId;
 };
 
 } // namespace qwitch
