@@ -203,7 +203,6 @@ void Terrain::scroll(
             mAreaIndex[index2[i]] = mAreaIndex[index3[i]];
             mAreaIndex[index3[i]] = t;
             int terrainId = Data::ins().terrain(mCenterTerrainId).id(index3[i]);
-            printf("%d %d ", index3[i], terrainId);
             loadArea(index3[i], terrainId);
         }
     }
@@ -247,31 +246,29 @@ void Terrain::insertSortedBlocks(const Block& aBlock)
 {
     int lb = 0;
     int ub = (int)mSortedBlocks.size();
-    while (ub - lb > 1) {
+    int x2 = (int)aBlock.pos().x();
+    int y2 = (int)aBlock.pos().y();
+    int z2 = (int)aBlock.pos().z();
+    while (lb < ub) {
         int mid = (lb + ub) / 2;
         const Block& block = mSortedBlocks[mid];
-        if (
-            (block.pos().z() >= aBlock.pos().z()) &&
-            (block.pos().y() >= aBlock.pos().y()) &&
-            (block.pos().x() >= aBlock.pos().x())) {
+        int x1 = (int)block.pos().x();
+        int y1 = (int)block.pos().y();
+        int z1 = (int)block.pos().z();
+        if (z1 > z2) {
             ub = mid;
         }
-        /*
-        if (block.pos().z() > aBlock.pos().z()) {
+        else if ((z1 == z2) && (y1 > y2)) {
             ub = mid;
         }
-        else if (block.pos().y() > aBlock.pos().y()) {
+        else if ((z1 == z2) && (y1 == y2) && (x1 > x2)) {
             ub = mid;
         }
-        else if (block.pos().x() > aBlock.pos().x()) {
-            ub = mid;
-        }
-        */
         else {
-            lb = mid;
+            lb = mid + 1;
         }
     }
-    mSortedBlocks.insert(mSortedBlocks.begin() + ub, aBlock);
+    mSortedBlocks.insert(mSortedBlocks.begin() + lb, aBlock);
 }
 
 //---------------------------------------------------------------------

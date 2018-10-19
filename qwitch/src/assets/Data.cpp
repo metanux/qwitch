@@ -90,8 +90,9 @@ void Data::loadTerrain()
             int z = file.nextInteger();
             int kind = file.nextInteger();
             terrain.addBlock(x, y, z, kind);
-            printf("%d %d %d %d\n", x, y, z, kind);
         }
+
+        //-----
         mTerrain.push_back(terrain);
     }
 }
