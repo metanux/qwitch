@@ -29,6 +29,12 @@ private:
     /// 地形データの読込み
     void loadTerrain();
 
+    /// 地形データのリンク情報
+    void loadTerrainLink();
+
+    ///
+    int reverseAreaIndex(int aAreaIndex) const;
+
     /// member
     std::vector<TerrainData> mTerrain;
 };
