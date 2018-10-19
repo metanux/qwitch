@@ -184,27 +184,44 @@ void Terrain::scroll(
     int dz)
 {
     printf("scroll %d %d %d\n", dx, dy, dz);
-    // 削除するindex x:2のところ全て
-    // 追加するindex x:0のところに
-    
+
+    int index1[9];
+    int index2[9];
+    int index3[9];
+    int cenerIndex = 0;
+
     if (dx <= -1) {
         // index1 = index2
         // index2 = index3
         // index3 = index1
         // index1 = loadArea
-        int cenerIndex = 12;
-        mCenterTerrainId = Data::ins().terrain(mCenterTerrainId).id(cenerIndex);
-        int index1[] = { 2, 5, 8, 11, 14, 17, 20, 23, 26 };
-        int index2[] = { 1, 4, 7, 10, 13, 16, 19, 22, 25 };
-        int index3[] = { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
-        for (int i = 0; i < 9; i++) {
-            int t = mAreaIndex[index1[i]];
-            mAreaIndex[index1[i]] = mAreaIndex[index2[i]];
-            mAreaIndex[index2[i]] = mAreaIndex[index3[i]];
-            mAreaIndex[index3[i]] = t;
-            int terrainId = Data::ins().terrain(mCenterTerrainId).id(index3[i]);
-            loadArea(index3[i], terrainId);
-        }
+        cenerIndex = 12;
+        int index1t[] = { 2, 5, 8, 11, 14, 17, 20, 23, 26 };
+        int index2t[] = { 1, 4, 7, 10, 13, 16, 19, 22, 25 };
+        int index3t[] = { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
+        memcpy(index1, index1t, sizeof(index1));
+        memcpy(index2, index2t, sizeof(index2));
+        memcpy(index3, index3t, sizeof(index3));
+    }
+    if (dx >= 1) {
+        cenerIndex = 14;
+        int index1t[] = { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
+        int index2t[] = { 1, 4, 7, 10, 13, 16, 19, 22, 25 };
+        int index3t[] = { 2, 5, 8, 11, 14, 17, 20, 23, 26 };
+        memcpy(index1, index1t, sizeof(index1));
+        memcpy(index2, index2t, sizeof(index2));
+        memcpy(index3, index3t, sizeof(index3));
+    }
+
+    //----- 移動
+    mCenterTerrainId = Data::ins().terrain(mCenterTerrainId).id(cenerIndex);
+    for (int i = 0; i < 9; i++) {
+        int t = mAreaIndex[index1[i]];
+        mAreaIndex[index1[i]] = mAreaIndex[index2[i]];
+        mAreaIndex[index2[i]] = mAreaIndex[index3[i]];
+        mAreaIndex[index3[i]] = t;
+        int terrainId = Data::ins().terrain(mCenterTerrainId).id(index3[i]);
+        loadArea(index3[i], terrainId);
     }
 
     //----- 中心位置
