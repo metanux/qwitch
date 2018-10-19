@@ -28,8 +28,9 @@ FieldRender::FieldRender()
 void FieldRender::render(const Field& aField) const
 {
     //----- 描画オブジェクトを取得
+    int countObjects = 0;
     std::vector<std::reference_wrapper<const FieldObject>> objects;
-    std::vector<std::reference_wrapper<const FieldObject>> addObjects;
+    std::vector<int> index;
 
     // 地形ブロック
     const Terrain& terrain = aField.terrain();
@@ -38,6 +39,7 @@ void FieldRender::render(const Field& aField) const
     for (int i = 0; i < countBlocks; i++) {
         const Block& block = terrain.block(i);
         objects.push_back(block);
+        index.push_back(countObjects++);
     }
 
     // キャラクター
@@ -45,47 +47,37 @@ void FieldRender::render(const Field& aField) const
     int countCharas = charas.countCharacter();
     for (int i = 0; i < countCharas; i++) {
         const Character& chara = charas.character(i);
-        addObjects.push_back(chara);
+        objects.push_back(chara);
+        index.push_back(countObjects++);
     }
 
     //----- 描画オブジェクトを描画順にソート
-    int countObjects = (int)objects.size();
-    int countAddObjects = (int)addObjects.size();
-    for (int i = 0; i < countAddObjects; i++) {
-        // 二分挿入ソート
-        int lb = 0;
-        int ub = countObjects;
-        while (lb < ub) {
-            int mid = (lb + ub) / 2;
-            const FieldObject& object1 = objects[mid];
-            const FieldObject& object2 = addObjects[i];
+    // とりあえず挿入ソート
+    // O(n^2)なので変更する必要がある
+    for (int i = countBlocks; i < countObjects; i++) {
+        for (int j = i; j > 0; j--) {
+            int i1 = index[j - 1];
+            int i2 = index[j];
+            const FieldObject& object1 = objects[i1];
+            const FieldObject& object2 = objects[i2];
             int x1 = (int)(object1.pos().x());
             int y1 = (int)(object1.pos().y());
             int z1 = (int)(object1.pos().z());
             int x2 = (int)(object2.pos().x() + object2.size().x());
             int y2 = (int)(object2.pos().y() + object2.size().y());
             int z2 = (int)(object2.pos().z() + object2.size().z());
-            if (z1 > z2) {
-                ub = mid;
-            }
-            else if ((z1 == z2) && (y1 > y2)) {
-                ub = mid;
-            }
-            else if ((z1 == z2) && (y1 == y2) && (x1 > x2)) {
-                ub = mid;
+            if (x2 <= x1 || y2 <= y1 || z2 <= z1) {
+                std::swap(index[j], index[j - 1]);
             }
             else {
-                lb = mid + 1;
+                break;
             }
         }
-        objects.insert(objects.begin() + lb, addObjects[i]);
-        countObjects++;
     }
-
 
     //----- オブジェクトの描画
     for (int i = 0; i < countObjects; i++) {
-        renderObject(aField, objects[i]);
+        renderObject(aField, objects[index[i]]);
     }
 }
 

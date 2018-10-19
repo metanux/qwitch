@@ -60,7 +60,7 @@ int SystemManager::initialize()
         System::ins().windowSizeY(),
         System::ins().windowDepthColor()) ||
         DxLib::SetWindowSizeChangeEnableFlag(TRUE) ||
-        //DxLib::SetWindowSizeExtendRate(0.8) ||
+        //DxLib::SetWindowSizeExtendRate(0.3) ||
         DxLib::ChangeWindowMode(TRUE) ||
         DxLib::SetWindowText("qwitch") ||
         DxLib::SetOutApplicationLogValidFlag(FALSE) ||
