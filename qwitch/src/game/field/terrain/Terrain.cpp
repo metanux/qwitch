@@ -58,14 +58,20 @@ void Terrain::update(const Camera& camera)
     int dx = 0;
     int dy = 0;
     int dz = 0;
-    dx = (cx < minX) ? -1 : dx;
-    dy = (cy < minY) ? -1 : dy;
-    dz = (cz < minZ) ? -1 : dz;
-    dx = (cx > maxX) ? 1 : dx;
-    dy = (cy > maxY) ? 1 : dy;
-    dz = (cz > maxZ) ? 1 : dz;
-    if (dx != 0 || dy != 0 || dz != 0) {
-        scroll(dx, dy, dz);
+    dx = (cx <= minX) ? -1 : dx;
+    dy = (cy <= minY) ? -1 : dy;
+    dz = (cz <= minZ) ? -1 : dz;
+    dx = (cx >= maxX) ? 1 : dx;
+    dy = (cy >= maxY) ? 1 : dy;
+    dz = (cz >= maxZ) ? 1 : dz;
+    if (dx != 0) {
+        scroll(dx, 0, 0);
+    }
+    if (dy != 0) {
+        scroll(0, dy, 0);
+    }
+    if (dz != 0) {
+        scroll(0, 0, dz);
     }
 
     //----- 描画ブロックの更新
@@ -258,7 +264,9 @@ void Terrain::scroll(
     }
 
     //----- 移動
-    mCenterTerrainId = Data::ins().terrain(mCenterTerrainId).id(cenerIndex);
+    int nextCenterTerrainId = Data::ins().terrain(mCenterTerrainId).id(cenerIndex);
+    if (nextCenterTerrainId == -1) { return; }
+    mCenterTerrainId = nextCenterTerrainId;
     for (int i = 0; i < 9; i++) {
         int t = mAreaIndex[index1[i]];
         mAreaIndex[index1[i]] = mAreaIndex[index2[i]];
