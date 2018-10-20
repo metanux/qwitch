@@ -4,7 +4,7 @@
 // 
 //
 #pragma once
-#include "game/field/Field.hpp"
+#include "game/field/FieldObject.hpp"
 
 namespace qwitch {
 namespace game {
@@ -14,18 +14,23 @@ namespace game {
 //  
 // 
 //
-class Game {
+class Block : public FieldObject {
 public:
-    Game();
-    void initialize();
-    void update();
+    /// 1ブロックのピクセルサイズ
+    static const int PIXEL_SIZE;
+
+    /// コンストラクタ
+    Block();
+
+    /// setter
+    void setKind(int aKind);
 
     /// getter
-    const Field& field() const;
+    int image() const;
 
 private:
     /// member
-    Field mField;
+    int mKind;
 };
 
 } // namespace game

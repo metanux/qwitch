@@ -5,6 +5,7 @@
 //
 #pragma once
 #include <vector>
+#include "assets/data/TerrainData.hpp"
 
 namespace qwitch {
 
@@ -13,23 +14,26 @@ namespace qwitch {
 //  
 // 
 //
-class Images {
+class Data {
 public:
-    static Images& ins();
+    /// シングルトン
+    static Data& ins();
+
+    /// ロード
     void load();
 
     /// getter
-    int block(int aIndex) const;
-    int character(int aIndex) const;
-    int titleBack() const;
+    const TerrainData& terrain(int aIndex) const;
 
 private:
-    Images();
+    /// コンストラクタ
+    Data();
+
+    /// 地形データの読込み
+    void loadTerrain();
 
     /// member
-    std::vector<int> mBlock;
-    std::vector<int> mCharacter;
-    int mTitleBack;
+    std::vector<TerrainData> mTerrain;
 };
 
 } // namespace qwitch

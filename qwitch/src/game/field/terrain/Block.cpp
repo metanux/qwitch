@@ -3,7 +3,8 @@
 //  
 // 
 //
-#include "GameScene.hpp"
+#include "Block.hpp"
+#include "assets/Images.hpp"
 
 namespace qwitch {
 namespace game {
@@ -13,9 +14,15 @@ namespace game {
 //  
 // 
 //
-GameScene::GameScene()
-    : mGame()
-    , mGameRender()
+const int Block::PIXEL_SIZE = 32;
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+Block::Block()
+    : mKind()
 {
 }
 
@@ -24,9 +31,9 @@ GameScene::GameScene()
 //  
 // 
 //
-void GameScene::init()
+void Block::setKind(int aKind)
 {
-
+    mKind = aKind;
 }
 
 //---------------------------------------------------------------------
@@ -34,32 +41,10 @@ void GameScene::init()
 //  
 // 
 //
-void GameScene::update()
+int Block::image() const
 {
-    mGame.update();
+    return Images::ins().block(mKind);
 }
 
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-void GameScene::render() const
-{
-    mGameRender.render(mGame);
-}
-
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-void GameScene::change()
-{
-    mGame.initialize();
-}
-
-//---------------------------------------------------------------------
-
-} // namespace battle
+} // namespace game
 } // namespace qwitch

@@ -17,6 +17,19 @@
     <ClCompile Include="src\title\TitleScene.cpp" />
     <ClCompile Include="src\title\TitleRender.cpp" />
     <ClCompile Include="src\title\Title.cpp" />
+    <ClCompile Include="src\game\field\Field.cpp" />
+    <ClCompile Include="src\game\field\FieldRender.cpp" />
+    <ClCompile Include="src\game\field\terrain\Terrain.cpp" />
+    <ClCompile Include="src\game\field\FieldObject.cpp" />
+    <ClCompile Include="src\util\Vector3d.cpp" />
+    <ClCompile Include="src\game\field\terrain\Block.cpp" />
+    <ClCompile Include="src\game\field\camera\Camera.cpp" />
+    <ClCompile Include="src\game\field\character\Character.cpp" />
+    <ClCompile Include="src\game\field\character\Characters.cpp" />
+    <ClCompile Include="src\util\FileReader.cpp" />
+    <ClCompile Include="src\assets\Data.cpp" />
+    <ClCompile Include="src\assets\data\TerrainData.cpp" />
+    <ClCompile Include="src\assets\data\TerrainBoxData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -34,6 +47,19 @@
     <ClInclude Include="src\title\TitleScene.hpp" />
     <ClInclude Include="src\title\TitleRender.hpp" />
     <ClInclude Include="src\title\Title.hpp" />
+    <ClInclude Include="src\game\field\Field.hpp" />
+    <ClInclude Include="src\game\field\FieldRender.hpp" />
+    <ClInclude Include="src\game\field\terrain\Terrain.hpp" />
+    <ClInclude Include="src\game\field\FieldObject.hpp" />
+    <ClInclude Include="src\util\Vector3d.hpp" />
+    <ClInclude Include="src\game\field\terrain\Block.hpp" />
+    <ClInclude Include="src\game\field\camera\Camera.hpp" />
+    <ClInclude Include="src\game\field\character\Character.hpp" />
+    <ClInclude Include="src\game\field\character\Characters.hpp" />
+    <ClInclude Include="src\util\FileReader.hpp" />
+    <ClInclude Include="src\assets\Data.hpp" />
+    <ClInclude Include="src\assets\data\TerrainData.hpp" />
+    <ClInclude Include="src\assets\data\TerrainBoxData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

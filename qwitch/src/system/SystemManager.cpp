@@ -60,9 +60,9 @@ int SystemManager::initialize()
         System::ins().windowSizeY(),
         System::ins().windowDepthColor()) ||
         DxLib::SetWindowSizeChangeEnableFlag(TRUE) ||
-        //DxLib::SetWindowSizeExtendRate(0.8) ||
+        //DxLib::SetWindowSizeExtendRate(0.3) ||
         DxLib::ChangeWindowMode(TRUE) ||
-        DxLib::SetWindowText("dungeon") ||
+        DxLib::SetWindowText("qwitch") ||
         DxLib::SetOutApplicationLogValidFlag(FALSE) ||
         DxLib::DxLib_Init() ||
         DxLib::SetDrawScreen(DX_SCREEN_BACK) ||
@@ -95,7 +95,7 @@ int SystemManager::update()
 
     //----- 描画処理
     mSceneManager.render();
-    DxLib::DrawFormatString(1150, 10, GetColor(255, 0, 0), "FPS【%lf】", mFpsManager.fps());
+    DxLib::DrawFormatString(0, 0, GetColor(255, 0, 0), "FPS【%lf】", mFpsManager.fps());
     DxLib::ScreenFlip();
     return 0;
 }
