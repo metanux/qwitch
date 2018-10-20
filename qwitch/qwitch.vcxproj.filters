@@ -29,6 +29,7 @@
     <ClCompile Include="src\util\FileReader.cpp" />
     <ClCompile Include="src\assets\Data.cpp" />
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
+    <ClCompile Include="src\assets\data\TerrainBoxData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="src\util\FileReader.hpp" />
     <ClInclude Include="src\assets\Data.hpp" />
     <ClInclude Include="src\assets\data\TerrainData.hpp" />
+    <ClInclude Include="src\assets\data\TerrainBoxData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

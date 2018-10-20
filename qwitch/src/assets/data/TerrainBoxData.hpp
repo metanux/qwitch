@@ -5,7 +5,7 @@
 //
 #pragma once
 #include <vector>
-#include "assets/data/TerrainData.hpp"
+#include "util/Vector3d.hpp"
 
 namespace qwitch {
 
@@ -14,26 +14,22 @@ namespace qwitch {
 //  
 // 
 //
-class Data {
+class TerrainBoxData {
 public:
-    /// シングルトン
-    static Data& ins();
+    /// 指定エリアの反対側のindexを取得する
+    static int reverseAreaIndex(int aAreaIndex);
 
-    /// ロード
-    void load();
-
-    /// getter
-    const TerrainData& terrain(int aIndex) const;
+    /// 
+    static const int* surfaceXY(int aZ);
+    static const int* surfaceXZ(int aY);
+    static const int* surfaceYZ(int aX);
 
 private:
     /// コンストラクタ
-    Data();
-
-    /// 地形データの読込み
-    void loadTerrain();
+    TerrainBoxData();
 
     /// member
-    std::vector<TerrainData> mTerrain;
+
 };
 
 } // namespace qwitch

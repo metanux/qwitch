@@ -5,6 +5,7 @@
 //
 #include "Terrain.hpp"
 #include "assets/Data.hpp"
+#include "assets/data/TerrainBoxData.hpp"
 
 namespace qwitch {
 namespace game {
@@ -196,54 +197,54 @@ void Terrain::scroll(
         // index3 = index1
         // index1 = loadArea
         cenerIndex = 12;
-        int index1t[] = { 2, 5, 8, 11, 14, 17, 20, 23, 26 };
-        int index2t[] = { 1, 4, 7, 10, 13, 16, 19, 22, 25 };
-        int index3t[] = { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
+        const int* index1t = TerrainBoxData::surfaceYZ(1);
+        const int* index2t = TerrainBoxData::surfaceYZ(0);
+        const int* index3t = TerrainBoxData::surfaceYZ(-1);
         memcpy(index1, index1t, sizeof(index1));
         memcpy(index2, index2t, sizeof(index2));
         memcpy(index3, index3t, sizeof(index3));
     }
     else if (dx >= 1) {
         cenerIndex = 14;
-        int index1t[] = { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
-        int index2t[] = { 1, 4, 7, 10, 13, 16, 19, 22, 25 };
-        int index3t[] = { 2, 5, 8, 11, 14, 17, 20, 23, 26 };
+        const int* index1t = TerrainBoxData::surfaceYZ(-1);
+        const int* index2t = TerrainBoxData::surfaceYZ(0);
+        const int* index3t = TerrainBoxData::surfaceYZ(1);
         memcpy(index1, index1t, sizeof(index1));
         memcpy(index2, index2t, sizeof(index2));
         memcpy(index3, index3t, sizeof(index3));
     }
     else if (dy <= -1) {
         cenerIndex = 10;
-        int index1t[] = { 6, 7, 8, 15, 16, 17, 24, 25, 26 };
-        int index2t[] = { 3, 4, 5, 12, 13, 14, 21, 22, 23 };
-        int index3t[] = { 0, 1, 2, 9, 10, 11, 18, 19, 20 };
+        const int* index1t = TerrainBoxData::surfaceXZ(1);
+        const int* index2t = TerrainBoxData::surfaceXZ(0);
+        const int* index3t = TerrainBoxData::surfaceXZ(-1);
         memcpy(index1, index1t, sizeof(index1));
         memcpy(index2, index2t, sizeof(index2));
         memcpy(index3, index3t, sizeof(index3));
     }
     else if (dy >= 1) {
         cenerIndex = 16;
-        int index1t[] = { 0, 1, 2, 9, 10, 11, 18, 19, 20 };
-        int index2t[] = { 3, 4, 5, 12, 13, 14, 21, 22, 23 };
-        int index3t[] = { 6, 7, 8, 15, 16, 17, 24, 25, 26 };
+        const int* index1t = TerrainBoxData::surfaceXZ(-1);
+        const int* index2t = TerrainBoxData::surfaceXZ(0);
+        const int* index3t = TerrainBoxData::surfaceXZ(1);
         memcpy(index1, index1t, sizeof(index1));
         memcpy(index2, index2t, sizeof(index2));
         memcpy(index3, index3t, sizeof(index3));
     }
     else if (dz <= -1) {
         cenerIndex = 4;
-        int index1t[] = { 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-        int index2t[] = { 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-        int index3t[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
+        const int* index1t = TerrainBoxData::surfaceXY(1);
+        const int* index2t = TerrainBoxData::surfaceXY(0);
+        const int* index3t = TerrainBoxData::surfaceXY(-1);
         memcpy(index1, index1t, sizeof(index1));
         memcpy(index2, index2t, sizeof(index2));
         memcpy(index3, index3t, sizeof(index3));
     }
     else if (dz >= 1) {
         cenerIndex = 22;
-        int index1t[] = { 0, 1, 2, 3, 4, 5, 6, 7, 8 };
-        int index2t[] = { 9, 10, 11, 12, 13, 14, 15, 16, 17 };
-        int index3t[] = { 18, 19, 20, 21, 22, 23, 24, 25, 26 };
+        const int* index1t = TerrainBoxData::surfaceXY(-1);
+        const int* index2t = TerrainBoxData::surfaceXY(0);
+        const int* index3t = TerrainBoxData::surfaceXY(1);
         memcpy(index1, index1t, sizeof(index1));
         memcpy(index2, index2t, sizeof(index2));
         memcpy(index3, index3t, sizeof(index3));

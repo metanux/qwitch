@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\assets\AssetsManager.cpp" />
     <ClCompile Include="src\assets\Data.cpp" />
+    <ClCompile Include="src\assets\data\TerrainBoxData.cpp" />
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
     <ClCompile Include="src\assets\Images.cpp" />
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
@@ -51,6 +52,7 @@
   <ItemGroup>
     <ClInclude Include="src\assets\AssetsManager.hpp" />
     <ClInclude Include="src\assets\Data.hpp" />
+    <ClInclude Include="src\assets\data\TerrainBoxData.hpp" />
     <ClInclude Include="src\assets\data\TerrainData.hpp" />
     <ClInclude Include="src\assets\Images.hpp" />
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
