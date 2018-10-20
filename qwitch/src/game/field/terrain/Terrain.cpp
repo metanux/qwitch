@@ -87,7 +87,7 @@ void Terrain::updateDisplayBlocks(
     double cx = camera.fieldPos().x();
     double cy = camera.fieldPos().y();
     double cz = camera.fieldPos().z();
-    double renderSize = 600;
+    double renderSize = 700;
     int count = (int)mSortedBlocks.size();
     for (int i = 0; i < count; i++) {
         // 描画範囲外の確認
@@ -95,12 +95,19 @@ void Terrain::updateDisplayBlocks(
         double px = block.pos().x();
         double py = block.pos().y();
         double pz = block.pos().z();
+        double size = 0;
+        size += abs(cx - px);
+        size += abs(cy - py);
+        size += abs(cz - pz);
+        if (size >= renderSize) { continue; }
+        /*
         if (px < cx - renderSize) { continue; }
         if (py < cy - renderSize) { continue; }
         if (pz < cz - renderSize) { continue; }
         if (px > cx + renderSize) { continue; }
         if (py > cy + renderSize) { continue; }
         if (pz > cz + renderSize) { continue; }
+        */
         // リストに追加
         mDisplayBlocks.push_back(block);
     }

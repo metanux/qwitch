@@ -71,7 +71,6 @@ void FieldRender::render(const Field& aField) const
                 std::swap(index[j - 1], index[j]);
             }
             else {
-                printf("player %d\n", j);
                 break;
             }
         }
