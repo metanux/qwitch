@@ -104,7 +104,8 @@ void Field::playerMove(int aX, int aY)
 {
     //----- プレイヤーオブジェクトの移動
     int playerIndex = 0;
-    characterMove(playerIndex, Vector3d(aX, aY, 0));
+    int speed = 3;
+    characterMove(playerIndex, Vector3d(aX * speed, aY * speed, 0));
 }
 
 //---------------------------------------------------------------------

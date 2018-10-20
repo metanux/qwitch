@@ -303,19 +303,15 @@ void Terrain::insertSortedBlocks(const Block& aBlock)
     int x2 = (int)aBlock.pos().x();
     int y2 = (int)aBlock.pos().y();
     int z2 = (int)aBlock.pos().z();
+    int order2 = x2 + y2 + z2;
     while (lb < ub) {
         int mid = (lb + ub) / 2;
         const Block& block = mSortedBlocks[mid];
         int x1 = (int)block.pos().x();
         int y1 = (int)block.pos().y();
         int z1 = (int)block.pos().z();
-        if (z1 > z2) {
-            ub = mid;
-        }
-        else if ((z1 == z2) && (y1 > y2)) {
-            ub = mid;
-        }
-        else if ((z1 == z2) && (y1 == y2) && (x1 > x2)) {
+        int order1 = x1 + y1 + z1;
+        if (order1 > order2) {
             ub = mid;
         }
         else {

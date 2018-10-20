@@ -56,20 +56,22 @@ void FieldRender::render(const Field& aField) const
     // O(n^2)なので変更する必要がある
     for (int i = countBlocks; i < countObjects; i++) {
         for (int j = i; j > 0; j--) {
-            int i1 = index[j - 1];
-            int i2 = index[j];
+            int i1 = index[j];
+            int i2 = index[j - 1];
             const FieldObject& object1 = objects[i1];
             const FieldObject& object2 = objects[i2];
-            int x1 = (int)(object1.pos().x());
-            int y1 = (int)(object1.pos().y());
-            int z1 = (int)(object1.pos().z());
-            int x2 = (int)(object2.pos().x() + object2.size().x());
-            int y2 = (int)(object2.pos().y() + object2.size().y());
-            int z2 = (int)(object2.pos().z() + object2.size().z());
-            if (x2 <= x1 || y2 <= y1 || z2 <= z1) {
-                std::swap(index[j], index[j - 1]);
+            int x1 = (int)(object1.pos().x() + object1.size().x());
+            int y1 = (int)(object1.pos().y() + object1.size().y());
+            int z1 = (int)(object1.pos().z() + object1.size().z());
+            int x2 = (int)(object2.pos().x());
+            int y2 = (int)(object2.pos().y());
+            int z2 = (int)(object2.pos().z());
+            // 先に描画
+            if (x1 <= x2 || y1 <= y2 || z1 <= z2) {
+                std::swap(index[j - 1], index[j]);
             }
             else {
+                printf("player %d\n", j);
                 break;
             }
         }
