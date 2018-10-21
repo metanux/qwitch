@@ -39,6 +39,7 @@ public:
     void setForceX(int aIndex, double aX);
     void setForceY(int aIndex, double aY);
     void setForceZ(int aIndex, double aZ);
+    void setDirection(int aIndex, int aX, int aY, int aZ);
 
     /// キャラクター数
     int countCharacter() const;

@@ -106,7 +106,13 @@ void Field::playerMove(int aX, int aY)
     //----- プレイヤーオブジェクトの移動
     int playerIndex = 0;
     int speed = 3;
-    characterMove(playerIndex, Vector3d(aX * speed, aY * speed, 0));
+    int dx = aX * speed;
+    int dy = aY * speed;
+    int dz = 0;
+    characterMove(playerIndex, Vector3d(dx, dy, dz));
+
+    //----- 向きの更新
+    mCharacters.setDirection(playerIndex, dx, dy, dz);
 }
 
 //---------------------------------------------------------------------

@@ -127,6 +127,11 @@ void Characters::setForceZ(int aIndex, double aZ)
 {
     mCharacters[aIndex].setForceZ(aZ);
 }
+//---------------------------------------------------------------------
+void Characters::setDirection(int aIndex, int aX, int aY, int aZ)
+{
+    mCharacters[aIndex].setDirection(aX, aY, aZ);
+}
 
 //---------------------------------------------------------------------
 // 

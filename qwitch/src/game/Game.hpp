@@ -24,6 +24,9 @@ public:
     const Field& field() const;
 
 private:
+    /// 入力処理
+    void input();
+
     /// member
     Field mField;
 };

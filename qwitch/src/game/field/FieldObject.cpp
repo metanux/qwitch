@@ -150,7 +150,24 @@ void FieldObject::setKind(int aKind)
 {
     mKind = aKind;
 }
-
+//---------------------------------------------------------------------
+void FieldObject::setDirection(int aX, int aY, int aZ)
+{
+    if (aX < 0) {
+        if (aY < 0) { mDirection = Direction_Up; }
+        if (aY == 0) { mDirection = Direction_LeftUp; }
+        if (aY > 0) { mDirection = Direction_Left; }
+    }
+    else if (aX > 0) {
+        if (aY < 0) { mDirection = Direction_Right; }
+        if (aY == 0) { mDirection = Direction_RightDown; }
+        if (aY > 0) { mDirection = Direction_Down; }
+    }
+    else {
+        if (aY < 0) { mDirection = Direction_RightUp; }
+        if (aY > 0) { mDirection = Direction_LeftDown; }
+    }
+}
 
 //---------------------------------------------------------------------
 // 

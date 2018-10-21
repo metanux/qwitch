@@ -23,9 +23,9 @@ public:
         Direction_Left,
         Direction_LeftUp,
         Direction_Up,
-        Direction_Right_Up,
+        Direction_RightUp,
         Direction_Right,
-        Direction_Right_Down,
+        Direction_RightDown,
     };
 
     /// コンストラクタ
@@ -59,6 +59,7 @@ public:
     void setForceY(double aY);
     void setForceZ(double aZ);
     void setKind(int aKind);
+    void setDirection(int aX, int aY, int aZ);
     //@}
 
     /// @name getter
