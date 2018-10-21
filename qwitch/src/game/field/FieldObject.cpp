@@ -18,6 +18,10 @@ FieldObject::FieldObject()
     , mPos()
     , mSize()
     , mForce()
+    , mKind(0)
+    , mAnimeKind(0)
+    , mDirection(Direction_Down)
+    , mAnimeIndex(0)
 {
     static int idList = 0;
     mId = idList++;
@@ -141,6 +145,12 @@ void FieldObject::setForceZ(double aZ)
 {
     mForce.setZ(aZ);
 }
+//---------------------------------------------------------------------
+void FieldObject::setKind(int aKind)
+{
+    mKind = aKind;
+}
+
 
 //---------------------------------------------------------------------
 // 
@@ -165,6 +175,26 @@ const Vector3d& FieldObject::size() const
 const Vector3d& FieldObject::force() const
 {
     return mForce;
+}
+//---------------------------------------------------------------------
+int FieldObject::kind() const
+{
+    return mKind;
+}
+//---------------------------------------------------------------------
+int FieldObject::animeKind() const
+{
+    return mAnimeKind;
+}
+//---------------------------------------------------------------------
+FieldObject::Direction FieldObject::direction() const
+{
+    return mDirection;
+}
+//---------------------------------------------------------------------
+int FieldObject::animeIndex() const
+{
+    return mAnimeIndex;
 }
 
 } // namespace game

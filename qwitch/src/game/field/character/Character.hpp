@@ -30,17 +30,13 @@ public:
     /// getter
     int image() const;
     Relation relation() const;
-    int kind() const;
 
     /// setter
     void setRelation(Relation aRelation);
-    void setKind(int aKind);
 
 private:
     /// 敵対関係
     Relation mRelation;
-    /// 種類
-    int mKind;
     /// ステータス
     Status mStatus;
 };
