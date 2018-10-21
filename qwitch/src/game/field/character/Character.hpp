@@ -5,6 +5,7 @@
 //
 #pragma once
 #include "game/field/FieldObject.hpp"
+#include "game/field/character/Status.hpp"
 
 namespace qwitch {
 namespace game {
@@ -40,6 +41,8 @@ private:
     Relation mRelation;
     /// 種類
     int mKind;
+    /// ステータス
+    Status mStatus;
 };
 
 } // namespace game

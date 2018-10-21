@@ -17,6 +17,7 @@ namespace game {
 Character::Character()
     : mRelation(Relation_Neutral)
     , mKind(0)
+    , mStatus()
 {
 }
 
