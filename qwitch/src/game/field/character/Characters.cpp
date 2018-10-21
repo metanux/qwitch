@@ -19,11 +19,13 @@ Characters::Characters()
     Character player;
     player.setPos(Vector3d(768, 768, 32));
     player.setSize(Vector3d(32, 32, 64));
+    player.setRelation(Character::Relation_Friend);
     mCharacters.push_back(player);
 
     Character character1;
     character1.setPos(Vector3d(512, 512, 32));
     character1.setSize(Vector3d(32, 32, 64));
+    character1.setRelation(Character::Relation_Enemy);
     mCharacters.push_back(character1);
 }
 

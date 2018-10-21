@@ -15,7 +15,18 @@ namespace game {
 // 
 //
 Character::Character()
+    : mRelation(Relation_Neutral)
 {
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Character::setRelation(Relation aRelation)
+{
+    mRelation = aRelation;
 }
 
 //---------------------------------------------------------------------
@@ -26,6 +37,16 @@ Character::Character()
 int Character::image() const
 {
     return Images::ins().character(0);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+Character::Relation Character::relation() const
+{
+    return mRelation;
 }
 
 } // namespace game
