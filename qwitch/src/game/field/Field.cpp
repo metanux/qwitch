@@ -193,7 +193,9 @@ bool Field::isCollision(const FieldObject& aObject) const
         return true;
     }
     //----- キャラクターとの当たり判定
-
+    if (mCharacters.isCollision(aObject)) {
+        return true;
+    }
 
     return false;
 }

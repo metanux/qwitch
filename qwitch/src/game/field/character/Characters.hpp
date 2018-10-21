@@ -19,6 +19,9 @@ class Characters {
 public:
     Characters();
 
+    /// 当たり判定
+    bool isCollision(const FieldObject& aObject) const;
+
     /// @name 移動
     void move(int aIndex, const Vector3d& aPos);
 

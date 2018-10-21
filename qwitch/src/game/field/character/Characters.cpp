@@ -32,6 +32,23 @@ Characters::Characters()
 //  
 // 
 //
+bool Characters::isCollision(const FieldObject& aObject) const
+{
+    int count = countCharacter();
+    for (int i = 0; i < count; i++) {
+        if (mCharacters[i].isEqual(aObject)) { continue; }
+        if (mCharacters[i].isCollision(aObject)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Characters::move(int aIndex, const Vector3d& aPos)
 {
     mCharacters[aIndex].move(aPos);
