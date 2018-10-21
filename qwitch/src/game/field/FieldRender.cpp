@@ -44,9 +44,9 @@ void FieldRender::render(const Field& aField) const
 
     // キャラクター
     const Characters& charas = aField.characters();
-    int countCharas = charas.countCharacter();
+    int countCharas = charas.countDisplayCharacter();
     for (int i = 0; i < countCharas; i++) {
-        const Character& chara = charas.character(i);
+        const Character& chara = charas.displayCharacter(i);
         objects.push_back(chara);
         index.push_back(countObjects++);
     }

@@ -6,6 +6,7 @@
 #include "Terrain.hpp"
 #include "assets/Data.hpp"
 #include "assets/data/TerrainBoxData.hpp"
+#include "game/field/FieldParameter.hpp"
 
 namespace qwitch {
 namespace game {
@@ -93,7 +94,6 @@ void Terrain::updateDisplayBlocks(
     double cx = camera.fieldPos().x();
     double cy = camera.fieldPos().y();
     double cz = camera.fieldPos().z();
-    double renderSize = 700;
     int count = (int)mSortedBlocks.size();
     for (int i = 0; i < count; i++) {
         // 描画範囲外の確認
@@ -105,7 +105,7 @@ void Terrain::updateDisplayBlocks(
         size += abs(cx - px);
         size += abs(cy - py);
         size += abs(cz - pz);
-        if (size >= renderSize) { continue; }
+        if (size >= FieldParameter::RenderAreaSize) { continue; }
         /*
         if (px < cx - renderSize) { continue; }
         if (py < cy - renderSize) { continue; }

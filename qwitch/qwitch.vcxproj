@@ -27,8 +27,10 @@
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
     <ClCompile Include="src\game\field\character\Character.cpp" />
     <ClCompile Include="src\game\field\character\Characters.cpp" />
+    <ClCompile Include="src\game\field\character\Status.cpp" />
     <ClCompile Include="src\game\field\Field.cpp" />
     <ClCompile Include="src\game\field\FieldObject.cpp" />
+    <ClCompile Include="src\game\field\FieldParameter.cpp" />
     <ClCompile Include="src\game\field\FieldRender.cpp" />
     <ClCompile Include="src\game\field\terrain\Block.cpp" />
     <ClCompile Include="src\game\field\terrain\Terrain.cpp" />
@@ -58,8 +60,10 @@
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
     <ClInclude Include="src\game\field\character\Character.hpp" />
     <ClInclude Include="src\game\field\character\Characters.hpp" />
+    <ClInclude Include="src\game\field\character\Status.hpp" />
     <ClInclude Include="src\game\field\Field.hpp" />
     <ClInclude Include="src\game\field\FieldObject.hpp" />
+    <ClInclude Include="src\game\field\FieldParameter.hpp" />
     <ClInclude Include="src\game\field\FieldRender.hpp" />
     <ClInclude Include="src\game\field\terrain\Block.hpp" />
     <ClInclude Include="src\game\field\terrain\Terrain.hpp" />

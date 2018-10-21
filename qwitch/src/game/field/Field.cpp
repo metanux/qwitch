@@ -30,6 +30,7 @@ Field::Field()
 void Field::update()
 {
     //----- キャラクターの更新
+    mCharacters.update(mCamera);
     updateCharacters();
 
     //----- カメラの更新

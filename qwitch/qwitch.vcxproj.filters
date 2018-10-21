@@ -30,6 +30,8 @@
     <ClCompile Include="src\assets\Data.cpp" />
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
     <ClCompile Include="src\assets\data\TerrainBoxData.cpp" />
+    <ClCompile Include="src\game\field\character\Status.cpp" />
+    <ClCompile Include="src\game\field\FieldParameter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -60,6 +62,8 @@
     <ClInclude Include="src\assets\Data.hpp" />
     <ClInclude Include="src\assets\data\TerrainData.hpp" />
     <ClInclude Include="src\assets\data\TerrainBoxData.hpp" />
+    <ClInclude Include="src\game\field\character\Status.hpp" />
+    <ClInclude Include="src\game\field\FieldParameter.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

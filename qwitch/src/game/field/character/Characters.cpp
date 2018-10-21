@@ -4,6 +4,7 @@
 // 
 //
 #include "Characters.hpp"
+#include "game/field/FieldParameter.hpp"
 
 namespace qwitch {
 namespace game {
@@ -29,6 +30,34 @@ Characters::Characters()
     character1.setRelation(Character::Relation_Enemy);
     character1.setKind(1);
     mCharacters.push_back(character1);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Characters::update(const Camera& aCamera)
+{
+    //----- 描画キャラの設定
+    mDisplayCharacters.clear();
+
+    double cx = aCamera.fieldPos().x();
+    double cy = aCamera.fieldPos().y();
+    double cz = aCamera.fieldPos().z();
+    
+    int count = countCharacter();
+    for (int i = 0; i < count; i++) {
+        double px = mCharacters[i].pos().x();
+        double py = mCharacters[i].pos().y();
+        double pz = mCharacters[i].pos().z();
+        double size = 0;
+        size += abs(cx - px);
+        size += abs(cy - py);
+        size += abs(cz - pz);
+        if (size >= FieldParameter::RenderAreaSize) { continue; }
+        mDisplayCharacters.push_back(mCharacters[i]);
+    }
 }
 
 //---------------------------------------------------------------------
@@ -108,6 +137,11 @@ int Characters::countCharacter() const
 {
     return (int)mCharacters.size();
 }
+//---------------------------------------------------------------------
+int Characters::countDisplayCharacter() const
+{
+    return (int)mDisplayCharacters.size();
+}
 
 //---------------------------------------------------------------------
 // 
@@ -122,6 +156,11 @@ const Character& Characters::character(int aIndex) const
 const Character& Characters::player() const
 {
     return mCharacters[0];
+}
+//---------------------------------------------------------------------
+const Character& Characters::displayCharacter(int aIndex) const
+{
+    return mDisplayCharacters[aIndex];
 }
 
 } // namespace game
