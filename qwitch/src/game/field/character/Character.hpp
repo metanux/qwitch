@@ -16,7 +16,7 @@ namespace game {
 //
 class Character : public FieldObject {
 public:
-    /// 関係
+    /// 敵対関係
     enum Relation {
         Relation_Neutral,  // 中立
         Relation_Enemy,    // 敵
@@ -29,12 +29,17 @@ public:
     /// getter
     int image() const;
     Relation relation() const;
+    int kind() const;
 
     /// setter
     void setRelation(Relation aRelation);
+    void setKind(int aKind);
 
 private:
+    /// 敵対関係
     Relation mRelation;
+    /// 種類
+    int mKind;
 };
 
 } // namespace game

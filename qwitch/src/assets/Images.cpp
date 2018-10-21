@@ -49,8 +49,9 @@ void Images::load()
     }
 
     //----- キャラクター
-    for (int i = 0; i < 1; i++) {
-        int image = DxLib::LoadGraph("assets/images/character/0.png");
+    for (int i = 0; i < 2; i++) {
+        sprintf_s(url, "assets/images/character/%d.png", i);
+        int image = DxLib::LoadGraph(url);
         mCharacter.push_back(image);
     }
 
