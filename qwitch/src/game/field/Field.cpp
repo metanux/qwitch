@@ -126,8 +126,6 @@ void Field::playerJump()
 //
 void Field::characterMove(int aIndex, const Vector3d& aPos)
 {
-    /// 
-    //mCharacters.move(aIndex, Vector3d(aX, aY, 0));
     // z軸の移動
     characterMoveZ(aIndex, aPos.z());
     // xy軸の移動

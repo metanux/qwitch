@@ -42,18 +42,6 @@ void Camera::update()
 void Camera::update(const FieldObject& aObject)
 {
     //----- スクロール位置更新
-    /*
-    double posX = 0;
-    posX -= System::ins().windowSizeX() / 2;
-    posX += aObject.convertWindowPosX();
-
-    double posY = 0;
-    posY -= System::ins().windowSizeY() / 2;
-    posY += aObject.convertWindowPosY();
-
-    mScrollPos.setX(posX);
-    mScrollPos.setY(posY);
-    */
     mScrollPos = aObject.pos();
 
     //----- 更新
