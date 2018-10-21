@@ -72,6 +72,9 @@ void Camera::updatePos()
     double dy = (mFieldPos.y() - mScrollPos.y()) / -10;
     double dz = (mFieldPos.z() - mScrollPos.z()) / -10;
     mFieldPos.move(dx, dy, dz);
+    if (dx < 0.1 && dx > -0.1) { mFieldPos.setX(mScrollPos.x()); }
+    if (dy < 0.1 && dy > -0.1) { mFieldPos.setY(mScrollPos.y()); }
+    if (dz < 0.1 && dz > -0.1) { mFieldPos.setZ(mScrollPos.z()); }
 
     //----- ウィンドウ座標の設定
     double posX = 0;
