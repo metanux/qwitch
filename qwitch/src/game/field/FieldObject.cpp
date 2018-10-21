@@ -19,12 +19,21 @@ FieldObject::FieldObject()
     , mSize()
     , mForce()
     , mKind(0)
-    , mAnimeKind(0)
     , mDirection(Direction_Down)
-    , mAnimeIndex(0)
+    , mAnimation()
 {
     static int idList = 0;
     mId = idList++;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void FieldObject::update()
+{
+    mAnimation.update();
 }
 
 //---------------------------------------------------------------------
@@ -199,19 +208,14 @@ int FieldObject::kind() const
     return mKind;
 }
 //---------------------------------------------------------------------
-int FieldObject::animeKind() const
-{
-    return mAnimeKind;
-}
-//---------------------------------------------------------------------
 FieldObject::Direction FieldObject::direction() const
 {
     return mDirection;
 }
 //---------------------------------------------------------------------
-int FieldObject::animeIndex() const
+const Animation& FieldObject::animation() const
 {
-    return mAnimeIndex;
+    return mAnimation;
 }
 
 } // namespace game

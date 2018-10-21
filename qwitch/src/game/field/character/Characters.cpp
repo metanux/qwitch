@@ -58,6 +58,11 @@ void Characters::update(const Camera& aCamera)
         if (size >= FieldParameter::RenderAreaSize) { continue; }
         mDisplayCharacters.push_back(mCharacters[i]);
     }
+
+    //----- アニメーションの更新
+    for (int i = 0; i < count; i++) {
+        mCharacters[i].update();
+    }
 }
 
 //---------------------------------------------------------------------

@@ -37,19 +37,12 @@ void Character::setRelation(Relation aRelation)
 //
 int Character::image() const
 {
-    /*
-    int d =
-        (direction() == FieldObject::Direction_Down) ? 0 :
-        (direction() == FieldObject::Direction_LeftDown) ? 0 :
-        (direction() == FieldObject::Direction_Left) ? 1 :
-        (direction() == FieldObject::Direction_LeftUp) ? 1 :
-        (direction() == FieldObject::Direction_Up) ? 2 :
-        (direction() == FieldObject::Direction_Right_Up) ? 2 :
-        (direction() == FieldObject::Direction_Right) ? 3 :
-        (direction() == FieldObject::Direction_Right_Down) ? 3 : 0;
-    */
-    int d = direction() / 2;
-    return Images::ins().character(kind(), animeKind(), d, animeIndex());
+    int dire = direction() / 2;
+    return Images::ins().character(
+        kind(),
+        animation().kind(),
+        dire,
+        animation().index());
 }
 //---------------------------------------------------------------------
 Character::Relation Character::relation() const

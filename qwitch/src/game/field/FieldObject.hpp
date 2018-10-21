@@ -5,6 +5,7 @@
 //
 #pragma once
 #include "util/Vector3d.hpp"
+#include "game/field/animation/Animation.hpp"
 
 namespace qwitch {
 namespace game {
@@ -30,6 +31,9 @@ public:
 
     /// コンストラクタ
     FieldObject();
+
+    /// 更新処理
+    void update();
 
     /// 当たり判定
     bool isCollision(const FieldObject& aObject) const;
@@ -69,9 +73,8 @@ public:
     const Vector3d& size() const;
     const Vector3d& force() const;
     int kind() const;
-    int animeKind() const;
     Direction direction() const;
-    int animeIndex() const;
+    const Animation& animation() const;
     //@}
 
 private:
@@ -86,13 +89,10 @@ private:
     Vector3d mForce;
     /// 種類
     int mKind;
-    /// アニメーションの種類
-    int mAnimeKind;
     /// 向き
     Direction mDirection;
-    /// アニメーションのindex
-    int mAnimeIndex;
-
+    /// アニメーション
+    Animation mAnimation;
 };
 
 } // namespace game
