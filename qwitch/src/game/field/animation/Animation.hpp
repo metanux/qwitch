@@ -15,6 +15,7 @@ namespace game {
 //
 class Animation {
 public:
+
     /// 更新処理
     Animation();
 
@@ -25,8 +26,8 @@ public:
     void change(int aKind);
 
     /// getter
-    int kind() const;
-    int index() const;
+    int animeIndex() const;
+    int imageIndex() const;
 
 private:
     /// 次の画像に変更
@@ -36,10 +37,10 @@ private:
     bool isNextIndex();
 
     /// member
-    /// アニメーションの種類
-    int mKind;
     /// アニメーションのindex
-    int mIndex;
+    int mAnimeIndex;
+    /// アニメーションのindex
+    int mImageIndex;
     /// 経過フレーム
     int mFrame;
     /// アニメーションの画像枚数

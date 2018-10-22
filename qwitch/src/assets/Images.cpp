@@ -75,7 +75,7 @@ void Images::loadCharacter()
 
     for (int kind = 0; kind < 2; kind++) {
         std::vector<std::vector<int>> animeImages;
-        for (int anime = 0; anime < 1; anime++) {
+        for (int anime = 0; anime < 2; anime++) {
             std::vector<int> images;
             int imageNumX = 4;
             int imageNumY = 4;

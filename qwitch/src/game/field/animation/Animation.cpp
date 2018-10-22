@@ -14,8 +14,8 @@ namespace game {
 // 
 //
 Animation::Animation()
-    : mKind(0)
-    , mIndex(0)
+    : mAnimeIndex(0)
+    , mImageIndex(0)
     , mFrame(0)
     , mImageNum(4)
     , mSpeed(20)
@@ -45,8 +45,8 @@ void Animation::update()
 //
 void Animation::change(int aKind)
 {
-    mKind = aKind;
-    mIndex = 0;
+    mAnimeIndex = aKind;
+    mImageIndex = 0;
     mFrame = 0;
     mImageNum = 4;
     mSpeed = 20;
@@ -59,7 +59,7 @@ void Animation::change(int aKind)
 //
 void Animation::nextIndex()
 {
-    mIndex = (mIndex + 1) % mImageNum;
+    mImageIndex = (mImageIndex + 1) % mImageNum;
     mFrame = 0;
 }
 
@@ -78,14 +78,14 @@ bool Animation::isNextIndex()
 //  
 // 
 //
-int Animation::kind() const
+int Animation::animeIndex() const
 {
-    return mKind;
+    return mAnimeIndex;
 }
 //---------------------------------------------------------------------
-int Animation::index() const
+int Animation::imageIndex() const
 {
-    return mIndex;
+    return mImageIndex;
 }
 
 } // namespace game

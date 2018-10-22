@@ -40,9 +40,9 @@ int Character::image() const
     int dire = direction() / 2;
     return Images::ins().character(
         kind(),
-        animation().kind(),
+        animation().animeIndex(),
         dire,
-        animation().index());
+        animation().imageIndex());
 }
 //---------------------------------------------------------------------
 Character::Relation Character::relation() const
