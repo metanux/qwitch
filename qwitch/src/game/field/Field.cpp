@@ -113,6 +113,9 @@ void Field::playerMove(int aX, int aY)
 
     //----- 向きの更新
     mCharacters.setDirection(playerIndex, dx, dy, dz);
+
+    //----- アニメーションの更新
+    mCharacters.setAnimation(playerIndex, Animation::Kind_Walk);
 }
 
 //---------------------------------------------------------------------

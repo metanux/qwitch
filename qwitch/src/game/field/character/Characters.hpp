@@ -35,6 +35,9 @@ public:
     ///
     void addForce(int aIndex, const Vector3d& aForce);
 
+    /// アニメーションの変更
+    void setAnimation(int aIndex, Animation::Kind aKind);
+
     /// @ name 
     void setForceX(int aIndex, double aX);
     void setForceY(int aIndex, double aY);

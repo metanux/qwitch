@@ -54,6 +54,9 @@ public:
     double convertWindowPosX() const;
     double convertWindowPosY() const;
 
+    /// アニメーションの変更
+    void setAnimation(Animation::Kind aKind);
+
     /// @name setter
     //@{
     void setPos(const Vector3d& aPos);

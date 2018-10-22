@@ -125,6 +125,16 @@ double FieldObject::convertWindowPosY() const
 //  
 // 
 //
+void FieldObject::setAnimation(Animation::Kind aKind)
+{
+    mAnimation.setNextKind(aKind);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void FieldObject::setPos(const Vector3d& aPos)
 {
     mPos = aPos;

@@ -118,6 +118,16 @@ void Characters::addForce(int aIndex, const Vector3d& aForce)
 //  
 // 
 //
+void Characters::setAnimation(int aIndex, Animation::Kind aKind)
+{
+    mCharacters[aIndex].setAnimation(aKind);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Characters::setForceX(int aIndex, double aX)
 {
     mCharacters[aIndex].setForceX(aX);
