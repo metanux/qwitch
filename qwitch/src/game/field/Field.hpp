@@ -52,6 +52,8 @@ private:
     bool isCollision(const FieldObject& aObject) const;
     /// 接地判定
     bool isGround(int aIndex);
+    /// 攻撃可能判定
+    bool isAttack(const Character& aChara) const;
 
     /// member
     /// カメラ

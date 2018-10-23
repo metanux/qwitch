@@ -218,6 +218,9 @@ void Field::characterMoveZ(int aIndex, double aZ)
 void Field::characterAttack(int aIndex)
 {
     //----- 攻撃可能判定
+    if (isAttack(mCharacters.character(aIndex)) == false) {
+        return;
+    }
 
     //----- 攻撃処理
 
@@ -255,6 +258,24 @@ bool Field::isGround(int aIndex)
     bool result = isCollision(mCharacters.character(aIndex));
     mCharacters.move(aIndex, Vector3d(0, 0, 1));
     return result;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool Field::isAttack(const Character& aChara) const
+{
+    //----- 攻撃モーション中は攻撃できない
+    if (aChara.animation().kind() == Animation::Kind_Attack) { return false; }
+
+    //----- 空中なら攻撃できない
+    if (aChara.animation().kind() == Animation::Kind_Fall) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_Rise) { return false; }
+
+    //-----
+    return true;
 }
 
 //---------------------------------------------------------------------

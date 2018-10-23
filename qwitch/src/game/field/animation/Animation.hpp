@@ -34,6 +34,7 @@ public:
     void setNextKind(Kind aKind);
 
     /// getter
+    Kind kind() const;
     int animeIndex() const;
     int imageIndex() const;
 

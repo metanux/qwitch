@@ -148,6 +148,11 @@ bool Animation::isNextIndex()
 //  
 // 
 //
+Animation::Kind Animation::kind() const
+{
+    return mKind;
+}
+//---------------------------------------------------------------------
 int Animation::animeIndex() const
 {
     return mAnimeIndex;
