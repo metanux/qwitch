@@ -8,6 +8,7 @@
 #include "system/Input.hpp"
 #include "assets/AssetsManager.hpp"
 #include "system/System.hpp"
+#include <time.h>
 
 namespace qwitch {
 
@@ -69,6 +70,9 @@ int SystemManager::initialize()
         DxLib::SetAlwaysRunFlag(TRUE)) {
         return -1;
     }
+
+    //----- 乱数初期化
+    SRand((int)time(NULL));
 
     //----- アセット読み込み
     AssetsManager::ins().load();

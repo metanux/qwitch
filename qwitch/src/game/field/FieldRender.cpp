@@ -125,8 +125,8 @@ void FieldRender::renderDamageEffect(
     for (int i = 0; i < count; i++) {
         const DamageEffect& effect = effects.effect(i);
         int damage = effect.damage();
-        int x = effect.windowPosX();
-        int y = effect.windowPosY();
+        int x = (int)effect.windowPosX();
+        int y = (int)effect.windowPosY();
         int posX = calcRenderPosX(aField, x);
         int posY = calcRenderPosY(aField, y);
         DxLib::DrawFormatString(posX, posY, DxLib::GetColor(255, 255, 255), "%d", damage);

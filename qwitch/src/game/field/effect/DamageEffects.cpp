@@ -32,7 +32,11 @@ void DamageEffects::update()
     }
 
     //----- 削除処理
-
+    for (int i = c - 1; i >= 0; i--) {
+        if (mEffects[i].isDelete()) {
+            mEffects.erase(mEffects.begin() + i);
+        }
+    }
 }
 
 //---------------------------------------------------------------------
@@ -45,6 +49,7 @@ void DamageEffects::add(int aDamage, int aWindowPosX, int aWindowPosY)
     DamageEffect effect;
     effect.setDamage(aDamage);
     effect.setWindowPos(aWindowPosX, aWindowPosY);
+    effect.decideForce();
     mEffects.push_back(effect);
 }
 
