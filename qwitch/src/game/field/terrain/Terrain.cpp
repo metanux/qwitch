@@ -62,9 +62,9 @@ void Terrain::update(const Camera& camera)
     dx = (cx <= minX) ? -1 : dx;
     dy = (cy <= minY) ? -1 : dy;
     dz = (cz <= minZ) ? -1 : dz;
-    dx = (cx >= maxX) ? 1 : dx;
-    dy = (cy >= maxY) ? 1 : dy;
-    dz = (cz >= maxZ) ? 1 : dz;
+    dx = (cx > maxX) ? 1 : dx;
+    dy = (cy > maxY) ? 1 : dy;
+    dz = (cz > maxZ) ? 1 : dz;
     if (dx != 0) {
         scroll(dx, 0, 0);
     }
@@ -271,6 +271,7 @@ void Terrain::scroll(
 
     //----- 中心位置の設定
     const TerrainData& data = Data::ins().terrain(mCenterTerrainId);
+    printf("center %d\n", mCenterTerrainId);
     mArea0Pos.setX(data.pos().x() - AREA_BLOCK_NUM * Block::PIXEL_SIZE);
     mArea0Pos.setY(data.pos().y() - AREA_BLOCK_NUM * Block::PIXEL_SIZE);
     mArea0Pos.setZ(data.pos().z() - AREA_BLOCK_NUM * Block::PIXEL_SIZE);

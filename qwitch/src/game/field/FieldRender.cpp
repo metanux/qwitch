@@ -35,7 +35,7 @@ void FieldRender::render(const Field& aField) const
     // 地形ブロック
     const Terrain& terrain = aField.terrain();
     int countBlocks = terrain.blockNum();
-    printf("blockNum: %d\n", countBlocks);
+    //printf("blockNum: %d\n", countBlocks);
     for (int i = 0; i < countBlocks; i++) {
         const Block& block = terrain.block(i);
         objects.push_back(block);
