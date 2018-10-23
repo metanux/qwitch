@@ -7,6 +7,7 @@
 #include "game/field/camera/Camera.hpp"
 #include "game/field/terrain/Terrain.hpp"
 #include "game/field/character/characters.hpp"
+#include "game/field/effect/DamageEffects.hpp"
 
 namespace qwitch {
 namespace game {
@@ -38,6 +39,7 @@ public:
     const Camera& camera() const;
     const Terrain& terrain() const;
     const Characters& characters() const;
+    const DamageEffects& damageEffects() const;
 
 private:
     /// 更新処理
@@ -78,6 +80,8 @@ private:
     Terrain mTerrain;
     /// キャラクター
     Characters mCharacters;
+    /// ダメージエフェクト
+    DamageEffects mDamageEffects;
 };
 
 } // namespace game

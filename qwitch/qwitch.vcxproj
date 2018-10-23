@@ -29,6 +29,8 @@
     <ClCompile Include="src\game\field\character\Character.cpp" />
     <ClCompile Include="src\game\field\character\Characters.cpp" />
     <ClCompile Include="src\game\field\character\Status.cpp" />
+    <ClCompile Include="src\game\field\effect\DamageEffect.cpp" />
+    <ClCompile Include="src\game\field\effect\DamageEffects.cpp" />
     <ClCompile Include="src\game\field\Field.cpp" />
     <ClCompile Include="src\game\field\FieldObject.cpp" />
     <ClCompile Include="src\game\field\FieldParameter.cpp" />
@@ -63,6 +65,8 @@
     <ClInclude Include="src\game\field\character\Character.hpp" />
     <ClInclude Include="src\game\field\character\Characters.hpp" />
     <ClInclude Include="src\game\field\character\Status.hpp" />
+    <ClInclude Include="src\game\field\effect\DamageEffect.hpp" />
+    <ClInclude Include="src\game\field\effect\DamageEffects.hpp" />
     <ClInclude Include="src\game\field\Field.hpp" />
     <ClInclude Include="src\game\field\FieldObject.hpp" />
     <ClInclude Include="src\game\field\FieldParameter.hpp" />

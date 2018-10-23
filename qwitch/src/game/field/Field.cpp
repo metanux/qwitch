@@ -20,6 +20,7 @@ Field::Field()
     : mCamera()
     , mTerrain()
     , mCharacters()
+    , mDamageEffects()
 {
 }
 
@@ -39,6 +40,9 @@ void Field::update()
 
     //----- 表示地形の更新
     mTerrain.update(mCamera);
+
+    //----- エフェクトの更新
+    mDamageEffects.update();
 }
 
 //---------------------------------------------------------------------
@@ -266,6 +270,8 @@ void Field::characterAttack(int aIndex)
         if (damagedChara.id() == attackChara.id()) { continue; }
 
         //--- 回避判定
+
+
         //--- ダメージ算出
         int damage = 0;
         damage += attackChara.status().attack();
@@ -273,6 +279,11 @@ void Field::characterAttack(int aIndex)
         //--- 被ダメ処理
         mCharacters.receiveDamage(damagedIndex[i], damage);
         printf("hp %d\n", damagedChara.status().hp());
+
+        //--- ダメージエフェクト表示
+        int windowPosX = (int)damagedChara.convertWindowPosX();
+        int windowPosY = (int)damagedChara.convertWindowPosY();
+        mDamageEffects.add(damage, windowPosX, windowPosY);
     }
 
     //----- アニメーション更新処理
@@ -384,6 +395,11 @@ const Terrain& Field::terrain() const
 const Characters& Field::characters() const
 {
     return mCharacters;
+}
+//---------------------------------------------------------------------
+const DamageEffects& Field::damageEffects() const
+{
+    return mDamageEffects;
 }
 
 } // namespace game

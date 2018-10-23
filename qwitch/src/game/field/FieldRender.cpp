@@ -27,6 +27,21 @@ FieldRender::FieldRender()
 //
 void FieldRender::render(const Field& aField) const
 {
+    //----- オブジェクトの描画
+    renderObjects(aField);
+
+    //----- ダメージの描画
+    renderDamageEffect(aField);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void FieldRender::renderObjects(
+    const Field& aField) const
+{
     //----- 描画オブジェクトを取得
     int countObjects = 0;
     std::vector<std::reference_wrapper<const FieldObject>> objects;
@@ -102,6 +117,27 @@ void FieldRender::renderObject(
 //  
 // 
 //
+void FieldRender::renderDamageEffect(
+    const Field& aField) const
+{
+    const DamageEffects& effects = aField.damageEffects();
+    int count = effects.count();
+    for (int i = 0; i < count; i++) {
+        const DamageEffect& effect = effects.effect(i);
+        int damage = effect.damage();
+        int x = effect.windowPosX();
+        int y = effect.windowPosY();
+        int posX = calcRenderPosX(aField, x);
+        int posY = calcRenderPosY(aField, y);
+        DxLib::DrawFormatString(posX, posY, DxLib::GetColor(255, 255, 255), "%d", damage);
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 int FieldRender::calcRenderPosX(
     const Field& aField,
     const FieldObject& aObject) const
@@ -123,6 +159,36 @@ int FieldRender::calcRenderPosY(
 {
     int y = 0;
     y += (int)aObject.convertWindowPosY();
+    y -= (int)aField.camera().windowPos().y();
+    return y;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+int FieldRender::calcRenderPosX(
+    const Field& aField,
+    int aX) const
+{
+    int x = 0;
+    x += aX;
+    x -= (int)aField.camera().windowPos().x();
+    return x;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+int FieldRender::calcRenderPosY(
+    const Field& aField,
+    int aY) const
+{
+    int y = 0;
+    y += aY;
     y -= (int)aField.camera().windowPos().y();
     return y;
 }
