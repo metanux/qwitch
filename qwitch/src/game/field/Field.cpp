@@ -109,7 +109,7 @@ void Field::load(int aFieldIndex)
 //  
 // 
 //
-void Field::playerMove(int aX, int aY)
+void Field::playerWalk(int aX, int aY)
 {
     //----- プレイヤーオブジェクトの移動
     int playerIndex = 0;

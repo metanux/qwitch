@@ -72,7 +72,7 @@ void Game::input()
         dy += 1;
     }
     if (dx != 0 || dy != 0) {
-        mField.playerMove(dx, dy);
+        mField.playerWalk(dx, dy);
     }
 
     //------ ジャンプ処理

@@ -28,7 +28,7 @@ public:
     void load(int aFieldIndex);
 
     /// プレイキャラクターの移動処理
-    void playerMove(int aX, int aY);
+    void playerWalk(int aX, int aY);
     /// プレイキャラクターのジャンプ処理
     void playerJump();
 
