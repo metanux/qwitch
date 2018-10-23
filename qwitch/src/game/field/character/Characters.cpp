@@ -99,7 +99,7 @@ void Characters::move(int aIndex, const Vector3d& aPos)
 //
 void Characters::jump(int aIndex)
 {
-    double jumpPower = 10;
+    double jumpPower = mCharacters[aIndex].status().jumpPower();
     mCharacters[aIndex].addForce(Vector3d(0, 0, jumpPower));
 }
 
