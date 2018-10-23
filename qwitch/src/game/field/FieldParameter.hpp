@@ -18,6 +18,8 @@ class FieldParameter {
 public:
     /// 描画範囲
     static const int RenderAreaSize;
+    /// プレイヤーindex
+    static const int PlayerIndex;
 
 private:
     /// コンストラクタ

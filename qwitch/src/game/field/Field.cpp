@@ -6,6 +6,7 @@
 #include "Field.hpp"
 #include "DxLib.h"
 #include "system/System.hpp"
+#include "game/field/FieldParameter.hpp"
 
 namespace qwitch {
 namespace game {
@@ -114,18 +115,17 @@ void Field::load(int aFieldIndex)
 void Field::playerWalk(int aX, int aY)
 {
     //----- プレイヤーオブジェクトの移動
-    int playerIndex = 0;
     int speed = 3;
     int dx = aX * speed;
     int dy = aY * speed;
     int dz = 0;
-    characterMove(playerIndex, Vector3d(dx, dy, dz));
+    characterMove(FieldParameter::PlayerIndex, Vector3d(dx, dy, dz));
 
     //----- 向きの更新
-    mCharacters.setDirection(playerIndex, dx, dy, dz);
+    mCharacters.setDirection(FieldParameter::PlayerIndex, dx, dy, dz);
 
     //----- アニメーションの更新
-    mCharacters.setAnimation(playerIndex, Animation::Kind_Walk);
+    mCharacters.setAnimation(FieldParameter::PlayerIndex, Animation::Kind_Walk);
 }
 
 //---------------------------------------------------------------------
@@ -135,7 +135,7 @@ void Field::playerWalk(int aX, int aY)
 //
 void Field::playerJump()
 {
-    mCharacters.jump(0);
+    mCharacters.jump(FieldParameter::PlayerIndex);
 }
 
 //---------------------------------------------------------------------
@@ -145,8 +145,7 @@ void Field::playerJump()
 //
 void Field::playerAttack()
 {
-    int playerIndex = 0;
-    characterAttack(playerIndex);
+    characterAttack(FieldParameter::PlayerIndex);
 }
 
 //---------------------------------------------------------------------
