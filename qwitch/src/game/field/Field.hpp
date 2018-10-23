@@ -65,6 +65,12 @@ private:
     /// 攻撃可能判定
     bool isAttack(const Character& aChara) const;
 
+    /// キャラクターの検索
+    /// 引数のエリアに含まれるキャラクターの一覧を配列で返却
+    std::vector<std::reference_wrapper<const Character>> findCharacter(
+        const Vector3d& aPos,
+        const Vector3d& aSize) const;
+
     /// member
     /// カメラ
     Camera mCamera;

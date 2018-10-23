@@ -245,12 +245,23 @@ void Field::characterJump(int aIndex)
 //
 void Field::characterAttack(int aIndex)
 {
+    //-----
+    const Character& chara = mCharacters.character(aIndex);
+
     //----- 攻撃可能判定
-    if (isAttack(mCharacters.character(aIndex)) == false) {
+    if (isAttack(chara) == false) {
         return;
     }
 
+    //----- 攻撃範囲内のキャラクター取得
+    const Vector3d& areaPos = chara.attackAreaPos();
+    const Vector3d& areaSize = chara.attackAreaSize();
+    printf("areaPos %lf %lf %lf\n", areaPos.x(), areaPos.y(), areaPos.z());
+    auto damagedCharas = findCharacter(areaPos, areaSize);;
+
     //----- 攻撃処理
+    int count = (int)damagedCharas.size();
+    printf("damagedCharas %d\n", count);
 
     //----- アニメーション更新処理
     mCharacters.setAnimation(aIndex, Animation::Kind_Attack);
@@ -319,6 +330,28 @@ bool Field::isAttack(const Character& aChara) const
 
     //-----
     return true;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+std::vector<std::reference_wrapper<const Character>> Field::findCharacter(
+    const Vector3d& aPos,
+    const Vector3d& aSize) const
+{
+    std::vector<std::reference_wrapper<const Character>> result;
+
+    int count = mCharacters.countCharacter();
+    for (int i = 0; i < count; i++) {
+        const Character& chara = mCharacters.character(i);
+        if (chara.isCollision(aPos, aSize)) {
+            result.push_back(chara);
+        }
+    }
+
+    return result;
 }
 
 //---------------------------------------------------------------------

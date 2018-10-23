@@ -43,18 +43,25 @@ void FieldObject::update()
 //
 bool FieldObject::isCollision(const FieldObject& aObject) const
 {
+    return isCollision(aObject.pos(), aObject.size());
+}
+//---------------------------------------------------------------------
+bool FieldObject::isCollision(
+    const Vector3d& aPos,
+    const Vector3d& aSize) const
+{
     int x11 = (int)mPos.x();
     int y11 = (int)mPos.y();
     int z11 = (int)mPos.z();
     int x12 = x11 + (int)mSize.x();
     int y12 = y11 + (int)mSize.y();
     int z12 = z11 + (int)mSize.z();
-    int x21 = (int)aObject.pos().x();
-    int y21 = (int)aObject.pos().y();
-    int z21 = (int)aObject.pos().z();
-    int x22 = x21 + (int)aObject.size().x();
-    int y22 = y21 + (int)aObject.size().y();
-    int z22 = z21 + (int)aObject.size().z();
+    int x21 = (int)aPos.x();
+    int y21 = (int)aPos.y();
+    int z21 = (int)aPos.z();
+    int x22 = x21 + (int)aSize.x();
+    int y22 = y21 + (int)aSize.y();
+    int z22 = z21 + (int)aSize.z();
 
     if (x11 >= x22) { return false; }
     if (x12 <= x21) { return false; }
@@ -64,6 +71,7 @@ bool FieldObject::isCollision(const FieldObject& aObject) const
     if (z12 <= z21) { return false; }
     return true;
 }
+
 
 //---------------------------------------------------------------------
 // 
@@ -226,6 +234,64 @@ FieldObject::Direction FieldObject::direction() const
 const Animation& FieldObject::animation() const
 {
     return mAnimation;
+}
+//---------------------------------------------------------------------
+Vector3d FieldObject::attackAreaPos() const
+{
+    Vector3d areaPos = pos();
+    double sx = size().x();
+    double sy = size().y();
+    double sz = size().z();
+    double dx = 0;
+    double dy = 0;
+    double dz = 0;
+
+    if (mDirection == Direction_Down) {
+        dx = sx / 2;
+        dy = sy / 2;
+    }
+    else if (mDirection == Direction_LeftDown) {
+        dx = 0;
+        dy = sy;
+    }
+    else if (mDirection == Direction_Left) {
+        dx = sx / 2 * -1;
+        dy = sy / 2;
+    }
+    else if (mDirection == Direction_LeftUp) {
+        dx = sx * -1;
+        dy = 0;
+    }
+    else if (mDirection == Direction_Up) {
+        dx = sx / 2 * -1;
+        dy = sy / 2 * -1;
+    }
+    else if (mDirection == Direction_RightUp) {
+        dx = 0;
+        dy = sy * -1;
+    }
+    else if (mDirection == Direction_Right) {
+        dx = sx / 2;
+        sy = sy / 2 * -1;
+    }
+    else if (mDirection == Direction_RightDown) {
+        dx = sx;
+        dy = 0;
+    }
+
+    //----- 
+    areaPos.move(dx, dy, dz);
+
+    return areaPos;
+}
+//---------------------------------------------------------------------
+Vector3d FieldObject::attackAreaSize() const
+{
+    double sx = size().x();
+    double sy = size().y();
+    double sz = size().z();
+    Vector3d areaSize(sx, sy, sz);
+    return areaSize;
 }
 
 } // namespace game

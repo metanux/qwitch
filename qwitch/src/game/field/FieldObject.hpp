@@ -37,6 +37,9 @@ public:
 
     /// 当たり判定
     bool isCollision(const FieldObject& aObject) const;
+    bool isCollision(
+        const Vector3d& aPos,
+        const Vector3d& aSize) const;
 
     /// 同じオブジェクトか判定
     bool isEqual(const FieldObject& aObject) const;
@@ -78,6 +81,8 @@ public:
     int kind() const;
     Direction direction() const;
     const Animation& animation() const;
+    Vector3d attackAreaPos() const;
+    Vector3d attackAreaSize() const;
     //@}
 
 private:
