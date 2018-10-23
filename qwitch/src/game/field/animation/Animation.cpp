@@ -27,6 +27,8 @@ Animation::Animation()
     // デバッグ用
     mKindToAnime[Kind_Wait] = 0;
     mKindToAnime[Kind_Walk] = 1;
+    mKindToAnime[Kind_Rise] = 2;
+    mKindToAnime[Kind_Fall] = 3;
 }
 
 //---------------------------------------------------------------------
@@ -58,7 +60,23 @@ void Animation::setNextKind(Kind aKind)
     //----- アニメーションの優先順位に基づいて設定
     if (aKind == Kind_Walk) {
         if (mNextKind == Kind_Wait) {
-            mNextKind = Kind_Walk;
+            mNextKind = aKind;
+        }
+    }
+    if (aKind == Kind_Rise) {
+        if (mNextKind == Kind_Wait) {
+            mNextKind = aKind;
+        }
+        if (mNextKind == Kind_Walk) {
+            mNextKind = aKind;
+        }
+    }
+    if (aKind == Kind_Fall) {
+        if (mNextKind == Kind_Wait) {
+            mNextKind = aKind;
+        }
+        if (mNextKind == Kind_Walk) {
+            mNextKind = aKind;
         }
     }
 }

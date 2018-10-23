@@ -72,6 +72,14 @@ void Field::updateCharacter(int aIndex)
     double forceY = chara.force().y();
     double forceZ = chara.force().z();
     characterMove(aIndex, Vector3d(forceX, forceY, forceZ));
+
+    //----- アニメーション更新
+    if (chara.force().z() <= -1) {
+        mCharacters.setAnimation(aIndex, Animation::Kind_Fall);
+    }
+    if (chara.force().z() >= 1) {
+        mCharacters.setAnimation(aIndex, Animation::Kind_Rise);
+    }
 }
 
 //---------------------------------------------------------------------
