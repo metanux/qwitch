@@ -39,14 +39,27 @@ Characters::Characters()
 //
 void Characters::update(const Camera& aCamera)
 {
+    //----- アニメーションの更新
+    int count = countCharacter();
+    for (int i = 0; i < count; i++) {
+        mCharacters[i].update();
+    }
+
+    //----- 死亡処理
+    for (int i = count - 1; i >= 0; i--) {
+        if (mCharacters[i].status().isDeath()) {
+            mCharacters.erase(mCharacters.begin() + i);
+        }
+    }
+
     //----- 描画キャラの設定
     mDisplayCharacters.clear();
 
     double cx = aCamera.fieldPos().x();
     double cy = aCamera.fieldPos().y();
     double cz = aCamera.fieldPos().z();
-    
-    int count = countCharacter();
+
+    count = countCharacter();
     for (int i = 0; i < count; i++) {
         double px = mCharacters[i].pos().x();
         double py = mCharacters[i].pos().y();
@@ -57,11 +70,6 @@ void Characters::update(const Camera& aCamera)
         size += abs(cz - pz);
         if (size >= FieldParameter::RenderAreaSize) { continue; }
         mDisplayCharacters.push_back(mCharacters[i]);
-    }
-
-    //----- アニメーションの更新
-    for (int i = 0; i < count; i++) {
-        mCharacters[i].update();
     }
 }
 

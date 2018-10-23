@@ -21,6 +21,9 @@ public:
     /// HPを減らす
     void reduceHp(int aValue);
 
+    /// 死亡判定
+    bool isDeath() const;
+
     /// getter
     int hp() const;
     int attack() const;
