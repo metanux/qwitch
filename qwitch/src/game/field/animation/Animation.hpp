@@ -38,6 +38,9 @@ public:
     int imageIndex() const;
 
 private:
+    /// アニメーション更新処理
+    void updateAnime();
+
     /// 変更処理
     void change(Kind aKind);
 

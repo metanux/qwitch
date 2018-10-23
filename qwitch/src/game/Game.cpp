@@ -79,6 +79,11 @@ void Game::input()
     if (Input::ins().key(KEY_INPUT_C) == 1) {
         mField.playerJump();
     }
+
+    //----- 攻撃処理
+    if (Input::ins().key(KEY_INPUT_Z) == 1) {
+        mField.playerAttack();
+    }
 }
 
 //---------------------------------------------------------------------

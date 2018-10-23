@@ -31,6 +31,8 @@ public:
     void playerWalk(int aX, int aY);
     /// プレイキャラクターのジャンプ処理
     void playerJump();
+    /// プレイキャラクターの攻撃処理
+    void playerAttack();
 
     /// getter
     const Camera& camera() const;
@@ -38,12 +40,13 @@ public:
     const Characters& characters() const;
 
 private:
-    /// 
     /// キャラクターの移動処理
     void characterMove(int aIndex, const Vector3d& aPos);
     void characterMoveX(int aIndex, double aX);
     void characterMoveY(int aIndex, double aY);
     void characterMoveZ(int aIndex, double aZ);
+    /// キャラクターの攻撃処理
+    void characterAttack(int aIndex);
 
     /// 当たり判定
     bool isCollision(const FieldObject& aObject) const;

@@ -143,6 +143,17 @@ void Field::playerJump()
 //  
 // 
 //
+void Field::playerAttack()
+{
+    int playerIndex = 0;
+    characterAttack(playerIndex);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Field::characterMove(int aIndex, const Vector3d& aPos)
 {
     // z軸の移動
@@ -197,6 +208,21 @@ void Field::characterMoveZ(int aIndex, double aZ)
             mCharacters.setForceZ(aIndex, 0);
         }
     }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Field::characterAttack(int aIndex)
+{
+    //----- 攻撃可能判定
+
+    //----- 攻撃処理
+
+    //----- アニメーション更新処理
+    mCharacters.setAnimation(aIndex, Animation::Kind_Attack);
 }
 
 //---------------------------------------------------------------------

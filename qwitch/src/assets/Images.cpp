@@ -75,7 +75,7 @@ void Images::loadCharacter()
 
     for (int kind = 0; kind < 2; kind++) {
         std::vector<std::vector<int>> animeImages;
-        for (int anime = 0; anime < 4; anime++) {
+        for (int anime = 0; anime < 5; anime++) {
             std::vector<int> images;
             int imageNumX = 4;    // 画像枚数
             int imageNumY = 4;    // 方向数
