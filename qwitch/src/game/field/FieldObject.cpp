@@ -272,7 +272,7 @@ Vector3d FieldObject::attackAreaPos() const
     }
     else if (mDirection == Direction_Right) {
         dx = sx / 2;
-        sy = sy / 2 * -1;
+        dy = sy / 2 * -1;
     }
     else if (mDirection == Direction_RightDown) {
         dx = sx;
