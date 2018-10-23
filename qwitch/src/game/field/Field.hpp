@@ -47,6 +47,8 @@ private:
 
     /// 当たり判定
     bool isCollision(const FieldObject& aObject) const;
+    /// 接地判定
+    bool isGround(int aIndex);
 
     /// member
     /// カメラ

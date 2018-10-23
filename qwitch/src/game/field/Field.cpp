@@ -74,11 +74,13 @@ void Field::updateCharacter(int aIndex)
     characterMove(aIndex, Vector3d(forceX, forceY, forceZ));
 
     //----- アニメーション更新
-    if (chara.force().z() <= -1) {
-        mCharacters.setAnimation(aIndex, Animation::Kind_Fall);
-    }
-    if (chara.force().z() >= 1) {
-        mCharacters.setAnimation(aIndex, Animation::Kind_Rise);
+    if (isGround(aIndex) == false) {
+        if (chara.force().z() < 0) {
+            mCharacters.setAnimation(aIndex, Animation::Kind_Fall);
+        }
+        if (chara.force().z() > 0) {
+            mCharacters.setAnimation(aIndex, Animation::Kind_Rise);
+        }
     }
 }
 
@@ -214,6 +216,19 @@ bool Field::isCollision(const FieldObject& aObject) const
     }
 
     return false;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool Field::isGround(int aIndex)
+{
+    mCharacters.move(aIndex, Vector3d(0, 0, -1));
+    bool result = isCollision(mCharacters.character(aIndex));
+    mCharacters.move(aIndex, Vector3d(0, 0, 1));
+    return result;
 }
 
 //---------------------------------------------------------------------
