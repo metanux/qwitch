@@ -79,7 +79,7 @@ void Field::updateCharacter(int aIndex)
         if (chara.force().z() < 0) {
             mCharacters.setAnimation(aIndex, Animation::Kind_Fall);
         }
-        if (chara.force().z() > 0) {
+        else {
             mCharacters.setAnimation(aIndex, Animation::Kind_Rise);
         }
     }
@@ -124,7 +124,7 @@ void Field::playerWalk(int aX, int aY)
 //
 void Field::playerJump()
 {
-    mCharacters.jump(FieldParameter::PlayerIndex);
+    characterJump(FieldParameter::PlayerIndex);
 }
 
 //---------------------------------------------------------------------
@@ -227,6 +227,22 @@ void Field::characterMoveZ(int aIndex, double aZ)
 //  
 // 
 //
+void Field::characterJump(int aIndex)
+{
+    //----- ジャンプ可能判定
+    if (isJump(mCharacters.character(aIndex)) == false) {
+        return;
+    }
+
+    //----- ジャンプ処理
+    mCharacters.jump(aIndex);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Field::characterAttack(int aIndex)
 {
     //----- 攻撃可能判定
@@ -270,6 +286,21 @@ bool Field::isGround(int aIndex)
     bool result = isCollision(mCharacters.character(aIndex));
     mCharacters.move(aIndex, Vector3d(0, 0, 1));
     return result;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool Field::isJump(const Character& aChara) const
+{
+    //----- 空中ならジャンプできない
+    if (aChara.animation().kind() == Animation::Kind_Fall) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_Rise) { return false; }
+
+    //-----
+    return true;
 }
 
 //---------------------------------------------------------------------

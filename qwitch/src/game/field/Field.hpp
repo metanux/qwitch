@@ -51,6 +51,8 @@ private:
     void characterMoveX(int aIndex, double aX);
     void characterMoveY(int aIndex, double aY);
     void characterMoveZ(int aIndex, double aZ);
+    /// キャラクターのジャンプ処理
+    void characterJump(int aIndex);
     /// キャラクターの攻撃処理
     void characterAttack(int aIndex);
 
@@ -58,6 +60,8 @@ private:
     bool isCollision(const FieldObject& aObject) const;
     /// 接地判定
     bool isGround(int aIndex);
+    /// ジャンプ可能判定[
+    bool isJump(const Character& aChara) const;
     /// 攻撃可能判定
     bool isAttack(const Character& aChara) const;
 
