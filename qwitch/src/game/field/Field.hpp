@@ -67,7 +67,7 @@ private:
 
     /// キャラクターの検索
     /// 引数のエリアに含まれるキャラクターの一覧を配列で返却
-    std::vector<std::reference_wrapper<const Character>> findCharacter(
+    std::vector<int> findCharacterIndex(
         const Vector3d& aPos,
         const Vector3d& aSize) const;
 

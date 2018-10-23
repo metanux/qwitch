@@ -246,22 +246,34 @@ void Field::characterJump(int aIndex)
 void Field::characterAttack(int aIndex)
 {
     //-----
-    const Character& chara = mCharacters.character(aIndex);
+    const Character& attackChara = mCharacters.character(aIndex);
 
     //----- 攻撃可能判定
-    if (isAttack(chara) == false) {
+    if (isAttack(attackChara) == false) {
         return;
     }
 
     //----- 攻撃範囲内のキャラクター取得
-    const Vector3d& areaPos = chara.attackAreaPos();
-    const Vector3d& areaSize = chara.attackAreaSize();
+    const Vector3d& areaPos = attackChara.attackAreaPos();
+    const Vector3d& areaSize = attackChara.attackAreaSize();
     printf("areaPos %lf %lf %lf\n", areaPos.x(), areaPos.y(), areaPos.z());
-    auto damagedCharas = findCharacter(areaPos, areaSize);;
+    auto damagedIndex = findCharacterIndex(areaPos, areaSize);;
 
     //----- 攻撃処理
-    int count = (int)damagedCharas.size();
-    printf("damagedCharas %d\n", count);
+    int count = (int)damagedIndex.size();
+    for (int i = 0; i < count; i++) {
+        const Character& damagedChara = mCharacters.character(damagedIndex[i]);
+        if (damagedChara.id() == attackChara.id()) { continue; }
+
+        //--- 回避判定
+        //--- ダメージ算出
+        int damage = 0;
+        damage += attackChara.status().attack();
+
+        //--- 被ダメ処理
+        mCharacters.receiveDamage(damagedIndex[i], damage);
+        printf("hp %d\n", damagedChara.status().hp());
+    }
 
     //----- アニメーション更新処理
     mCharacters.setAnimation(aIndex, Animation::Kind_Attack);
@@ -337,17 +349,17 @@ bool Field::isAttack(const Character& aChara) const
 //  
 // 
 //
-std::vector<std::reference_wrapper<const Character>> Field::findCharacter(
+std::vector<int> Field::findCharacterIndex(
     const Vector3d& aPos,
     const Vector3d& aSize) const
 {
-    std::vector<std::reference_wrapper<const Character>> result;
+    std::vector<int> result;
 
     int count = mCharacters.countCharacter();
     for (int i = 0; i < count; i++) {
         const Character& chara = mCharacters.character(i);
         if (chara.isCollision(aPos, aSize)) {
-            result.push_back(chara);
+            result.push_back(i);
         }
     }
 

@@ -30,6 +30,17 @@ void Character::setRelation(Relation aRelation)
     mRelation = aRelation;
 }
 
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Character::receiveDamage(int aDamage)
+{
+    mStatus.reduceHp(aDamage);
+}
+
 //---------------------------------------------------------------------
 // 
 //  

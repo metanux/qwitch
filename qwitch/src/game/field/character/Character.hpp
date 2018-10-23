@@ -27,6 +27,9 @@ public:
     /// コンストラクタ
     Character();
 
+    /// ダメージ処理
+    void receiveDamage(int aDamage);
+
     /// getter
     int image() const;
     Relation relation() const;

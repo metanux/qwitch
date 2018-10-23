@@ -35,6 +35,10 @@ public:
     ///
     void addForce(int aIndex, const Vector3d& aForce);
 
+    /// ダメージ処理
+    void receiveDamage(int aIndex, int aDamage);
+
+
     /// アニメーションの変更
     void setAnimation(int aIndex, Animation::Kind aKind);
 

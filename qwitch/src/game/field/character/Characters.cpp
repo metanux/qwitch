@@ -118,6 +118,16 @@ void Characters::addForce(int aIndex, const Vector3d& aForce)
 //  
 // 
 //
+void Characters::receiveDamage(int aIndex, int aDamage)
+{
+    mCharacters[aIndex].receiveDamage(aDamage);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Characters::setAnimation(int aIndex, Animation::Kind aKind)
 {
     mCharacters[aIndex].setAnimation(aKind);
