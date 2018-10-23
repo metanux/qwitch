@@ -18,11 +18,11 @@ namespace game {
 //
 class Field {
 public:
+    /// コンストラクタ
     Field();
+
+    /// 更新処理
     void update();
-    void updateCharacters();
-    void updateCharacter(int aIndex);
-    void updateCamera();
 
     /// フィールドのローディング
     void load(int aFieldIndex);
@@ -40,6 +40,11 @@ public:
     const Characters& characters() const;
 
 private:
+    /// 更新処理
+    void updateCharacters();
+    void updateCharacter(int aIndex);
+    void updateCamera();
+
     /// キャラクターの移動処理
     void characterMove(int aIndex, const Vector3d& aPos);
     void characterMoveX(int aIndex, double aX);
