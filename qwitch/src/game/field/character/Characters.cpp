@@ -147,6 +147,11 @@ void Characters::setDirection(int aIndex, int aX, int aY, int aZ)
 {
     mCharacters[aIndex].setDirection(aX, aY, aZ);
 }
+//---------------------------------------------------------------------
+void Characters::setDirection(int aIndex, double aX, double aY, double aZ)
+{
+    setDirection(aIndex, (int)aX, (int)aY, (int)aZ);
+}
 
 //---------------------------------------------------------------------
 // 

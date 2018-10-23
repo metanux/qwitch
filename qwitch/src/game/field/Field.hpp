@@ -46,6 +46,7 @@ private:
     void updateCamera();
 
     /// キャラクターの移動処理
+    void characterWalk(int aIndex, const Vector3d& aPos);
     void characterMove(int aIndex, const Vector3d& aPos);
     void characterMoveX(int aIndex, double aX);
     void characterMoveY(int aIndex, double aY);

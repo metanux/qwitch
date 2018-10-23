@@ -114,18 +114,7 @@ void Field::load(int aFieldIndex)
 //
 void Field::playerWalk(int aX, int aY)
 {
-    //----- プレイヤーオブジェクトの移動
-    int speed = 3;
-    int dx = aX * speed;
-    int dy = aY * speed;
-    int dz = 0;
-    characterMove(FieldParameter::PlayerIndex, Vector3d(dx, dy, dz));
-
-    //----- 向きの更新
-    mCharacters.setDirection(FieldParameter::PlayerIndex, dx, dy, dz);
-
-    //----- アニメーションの更新
-    mCharacters.setAnimation(FieldParameter::PlayerIndex, Animation::Kind_Walk);
+    characterWalk(FieldParameter::PlayerIndex, Vector3d(aX, aY, 0));
 }
 
 //---------------------------------------------------------------------
@@ -146,6 +135,30 @@ void Field::playerJump()
 void Field::playerAttack()
 {
     characterAttack(FieldParameter::PlayerIndex);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Field::characterWalk(int aIndex, const Vector3d& aPos)
+{
+    //----- キャラクター
+    const Character& chara = mCharacters.character(aIndex);
+
+    //----- プレイヤーオブジェクトの移動
+    double speed = chara.status().moveSpeed();
+    double dx = aPos.x() * speed;
+    double dy = aPos.y() * speed;
+    double dz = aPos.z();
+    characterMove(aIndex, Vector3d(dx, dy, dz));
+
+    //----- 向きの更新
+    mCharacters.setDirection(aIndex, dx, dy, dz);
+
+    //----- アニメーションの更新
+    mCharacters.setAnimation(aIndex, Animation::Kind_Walk);
 }
 
 //---------------------------------------------------------------------

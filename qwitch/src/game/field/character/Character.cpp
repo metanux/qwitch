@@ -49,6 +49,11 @@ Character::Relation Character::relation() const
 {
     return mRelation;
 }
+//---------------------------------------------------------------------
+const Status& Character::status() const
+{
+    return mStatus;
+}
 
 } // namespace game
 } // namespace qwitch

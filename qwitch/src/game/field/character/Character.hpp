@@ -30,6 +30,7 @@ public:
     /// getter
     int image() const;
     Relation relation() const;
+    const Status& status() const;
 
     /// setter
     void setRelation(Relation aRelation);
