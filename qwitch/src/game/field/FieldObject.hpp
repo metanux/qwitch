@@ -70,6 +70,7 @@ public:
     void setForceZ(double aZ);
     void setKind(int aKind);
     void setDirection(int aX, int aY, int aZ);
+    void setDirection(Direction aDirection);
     //@}
 
     /// @name getter
@@ -80,6 +81,8 @@ public:
     const Vector3d& force() const;
     int kind() const;
     Direction direction() const;
+    int directionX() const;
+    int directionY() const;
     const Animation& animation() const;
     //@}
 

@@ -26,6 +26,7 @@ public:
     /// オブジェクト追加処理
     void add(
         const Vector3d& aPos,
+        FieldObject::Direction aDirection,
         int aKind);
 
     /// オブジェクト数

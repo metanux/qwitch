@@ -195,6 +195,12 @@ void FieldObject::setDirection(int aX, int aY, int aZ)
         if (aY > 0) { mDirection = Direction_LeftDown; }
     }
 }
+//---------------------------------------------------------------------
+void FieldObject::setDirection(Direction aDirection)
+{
+    mDirection = aDirection;
+}
+
 
 //---------------------------------------------------------------------
 // 
@@ -229,6 +235,32 @@ int FieldObject::kind() const
 FieldObject::Direction FieldObject::direction() const
 {
     return mDirection;
+}
+//---------------------------------------------------------------------
+int FieldObject::directionX() const
+{
+    if (mDirection == Direction_Down) { return 1; }
+    if (mDirection == Direction_LeftDown) { return 0; }
+    if (mDirection == Direction_Left) { return -1; }
+    if (mDirection == Direction_LeftUp) { return -1; }
+    if (mDirection == Direction_Up) { return -1; }
+    if (mDirection == Direction_RightUp) { return 0; }
+    if (mDirection == Direction_Right) { return 1; }
+    if (mDirection == Direction_RightDown) { return 1; }
+    return 0;
+}
+//---------------------------------------------------------------------
+int FieldObject::directionY() const
+{
+    if (mDirection == Direction_Down) { return 1; }
+    if (mDirection == Direction_LeftDown) { return 1; }
+    if (mDirection == Direction_Left) { return 1; }
+    if (mDirection == Direction_LeftUp) { return 0; }
+    if (mDirection == Direction_Up) { return -1; }
+    if (mDirection == Direction_RightUp) { return -1; }
+    if (mDirection == Direction_Right) { return -1; }
+    if (mDirection == Direction_RightDown) { return 0; }
+    return 0;
 }
 //---------------------------------------------------------------------
 const Animation& FieldObject::animation() const

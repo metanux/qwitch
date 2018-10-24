@@ -292,7 +292,8 @@ void Field::characterAttack(int aIndex)
     }
 
     //----- 攻撃処理
-    mBullets.add(attackChara.pos(), 0);
+    
+    mBullets.add(attackChara.pos(), attackChara.direction(), 0);
 
     //----- アニメーション更新処理
     mCharacters.setAnimation(aIndex, Animation::Kind_Attack);
