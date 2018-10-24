@@ -15,21 +15,9 @@ namespace game {
 // 
 //
 Character::Character()
-    : mRelation(Relation_Neutral)
-    , mStatus()
+    : mStatus()
 {
 }
-
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-void Character::setRelation(Relation aRelation)
-{
-    mRelation = aRelation;
-}
-
 
 //---------------------------------------------------------------------
 // 
@@ -54,11 +42,6 @@ int Character::image() const
         animation().animeIndex(),
         dire,
         animation().imageIndex());
-}
-//---------------------------------------------------------------------
-Character::Relation Character::relation() const
-{
-    return mRelation;
 }
 //---------------------------------------------------------------------
 const Status& Character::status() const

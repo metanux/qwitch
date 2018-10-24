@@ -48,6 +48,7 @@ void Bullets::update()
 void Bullets::add(
     const Vector3d& aPos,
     FieldObject::Direction aDirection,
+    FieldObject::Relation aRelation,
     int aKind)
 {
     Bullet bullet;
@@ -55,8 +56,18 @@ void Bullets::add(
     bullet.setSize(Vector3d(16, 16, 16));
     bullet.setKind(aKind);
     bullet.setDirection(aDirection);
+    bullet.setRelation(aRelation);
     mBullet.push_back(bullet);
-    printf("add Bullet\n");
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Bullets::del(int aIndex)
+{
+    mBullet.erase(mBullet.begin() + aIndex);
 }
 
 //---------------------------------------------------------------------

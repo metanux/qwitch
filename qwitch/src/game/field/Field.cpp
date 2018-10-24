@@ -113,11 +113,19 @@ void Field::updateCamera()
 //
 void Field::updateBullets()
 {
+    //------ 状態の更新
     mBullets.update();
-
     int n = mBullets.count();
-    for (int i = 0; i < n; i++) {
+    for (int i = n - 1; i >= 0; i--) {
         updateBullet(i);
+    }
+    //----- 削除処理
+    n = mBullets.count();
+    for (int i = n - 1; i >= 0; i--) {
+        const Bullet& bullet = mBullets.bullet(i);
+        if (bullet.isDelete()) {
+            mBullets.del(i);
+        }
     }
 }
 
@@ -130,9 +138,29 @@ void Field::updateBullet(int aIndex)
 {
     //-----
     const Bullet& bullet = mBullets.bullet(aIndex);
+    bool deleteFlag = false;
 
     //----- 当たり判定
+    std::vector<int> index = findCharacterIndex(bullet.pos(), bullet.size());
+    int count = (int)index.size();
+    for (int i = 0; i < count; i++) {
+        const Character& damagedChara = mCharacters.character(index[0]);
+        if (damagedChara.isEnemy(bullet) == false) { continue; }
+        // ダメージ処理
+        int damage = 10;
+        mCharacters.receiveDamage(index[i], damage);
+        // ダメージエフェクト表示
+        int x = (int)damagedChara.convertWindowPosX();
+        int y = (int)damagedChara.convertWindowPosY();
+        mDamageEffects.add(damage, x, y);
+        //
+        deleteFlag = true;
+    }
 
+    // 攻撃オブジェクトの削除
+    if (deleteFlag) {
+        mBullets.del(aIndex);
+    }
 }
 
 //---------------------------------------------------------------------
@@ -292,8 +320,11 @@ void Field::characterAttack(int aIndex)
     }
 
     //----- 攻撃処理
-    
-    mBullets.add(attackChara.pos(), attackChara.direction(), 0);
+    mBullets.add(
+        attackChara.pos(),
+        attackChara.direction(),
+        attackChara.relation(),
+        0);
 
     //----- アニメーション更新処理
     mCharacters.setAnimation(aIndex, Animation::Kind_Attack);

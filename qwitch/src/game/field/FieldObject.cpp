@@ -21,6 +21,7 @@ FieldObject::FieldObject()
     , mKind(0)
     , mDirection(Direction_Down)
     , mAnimation()
+    , mRelation(Relation_Neutral)
 {
     static int idList = 0;
     mId = idList++;
@@ -72,7 +73,6 @@ bool FieldObject::isCollision(
     return true;
 }
 
-
 //---------------------------------------------------------------------
 // 
 //  
@@ -81,6 +81,26 @@ bool FieldObject::isCollision(
 bool FieldObject::isEqual(const FieldObject& aObject) const
 {
     if (aObject.id() == mId) { return true; }
+    return false;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool FieldObject::isEnemy(const FieldObject& aObject) const
+{
+    if (aObject.relation() == Relation_Enemy) {
+        if (mRelation == Relation_Friend) {
+            return true;
+        }
+    }
+    if (aObject.relation() == Relation_Friend) {
+        if (mRelation == Relation_Enemy) {
+            return true;
+        }
+    }
     return false;
 }
 
@@ -200,6 +220,11 @@ void FieldObject::setDirection(Direction aDirection)
 {
     mDirection = aDirection;
 }
+//---------------------------------------------------------------------
+void FieldObject::setRelation(Relation aRelation)
+{
+    mRelation = aRelation;
+}
 
 
 //---------------------------------------------------------------------
@@ -266,6 +291,11 @@ int FieldObject::directionY() const
 const Animation& FieldObject::animation() const
 {
     return mAnimation;
+}
+//---------------------------------------------------------------------
+FieldObject::Relation FieldObject::relation() const
+{
+    return mRelation;
 }
 
 } // namespace game

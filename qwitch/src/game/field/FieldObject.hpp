@@ -29,6 +29,13 @@ public:
         Direction_RightDown,
     };
 
+    /// 敵対関係
+    enum Relation {
+        Relation_Neutral,  // 中立
+        Relation_Enemy,    // 敵
+        Relation_Friend,   // 味方
+    };
+
     /// コンストラクタ
     FieldObject();
 
@@ -40,9 +47,10 @@ public:
     bool isCollision(
         const Vector3d& aPos,
         const Vector3d& aSize) const;
-
     /// 同じオブジェクトか判定
     bool isEqual(const FieldObject& aObject) const;
+    /// 敵オブジェクトか判定
+    bool isEnemy(const FieldObject& aObject) const;
 
     /// 描画に使用する画像ハンドルを返却
     virtual int image() const = 0;
@@ -71,6 +79,7 @@ public:
     void setKind(int aKind);
     void setDirection(int aX, int aY, int aZ);
     void setDirection(Direction aDirection);
+    void setRelation(Relation aRelation);
     //@}
 
     /// @name getter
@@ -84,6 +93,7 @@ public:
     int directionX() const;
     int directionY() const;
     const Animation& animation() const;
+    Relation relation() const;
     //@}
 
 private:
@@ -102,6 +112,8 @@ private:
     Direction mDirection;
     /// アニメーション
     Animation mAnimation;
+    /// 敵対関係
+    Relation mRelation;
 };
 
 } // namespace game

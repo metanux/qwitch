@@ -27,7 +27,11 @@ public:
     void add(
         const Vector3d& aPos,
         FieldObject::Direction aDirection,
+        FieldObject::Relation aRelation,
         int aKind);
+
+    /// オブジェクトの削除処理
+    void del(int aIndex);
 
     /// オブジェクト数
     int count() const;
