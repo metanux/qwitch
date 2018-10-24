@@ -57,6 +57,15 @@ void FieldRender::renderObjects(
         index.push_back(countObjects++);
     }
 
+    // 攻撃オブジェクト
+    const Bullets& bullets = aField.bullets();
+    int countBullets = bullets.count();
+    for (int i = 0; i < countBullets; i++) {
+        const Bullet& bullet = bullets.bullet(i);
+        objects.push_back(bullet);
+        index.push_back(countObjects++);
+    }
+
     // キャラクター
     const Characters& charas = aField.characters();
     int countCharas = charas.countDisplayCharacter();

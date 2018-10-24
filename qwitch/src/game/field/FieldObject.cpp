@@ -235,64 +235,6 @@ const Animation& FieldObject::animation() const
 {
     return mAnimation;
 }
-//---------------------------------------------------------------------
-Vector3d FieldObject::attackAreaPos() const
-{
-    Vector3d areaPos = pos();
-    double sx = size().x();
-    double sy = size().y();
-    double sz = size().z();
-    double dx = 0;
-    double dy = 0;
-    double dz = 0;
-
-    if (mDirection == Direction_Down) {
-        dx = sx / 2;
-        dy = sy / 2;
-    }
-    else if (mDirection == Direction_LeftDown) {
-        dx = 0;
-        dy = sy;
-    }
-    else if (mDirection == Direction_Left) {
-        dx = sx / 2 * -1;
-        dy = sy / 2;
-    }
-    else if (mDirection == Direction_LeftUp) {
-        dx = sx * -1;
-        dy = 0;
-    }
-    else if (mDirection == Direction_Up) {
-        dx = sx / 2 * -1;
-        dy = sy / 2 * -1;
-    }
-    else if (mDirection == Direction_RightUp) {
-        dx = 0;
-        dy = sy * -1;
-    }
-    else if (mDirection == Direction_Right) {
-        dx = sx / 2;
-        dy = sy / 2 * -1;
-    }
-    else if (mDirection == Direction_RightDown) {
-        dx = sx;
-        dy = 0;
-    }
-
-    //----- 
-    areaPos.move(dx, dy, dz);
-
-    return areaPos;
-}
-//---------------------------------------------------------------------
-Vector3d FieldObject::attackAreaSize() const
-{
-    double sx = size().x();
-    double sy = size().y();
-    double sz = size().z();
-    Vector3d areaSize(sx, sy, sz);
-    return areaSize;
-}
 
 } // namespace game
 } // namespace qwitch

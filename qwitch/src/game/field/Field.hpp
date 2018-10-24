@@ -8,6 +8,7 @@
 #include "game/field/terrain/Terrain.hpp"
 #include "game/field/character/characters.hpp"
 #include "game/field/effect/DamageEffects.hpp"
+#include "game/field/bullet/Bullets.hpp"
 
 namespace qwitch {
 namespace game {
@@ -40,12 +41,15 @@ public:
     const Terrain& terrain() const;
     const Characters& characters() const;
     const DamageEffects& damageEffects() const;
+    const Bullets& bullets() const;
 
 private:
     /// 更新処理
     void updateCharacters();
     void updateCharacter(int aIndex);
     void updateCamera();
+    void updateBullets();
+    void updateBullet(int aIndex);
 
     /// キャラクターの移動処理
     void characterWalk(int aIndex, const Vector3d& aPos);
@@ -82,6 +86,8 @@ private:
     Characters mCharacters;
     /// ダメージエフェクト
     DamageEffects mDamageEffects;
+    /// 攻撃オブジェクト
+    Bullets mBullets;
 };
 
 } // namespace game

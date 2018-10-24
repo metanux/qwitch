@@ -21,6 +21,7 @@ Field::Field()
     , mTerrain()
     , mCharacters()
     , mDamageEffects()
+    , mBullets()
 {
 }
 
@@ -32,7 +33,6 @@ Field::Field()
 void Field::update()
 {
     //----- キャラクターの更新
-    mCharacters.update(mCamera);
     updateCharacters();
 
     //----- カメラの更新
@@ -43,6 +43,9 @@ void Field::update()
 
     //----- エフェクトの更新
     mDamageEffects.update();
+
+    //----- 攻撃オブジェクトの更新
+    updateBullets();
 }
 
 //---------------------------------------------------------------------
@@ -52,6 +55,8 @@ void Field::update()
 //
 void Field::updateCharacters()
 {
+    mCharacters.update(mCamera);
+
     int count = mCharacters.countCharacter();
     for (int i = 0; i < count; i++) {
         updateCharacter(i);
@@ -99,6 +104,35 @@ void Field::updateCamera()
     //----- 状態更新
     const Character& player = mCharacters.player();
     mCamera.update(player);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Field::updateBullets()
+{
+    mBullets.update();
+
+    int n = mBullets.count();
+    for (int i = 0; i < n; i++) {
+        updateBullet(i);
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Field::updateBullet(int aIndex)
+{
+    //-----
+    const Bullet& bullet = mBullets.bullet(aIndex);
+
+    //----- 当たり判定
+
 }
 
 //---------------------------------------------------------------------
@@ -257,34 +291,8 @@ void Field::characterAttack(int aIndex)
         return;
     }
 
-    //----- 攻撃範囲内のキャラクター取得
-    const Vector3d& areaPos = attackChara.attackAreaPos();
-    const Vector3d& areaSize = attackChara.attackAreaSize();
-    printf("areaPos %lf %lf %lf\n", areaPos.x(), areaPos.y(), areaPos.z());
-    auto damagedIndex = findCharacterIndex(areaPos, areaSize);;
-
     //----- 攻撃処理
-    int count = (int)damagedIndex.size();
-    for (int i = 0; i < count; i++) {
-        const Character& damagedChara = mCharacters.character(damagedIndex[i]);
-        if (damagedChara.id() == attackChara.id()) { continue; }
-
-        //--- 回避判定
-
-
-        //--- ダメージ算出
-        int damage = 0;
-        damage += attackChara.status().attack();
-
-        //--- 被ダメ処理
-        mCharacters.receiveDamage(damagedIndex[i], damage);
-        printf("hp %d\n", damagedChara.status().hp());
-
-        //--- ダメージエフェクト表示
-        int windowPosX = (int)damagedChara.convertWindowPosX();
-        int windowPosY = (int)damagedChara.convertWindowPosY();
-        mDamageEffects.add(damage, windowPosX, windowPosY);
-    }
+    mBullets.add(attackChara.pos(), 0);
 
     //----- アニメーション更新処理
     mCharacters.setAnimation(aIndex, Animation::Kind_Attack);
@@ -400,6 +408,11 @@ const Characters& Field::characters() const
 const DamageEffects& Field::damageEffects() const
 {
     return mDamageEffects;
+}
+//---------------------------------------------------------------------
+const Bullets& Field::bullets() const
+{
+    return mBullets;
 }
 
 } // namespace game

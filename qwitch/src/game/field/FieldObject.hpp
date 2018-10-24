@@ -81,8 +81,6 @@ public:
     int kind() const;
     Direction direction() const;
     const Animation& animation() const;
-    Vector3d attackAreaPos() const;
-    Vector3d attackAreaSize() const;
     //@}
 
 private:

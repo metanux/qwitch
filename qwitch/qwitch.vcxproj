@@ -25,6 +25,8 @@
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
     <ClCompile Include="src\assets\Images.cpp" />
     <ClCompile Include="src\game\field\animation\Animation.cpp" />
+    <ClCompile Include="src\game\field\bullet\Bullet.cpp" />
+    <ClCompile Include="src\game\field\bullet\Bullets.cpp" />
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
     <ClCompile Include="src\game\field\character\Character.cpp" />
     <ClCompile Include="src\game\field\character\Characters.cpp" />
@@ -61,6 +63,8 @@
     <ClInclude Include="src\assets\data\TerrainData.hpp" />
     <ClInclude Include="src\assets\Images.hpp" />
     <ClInclude Include="src\game\field\animation\Animation.hpp" />
+    <ClInclude Include="src\game\field\bullet\Bullet.hpp" />
+    <ClInclude Include="src\game\field\bullet\Bullets.hpp" />
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
     <ClInclude Include="src\game\field\character\Character.hpp" />
     <ClInclude Include="src\game\field\character\Characters.hpp" />

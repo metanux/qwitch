@@ -35,6 +35,8 @@
     <ClCompile Include="src\game\field\animation\Animation.cpp" />
     <ClCompile Include="src\game\field\effect\DamageEffect.cpp" />
     <ClCompile Include="src\game\field\effect\DamageEffects.cpp" />
+    <ClCompile Include="src\game\field\bullet\Bullet.cpp" />
+    <ClCompile Include="src\game\field\bullet\Bullets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -70,6 +72,8 @@
     <ClInclude Include="src\game\field\animation\Animation.hpp" />
     <ClInclude Include="src\game\field\effect\DamageEffect.hpp" />
     <ClInclude Include="src\game\field\effect\DamageEffects.hpp" />
+    <ClInclude Include="src\game\field\bullet\Bullet.hpp" />
+    <ClInclude Include="src\game\field\bullet\Bullets.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />
