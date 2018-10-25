@@ -29,7 +29,9 @@ Animation::Animation()
     mKindToAnime[Kind_Walk] = 1;
     mKindToAnime[Kind_Rise] = 2;
     mKindToAnime[Kind_Fall] = 3;
-    mKindToAnime[Kind_Attack] = 4;
+    mKindToAnime[Kind_MagicPrev] = 4;
+    mKindToAnime[Kind_Magic] = 5;
+    mKindToAnime[Kind_MagicPost] = 5;
 }
 
 //---------------------------------------------------------------------
@@ -46,8 +48,10 @@ void Animation::update()
     change(mNextKind);
 
     //----- NextKindの更新
-    if (mKind == Kind_Attack) {
-        mNextKind = Kind_Attack;
+    if (mKind == Kind_MagicPrev ||
+        mKind == Kind_Magic ||
+        mKind == Kind_MagicPost) {
+        mNextKind = mKind;
     }
     else {
         mNextKind = Kind_Wait;
@@ -88,7 +92,15 @@ void Animation::setNextKind(Kind aKind)
             mNextKind = aKind;
         }
     }
-    if (aKind == Kind_Attack) {
+    if (aKind == Kind_MagicPrev) {
+        if (mNextKind == Kind_Wait) {
+            mNextKind = aKind;
+        }
+        if (mNextKind == Kind_Walk) {
+            mNextKind = aKind;
+        }
+    }
+    if (aKind == Kind_MagicPost) {
         if (mNextKind == Kind_Wait) {
             mNextKind = aKind;
         }
@@ -112,6 +124,10 @@ void Animation::change(Kind aKind)
     mFrame = 0;
     mImageNum = 4;
     mSpeed = 20;
+    if (mKind == Kind_Magic) {
+        mSpeed = 0;
+        mImageNum = 1;
+    }
 }
 
 //---------------------------------------------------------------------
@@ -127,7 +143,13 @@ void Animation::nextIndex()
 
     //----- animeIndexの更新
     if (mImageIndex == 0) {
-        if (mKind == Kind_Attack) {
+        if (mKind == Kind_MagicPrev) {
+            mNextKind = Kind_Magic;
+        }
+        else if (mKind == Kind_Magic) {
+            mNextKind = Kind_MagicPost;
+        }
+        else if (mKind == Kind_MagicPost) {
             mNextKind = Kind_Wait;
         }
     }

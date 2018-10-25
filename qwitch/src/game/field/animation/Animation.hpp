@@ -17,11 +17,13 @@ class Animation {
 public:
     /// アニメーションの種類
     enum Kind {
-        Kind_Wait,     // 待機
-        Kind_Walk,     // 歩行
-        Kind_Rise,     // 上昇
-        Kind_Fall,     // 落下
-        Kind_Attack,   // 攻撃
+        Kind_Wait,      // 待機
+        Kind_Walk,      // 歩行
+        Kind_Rise,      // 上昇
+        Kind_Fall,      // 落下
+        Kind_MagicPrev, // 魔法前
+        Kind_Magic,     // 魔法発動
+        Kind_MagicPost, // 魔法後
     };
 
     /// 更新処理

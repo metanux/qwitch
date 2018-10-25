@@ -51,6 +51,16 @@ void Character::reduceMp(int aValue)
 //  
 // 
 //
+void Character::setMagicIndex(int aIndex)
+{
+    mMagicIndex = aIndex;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 int Character::image() const
 {
     int dire = direction() / 2;
@@ -74,6 +84,11 @@ const Magic& Character::activeMagic(int aIndex) const
 const Magic& Character::passiveMagic(int aIndex) const
 {
     return mPassiveMagic[aIndex];
+}
+//---------------------------------------------------------------------
+int  Character::magicIndex() const
+{
+    return mMagicIndex;
 }
 
 } // namespace game

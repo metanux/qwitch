@@ -92,6 +92,18 @@ void Field::updateCharacter(int aIndex)
             mCharacters.setAnimation(aIndex, Animation::Kind_Rise);
         }
     }
+
+    //----- 魔法発動
+    if (chara.animation().kind() == Animation::Kind_Magic) {
+        int magicIndex = chara.magicIndex();
+        const Magic& magic = chara.activeMagic(magicIndex);
+        mBullets.add(
+            chara.pos(),
+            chara.direction(),
+            chara.relation(),
+            magic.attack(),
+            0);
+    }
 }
 
 //---------------------------------------------------------------------
@@ -214,6 +226,11 @@ void Field::characterWalk(int aIndex, const Vector3d& aPos)
     //----- キャラクター
     const Character& chara = mCharacters.character(aIndex);
 
+    //----- 移動可能判定
+    if (isWalk(chara) == false) {
+        return;
+    }
+
     //----- プレイヤーオブジェクトの移動
     double speed = chara.status().moveSpeed();
     double dx = aPos.x() * speed;
@@ -314,29 +331,22 @@ void Field::characterMagic(int aCharaIndex, int aMagicIndex)
 {
     //-----
     const Character& attackChara = mCharacters.character(aCharaIndex);
+    const Magic& magic = attackChara.activeMagic(aMagicIndex);
 
     //----- 魔法発動判定
     if (isMagic(attackChara) == false) {
         return;
     }
 
-    //----- 魔法
-    const Magic& magic = attackChara.activeMagic(aMagicIndex);
+    //----- 魔法設定
+    mCharacters.setMagicIndex(aCharaIndex, aMagicIndex);
 
     //----- MP消費
     int mp = magic.mp();
     mCharacters.reduceMp(aCharaIndex, mp);
 
-    //----- 攻撃処理
-    mBullets.add(
-        attackChara.pos(),
-        attackChara.direction(),
-        attackChara.relation(),
-        magic.attack(),
-        0);
-
     //----- アニメーション更新処理
-    mCharacters.setAnimation(aCharaIndex, Animation::Kind_Attack);
+    mCharacters.setAnimation(aCharaIndex, Animation::Kind_MagicPrev);
 }
 
 //---------------------------------------------------------------------
@@ -376,6 +386,21 @@ bool Field::isGround(int aIndex)
 //  
 // 
 //
+bool Field::isWalk(const Character& aChara) const
+{
+    //----- 攻撃モーション中は移動できない
+    if (aChara.animation().kind() == Animation::Kind_MagicPrev) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_Magic) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_MagicPost) { return false; }
+
+    return true;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 bool Field::isJump(const Character& aChara) const
 {
     //----- 空中ならジャンプできない
@@ -394,7 +419,9 @@ bool Field::isJump(const Character& aChara) const
 bool Field::isMagic(const Character& aChara) const
 {
     //----- 攻撃モーション中は攻撃できない
-    if (aChara.animation().kind() == Animation::Kind_Attack) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_MagicPrev) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_Magic) { return false; }
+    if (aChara.animation().kind() == Animation::Kind_MagicPost) { return false; }
 
     //----- 空中なら攻撃できない
     if (aChara.animation().kind() == Animation::Kind_Fall) { return false; }

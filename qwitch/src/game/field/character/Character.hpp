@@ -27,11 +27,15 @@ public:
     /// MPの消費
     void reduceMp(int aValue);
 
+    /// setter
+    void setMagicIndex(int aIndex);
+
     /// getter
     int image() const;
     const Status& status() const;
     const Magic& activeMagic(int aIndex) const;
     const Magic& passiveMagic(int aIndex) const;
+    int magicIndex() const;
 
 private:
     /// ステータス
@@ -40,6 +44,8 @@ private:
     std::vector<Magic> mActiveMagic;
     /// パッシブ魔法
     std::vector<Magic> mPassiveMagic;
+    /// 詠唱中のアクティブ魔法index
+    int mMagicIndex;
     /// 装備
 };
 

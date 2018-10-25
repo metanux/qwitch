@@ -40,15 +40,14 @@ public:
     /// MP消費
     void reduceMp(int aIndex, int aValue);
 
-    /// アニメーションの変更
-    void setAnimation(int aIndex, Animation::Kind aKind);
-
     /// @ name 
     void setForceX(int aIndex, double aX);
     void setForceY(int aIndex, double aY);
     void setForceZ(int aIndex, double aZ);
     void setDirection(int aIndex, int aX, int aY, int aZ);
     void setDirection(int aIndex, double aX, double aY, double aZ);
+    void setAnimation(int aIndex, Animation::Kind aKind);
+    void setMagicIndex(int aCharaIndex, int aMagicIndex);
 
     /// キャラクター数
     int countCharacter() const;

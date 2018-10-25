@@ -180,6 +180,11 @@ void Characters::setDirection(int aIndex, double aX, double aY, double aZ)
 {
     setDirection(aIndex, (int)aX, (int)aY, (int)aZ);
 }
+//---------------------------------------------------------------------
+void Characters::setMagicIndex(int aCharaIndex, int aMagicIndex)
+{
+    mCharacters[aCharaIndex].setMagicIndex(aMagicIndex);
+}
 
 //---------------------------------------------------------------------
 // 

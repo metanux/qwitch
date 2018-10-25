@@ -22,10 +22,8 @@ class Field {
 public:
     /// コンストラクタ
     Field();
-
     /// 更新処理
     void update();
-
     /// フィールドのローディング
     void load(int aFieldIndex);
 
@@ -66,7 +64,9 @@ private:
     bool isCollision(const FieldObject& aObject) const;
     /// 接地判定
     bool isGround(int aIndex);
-    /// ジャンプ可能判定[
+    /// 移動可能判定
+    bool isWalk(const Character& aChara) const;
+    /// ジャンプ可能判定
     bool isJump(const Character& aChara) const;
     /// 魔法発動判定
     bool isMagic(const Character& aChara) const;
