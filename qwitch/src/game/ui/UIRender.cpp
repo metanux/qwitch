@@ -33,6 +33,9 @@ void UIRender::render(const Game& aGame) const
 
     //----- MPゲージ
     renderMPGage(status);
+
+    //----- スキルアイコン
+    renderIconMagics(aGame);
 }
 
 //---------------------------------------------------------------------
@@ -75,6 +78,26 @@ void UIRender::renderMPGage(const Status& aStatus) const
     DxLib::DrawBox(x1, y1, x2, y2, DxLib::GetColor(30, 30, 30), TRUE);
     DxLib::DrawBox(x1, y1, x3, y3, DxLib::GetColor(120, 225, 255), TRUE);
     DxLib::DrawBox(x1, y1, x2, y2, DxLib::GetColor(0, 0, 0), FALSE);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void UIRender::renderIconMagics(const Game& aGame) const
+{
+    const Character& player = aGame.field().characters().player();
+    int count = player.countActiveMagic();
+
+    for (int i = 0; i < count; i++) {
+        const Magic& magic = player.activeMagic(i);
+        int x = 50 + i * 33;
+        int y = 500;
+        int id = magic.id();
+        int image = Images::ins().iconMagic(id);
+        DxLib::DrawGraph(x, y, image, TRUE);
+    }
 }
 
 } // namespace game

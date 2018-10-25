@@ -17,6 +17,7 @@ Images::Images()
     : mBlock()
     , mCharacter()
     , mBullet()
+    , mIconMagic()
     , mTitleBack()
 {
 }
@@ -45,6 +46,8 @@ void Images::load()
     loadCharacter();
     //----- 攻撃オブジェクト
     loadBullet();
+    //----- スキルアイコン
+    loadIconMagic();
 
     //----- タイトル画面
     mTitleBack = DxLib::LoadGraph("assets/images/title/back.png");
@@ -128,6 +131,23 @@ void Images::loadBullet()
 //  
 // 
 //
+void Images::loadIconMagic()
+{
+    char url[100];
+
+    int countIcon = 2;
+    mIconMagic.resize(countIcon);
+    for (int i = 0; i < countIcon; i++) {
+        sprintf_s(url, "assets/images/icon/magic/%d.png", i);
+        mIconMagic[i] = DxLib::LoadGraph(url);
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 int Images::block(int aIndex) const
 {
     return mBlock[aIndex];
@@ -142,6 +162,11 @@ int Images::character(int aKind, int aAnime, int aDirection, int aIndex) const
 int Images::bullet(int aKind, int aDirection, int aIndex) const
 {
     return mBullet[aKind][aIndex];
+}
+//---------------------------------------------------------------------
+int Images::iconMagic(int aIndex) const
+{
+    return mIconMagic[aIndex];
 }
 //---------------------------------------------------------------------
 int Images::titleBack() const

@@ -51,6 +51,16 @@ void Character::reduceMp(int aValue)
 //  
 // 
 //
+int Character::countActiveMagic() const
+{
+    return (int)mActiveMagic.size();
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Character::setMagicIndex(int aIndex)
 {
     mMagicIndex = aIndex;

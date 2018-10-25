@@ -27,6 +27,9 @@ public:
     /// MPの消費
     void reduceMp(int aValue);
 
+    /// count
+    int countActiveMagic() const;
+
     /// setter
     void setMagicIndex(int aIndex);
 

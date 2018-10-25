@@ -23,6 +23,7 @@ public:
 private:
     void renderHPGage(const Status& aStatus) const;
     void renderMPGage(const Status& aStatus) const;
+    void renderIconMagics(const Game& aGame) const;
 };
 
 } // namespace game
