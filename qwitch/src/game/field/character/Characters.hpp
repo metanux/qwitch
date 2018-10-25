@@ -48,6 +48,7 @@ public:
     void setDirection(int aIndex, double aX, double aY, double aZ);
     void setAnimation(int aIndex, Animation::Kind aKind);
     void setMagicIndex(int aCharaIndex, int aMagicIndex);
+    void setAnimeSpeed(int aIndex, int aSpeed);
 
     /// キャラクター数
     int countCharacter() const;

@@ -63,6 +63,11 @@ int Magic::mp() const
 {
     return Data::ins().magic(mId).value("消費MP", mLevel);
 }
+//---------------------------------------------------------------------
+int Magic::cast() const
+{
+    return Data::ins().magic(mId).value("キャスト", mLevel);
+}
 
 } // namespace game
 } // namespace qwitch

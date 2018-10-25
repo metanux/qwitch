@@ -80,6 +80,7 @@ public:
     void setDirection(int aX, int aY, int aZ);
     void setDirection(Direction aDirection);
     void setRelation(Relation aRelation);
+    void setAnimeSpeed(int aSpeed);
     //@}
 
     /// @name getter

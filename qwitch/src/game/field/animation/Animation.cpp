@@ -23,6 +23,7 @@ Animation::Animation()
     , mFrame(0)
     , mImageNum(4)
     , mSpeed(20)
+    , mNextSpeed(20)
 {
     // デバッグ用
     mKindToAnime[Kind_Wait] = 0;
@@ -123,7 +124,8 @@ void Animation::change(Kind aKind)
     mImageIndex = 0;
     mFrame = 0;
     mImageNum = 4;
-    mSpeed = 20;
+    mSpeed = mNextSpeed;
+    mNextSpeed = 20;
     if (mKind == Kind_Magic) {
         mSpeed = 0;
         mImageNum = 1;
@@ -163,6 +165,16 @@ void Animation::nextIndex()
 bool Animation::isNextIndex()
 {
     return (mFrame >= mSpeed);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Animation::setNextSpeed(int aSpeed)
+{
+    mNextSpeed = aSpeed;
 }
 
 //---------------------------------------------------------------------

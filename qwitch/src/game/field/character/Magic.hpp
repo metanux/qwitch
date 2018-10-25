@@ -28,6 +28,7 @@ public:
     int rank() const;
     int attack() const;
     int mp() const;
+    int cast() const;
 
 private:
     /// 魔法ID

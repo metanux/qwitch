@@ -330,11 +330,11 @@ void Field::characterJump(int aIndex)
 void Field::characterMagic(int aCharaIndex, int aMagicIndex)
 {
     //-----
-    const Character& attackChara = mCharacters.character(aCharaIndex);
-    const Magic& magic = attackChara.activeMagic(aMagicIndex);
+    const Character& chara = mCharacters.character(aCharaIndex);
+    const Magic& magic = chara.activeMagic(aMagicIndex);
 
     //----- 魔法発動判定
-    if (isMagic(attackChara) == false) {
+    if (isMagic(chara) == false) {
         return;
     }
 
@@ -347,6 +347,10 @@ void Field::characterMagic(int aCharaIndex, int aMagicIndex)
 
     //----- アニメーション更新処理
     mCharacters.setAnimation(aCharaIndex, Animation::Kind_MagicPrev);
+
+    //----- 
+    int speed = magic.cast();
+    mCharacters.setAnimeSpeed(aCharaIndex, speed);
 }
 
 //---------------------------------------------------------------------

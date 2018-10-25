@@ -185,6 +185,11 @@ void Characters::setMagicIndex(int aCharaIndex, int aMagicIndex)
 {
     mCharacters[aCharaIndex].setMagicIndex(aMagicIndex);
 }
+//---------------------------------------------------------------------
+void Characters::setAnimeSpeed(int aIndex, int aSpeed)
+{
+    mCharacters[aIndex].setAnimeSpeed(aSpeed);
+}
 
 //---------------------------------------------------------------------
 // 

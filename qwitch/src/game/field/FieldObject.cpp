@@ -225,6 +225,11 @@ void FieldObject::setRelation(Relation aRelation)
 {
     mRelation = aRelation;
 }
+//---------------------------------------------------------------------
+void FieldObject::setAnimeSpeed(int aSpeed)
+{
+    mAnimation.setNextSpeed(aSpeed);
+}
 
 
 //---------------------------------------------------------------------

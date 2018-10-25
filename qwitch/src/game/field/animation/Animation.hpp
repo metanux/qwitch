@@ -34,6 +34,7 @@ public:
 
     ///
     void setNextKind(Kind aKind);
+    void setNextSpeed(int aSpeed);
 
     /// getter
     Kind kind() const;
@@ -58,8 +59,6 @@ private:
     int mKindToAnime[10];
     /// 現在のアニメーションの種類
     Kind mKind;
-    /// 次のアニメーションの種類
-    Kind mNextKind;
     /// アニメーションのindex
     int mAnimeIndex;
     /// アニメーションのindex
@@ -70,6 +69,10 @@ private:
     int mImageNum;
     /// アニメーションのスピード
     int mSpeed;
+    /// 次のアニメーションの種類
+    Kind mNextKind;
+    /// 次のアニメーションの速度
+    int mNextSpeed;
 };
 
 } // namespace game
