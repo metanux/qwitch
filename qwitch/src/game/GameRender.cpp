@@ -18,6 +18,7 @@ namespace game {
 //
 GameRender::GameRender()
     : mFieldRender()
+    , mUIRender()
 {
 }
 
@@ -31,6 +32,9 @@ void GameRender::render(const Game& aGame) const
     //----- フィールドの描画
     const Field& field = aGame.field();
     mFieldRender.render(field);
+
+    //----- UIの描画
+    mUIRender.render(aGame);
 
     //----- デバッグ情報の描画
     renderDebug(aGame);

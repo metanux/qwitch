@@ -5,8 +5,6 @@
 //
 #pragma once
 #include "game/Game.hpp"
-#include "game/field/FieldRender.hpp"
-#include "game/ui/UIRender.hpp"
 
 namespace qwitch {
 namespace game {
@@ -16,18 +14,15 @@ namespace game {
 //  
 // 
 //
-class GameRender {
+class UIRender {
 public:
-    GameRender();
+    /// コンストラクタ
+    UIRender();
+    /// 描画
     void render(const Game& aGame) const;
 private:
-    /// デバッグ情報の描画
-    void renderDebug(const Game& aGame) const;
-
-    /// フィールド描画
-    FieldRender mFieldRender;
-    /// UIの描画
-    UIRender mUIRender;
+    void renderHPGage(const Status& aStatus) const;
+    void renderMPGage(const Status& aStatus) const;
 };
 
 } // namespace game

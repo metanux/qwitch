@@ -26,6 +26,11 @@ public:
 
     /// getter
     int hp() const;
+    int hpMax() const;
+    double hpRate() const;
+    int mp() const;
+    int mpMax() const;
+    double mpRate() const;
     int attack() const;
     double moveSpeed() const;
     double jumpPower() const;
@@ -33,6 +38,12 @@ public:
 private:
     /// 現在のHP
     int mHp;
+    /// 最大HP
+    int mHpMax;
+    /// 現在のMP
+    int mMp;
+    /// 最大MP
+    int mMpMax;
     /// 現在の基礎魔法攻撃力
     int mAttack;
     /// 移動速度

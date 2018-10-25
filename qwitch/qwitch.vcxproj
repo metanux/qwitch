@@ -44,6 +44,7 @@
     <ClCompile Include="src\game\Game.cpp" />
     <ClCompile Include="src\game\GameRender.cpp" />
     <ClCompile Include="src\game\GameScene.cpp" />
+    <ClCompile Include="src\game\ui\UIRender.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\scene\Scene.cpp" />
     <ClCompile Include="src\scene\SceneChanger.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="src\game\Game.hpp" />
     <ClInclude Include="src\game\GameRender.hpp" />
     <ClInclude Include="src\game\GameScene.hpp" />
+    <ClInclude Include="src\game\ui\UIRender.hpp" />
     <ClInclude Include="src\scene\Scene.hpp" />
     <ClInclude Include="src\scene\SceneChanger.hpp" />
     <ClInclude Include="src\scene\SceneManager.hpp" />

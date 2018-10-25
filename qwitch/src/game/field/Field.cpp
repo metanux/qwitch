@@ -154,7 +154,7 @@ void Field::updateBullet(int aIndex)
         int x = (int)damagedChara.convertWindowPosX();
         int y = (int)damagedChara.convertWindowPosY();
         mDamageEffects.add(damage, x, y);
-        //
+        // 
         deleteFlag = true;
     }
 

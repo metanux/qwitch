@@ -39,6 +39,7 @@
     <ClCompile Include="src\game\field\bullet\Bullets.cpp" />
     <ClCompile Include="src\game\field\character\Magic.cpp" />
     <ClCompile Include="src\assets\data\MagicData.cpp" />
+    <ClCompile Include="src\game\ui\UIRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -78,6 +79,7 @@
     <ClInclude Include="src\game\field\bullet\Bullets.hpp" />
     <ClInclude Include="src\game\field\character\Magic.hpp" />
     <ClInclude Include="src\assets\data\MagicData.hpp" />
+    <ClInclude Include="src\game\ui\UIRender.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

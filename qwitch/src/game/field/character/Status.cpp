@@ -15,6 +15,9 @@ namespace game {
 //
 Status::Status()
     : mHp(100)
+    , mHpMax(100)
+    , mMp(30)
+    , mMpMax(30)
     , mAttack(10)
     , mMoveSpeed(3.0)
     , mJumpPower(10)
@@ -52,6 +55,31 @@ bool Status::isDeath() const
 int Status::hp() const
 {
     return mHp;
+}
+//---------------------------------------------------------------------
+int Status::hpMax() const
+{
+    return mHpMax;
+}
+//---------------------------------------------------------------------
+double Status::hpRate() const
+{
+    return (double)mHp / mHpMax;
+}
+//---------------------------------------------------------------------
+int Status::mp() const
+{
+    return mMp;
+}
+//---------------------------------------------------------------------
+int Status::mpMax() const
+{
+    return mMpMax;
+}
+//---------------------------------------------------------------------
+double Status::mpRate() const
+{
+    return (double)mMp / mMpMax;
 }
 //---------------------------------------------------------------------
 int Status::attack() const
