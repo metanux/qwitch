@@ -79,10 +79,15 @@ void Game::input()
     if (Input::ins().key(KEY_INPUT_C) == 1) {
         mField.playerJump();
     }
-
-    //----- 攻撃処理
+    //----- 決定
     if (Input::ins().key(KEY_INPUT_Z) == 1) {
-        mField.playerAttack();
+    }
+    //----- キャンセル
+    if (Input::ins().key(KEY_INPUT_X) == 1) {
+    }
+    //----- 魔法
+    if (Input::ins().key(KEY_INPUT_A) == 1) {
+        mField.playerMagic(0);
     }
 }
 

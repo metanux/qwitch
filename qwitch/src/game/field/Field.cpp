@@ -147,7 +147,8 @@ void Field::updateBullet(int aIndex)
         const Character& damagedChara = mCharacters.character(index[0]);
         if (damagedChara.isEnemy(bullet) == false) { continue; }
         // ダメージ処理
-        int damage = 10;
+        int damage = 0;
+        damage += bullet.attackPower();
         mCharacters.receiveDamage(index[i], damage);
         // ダメージエフェクト表示
         int x = (int)damagedChara.convertWindowPosX();
@@ -198,9 +199,9 @@ void Field::playerJump()
 //  
 // 
 //
-void Field::playerAttack()
+void Field::playerMagic(int aMagicIndex)
 {
-    characterAttack(FieldParameter::PlayerIndex);
+    characterMagic(FieldParameter::PlayerIndex, aMagicIndex);
 }
 
 //---------------------------------------------------------------------
@@ -309,25 +310,29 @@ void Field::characterJump(int aIndex)
 //  
 // 
 //
-void Field::characterAttack(int aIndex)
+void Field::characterMagic(int aCharaIndex, int aMagicIndex)
 {
     //-----
-    const Character& attackChara = mCharacters.character(aIndex);
+    const Character& attackChara = mCharacters.character(aCharaIndex);
 
     //----- 攻撃可能判定
-    if (isAttack(attackChara) == false) {
+    if (isMagic(attackChara) == false) {
         return;
     }
+
+    //----- 魔法
+    const Magic& magic = attackChara.activeMagic(aMagicIndex);
 
     //----- 攻撃処理
     mBullets.add(
         attackChara.pos(),
         attackChara.direction(),
         attackChara.relation(),
+        magic.attack(),
         0);
 
     //----- アニメーション更新処理
-    mCharacters.setAnimation(aIndex, Animation::Kind_Attack);
+    mCharacters.setAnimation(aCharaIndex, Animation::Kind_Attack);
 }
 
 //---------------------------------------------------------------------
@@ -382,7 +387,7 @@ bool Field::isJump(const Character& aChara) const
 //  
 // 
 //
-bool Field::isAttack(const Character& aChara) const
+bool Field::isMagic(const Character& aChara) const
 {
     //----- 攻撃モーション中は攻撃できない
     if (aChara.animation().kind() == Animation::Kind_Attack) { return false; }

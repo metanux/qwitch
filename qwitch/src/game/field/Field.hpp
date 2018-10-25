@@ -34,7 +34,7 @@ public:
     /// プレイキャラクターのジャンプ処理
     void playerJump();
     /// プレイキャラクターの攻撃処理
-    void playerAttack();
+    void playerMagic(int aMagicIndex);
 
     /// getter
     const Camera& camera() const;
@@ -60,7 +60,7 @@ private:
     /// キャラクターのジャンプ処理
     void characterJump(int aIndex);
     /// キャラクターの攻撃処理
-    void characterAttack(int aIndex);
+    void characterMagic(int aCharaIndex, int aMagicIndex);
 
     /// 当たり判定
     bool isCollision(const FieldObject& aObject) const;
@@ -68,8 +68,8 @@ private:
     bool isGround(int aIndex);
     /// ジャンプ可能判定[
     bool isJump(const Character& aChara) const;
-    /// 攻撃可能判定
-    bool isAttack(const Character& aChara) const;
+    /// 魔法発動判定
+    bool isMagic(const Character& aChara) const;
 
     /// キャラクターの検索
     /// 引数のエリアに含まれるキャラクターの一覧を配列で返却

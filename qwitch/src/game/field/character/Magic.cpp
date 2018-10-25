@@ -3,8 +3,8 @@
 //  
 // 
 //
-#include "Bullet.hpp"
-#include "assets/Images.hpp"
+#include "Magic.hpp"
+#include "assets/Data.hpp"
 
 namespace qwitch {
 namespace game {
@@ -14,8 +14,7 @@ namespace game {
 //  
 // 
 //
-Bullet::Bullet()
-    : mFrame(0)
+Magic::Magic()
 {
 }
 
@@ -24,48 +23,46 @@ Bullet::Bullet()
 //  
 // 
 //
-void Bullet::update()
+void Magic::setId(int aId)
 {
-    FieldObject::update();
-
-    mFrame++;
+    mId = aId;
 }
+//---------------------------------------------------------------------
+void Magic::setLevel(int aLevel)
+{
+    mLevel = aLevel;
+}
+
 
 //---------------------------------------------------------------------
 // 
 //  
 // 
 //
-bool Bullet::isDelete() const
+int Magic::id() const
 {
-    return (mFrame >= 100);
-}
-
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-void Bullet::setAttackPower(int aAttackPower)
-{
-    mAttackPower = aAttackPower;
-}
-
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-int Bullet::image() const
-{
-    return Images::ins().bullet(0, 0, 0);
+    return mId;
 }
 //---------------------------------------------------------------------
-int Bullet::attackPower() const
+int Magic::level() const
 {
-    return mAttackPower;
+    return mLevel;
 }
-
+//---------------------------------------------------------------------
+int Magic::rank() const
+{
+    return Data::ins().magic(mId).rank();
+}
+//---------------------------------------------------------------------
+int Magic::attack() const
+{
+    return Data::ins().magic(mId).value("攻撃力", mLevel);
+}
+//---------------------------------------------------------------------
+int Magic::mp() const
+{
+    return Data::ins().magic(mId).value("消費MP", mLevel);
+}
 
 } // namespace game
 } // namespace qwitch

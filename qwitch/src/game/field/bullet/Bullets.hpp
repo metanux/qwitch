@@ -28,6 +28,7 @@ public:
         const Vector3d& aPos,
         FieldObject::Direction aDirection,
         FieldObject::Relation aRelation,
+        int aAttackPower,
         int aKind);
 
     /// オブジェクトの削除処理

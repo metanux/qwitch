@@ -16,7 +16,14 @@ namespace game {
 //
 Character::Character()
     : mStatus()
+    , mActiveMagic()
+    , mPassiveMagic()
 {
+    /// デバッグ用
+    Magic magic1;
+    magic1.setId(1);
+    magic1.setLevel(3);
+    mActiveMagic.push_back(magic1);
 }
 
 //---------------------------------------------------------------------
@@ -47,6 +54,16 @@ int Character::image() const
 const Status& Character::status() const
 {
     return mStatus;
+}
+//---------------------------------------------------------------------
+const Magic& Character::activeMagic(int aIndex) const
+{
+    return mActiveMagic[aIndex];
+}
+//---------------------------------------------------------------------
+const Magic& Character::passiveMagic(int aIndex) const
+{
+    return mPassiveMagic[aIndex];
 }
 
 } // namespace game

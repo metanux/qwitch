@@ -49,6 +49,7 @@ void Bullets::add(
     const Vector3d& aPos,
     FieldObject::Direction aDirection,
     FieldObject::Relation aRelation,
+    int aAttackPower,
     int aKind)
 {
     Bullet bullet;
@@ -57,6 +58,7 @@ void Bullets::add(
     bullet.setKind(aKind);
     bullet.setDirection(aDirection);
     bullet.setRelation(aRelation);
+    bullet.setAttackPower(aAttackPower);
     mBullet.push_back(bullet);
 }
 

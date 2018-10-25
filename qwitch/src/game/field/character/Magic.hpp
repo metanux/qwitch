@@ -4,7 +4,6 @@
 // 
 //
 #pragma once
-#include "game/field/FieldObject.hpp"
 
 namespace qwitch {
 namespace game {
@@ -14,29 +13,27 @@ namespace game {
 //  
 // 
 //
-class Bullet : public FieldObject {
+class Magic {
 public:
     /// コンストラクタ
-    Bullet();
-
-    /// 更新処理
-    void update();
-
-    ///
-    bool isDelete() const;
+    Magic();
 
     /// setter
-    void setAttackPower(int aAttackPower);
+    void setId(int aId);
+    void setLevel(int aLevel);
 
     /// getter
-    int image() const;
-    int attackPower() const;
+    int id() const;
+    int level() const;
+    int rank() const;
+    int attack() const;
+    int mp() const;
 
 private:
-    /// 経過フレーム
-    int mFrame;
-    /// 攻撃力量
-    int mAttackPower;
+    /// 魔法ID
+    int mId;
+    /// 魔法レベル
+    int mLevel;
 };
 
 } // namespace game

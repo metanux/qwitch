@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="src\assets\AssetsManager.cpp" />
     <ClCompile Include="src\assets\Data.cpp" />
+    <ClCompile Include="src\assets\data\MagicData.cpp" />
     <ClCompile Include="src\assets\data\TerrainBoxData.cpp" />
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
     <ClCompile Include="src\assets\Images.cpp" />
@@ -30,6 +31,7 @@
     <ClCompile Include="src\game\field\camera\Camera.cpp" />
     <ClCompile Include="src\game\field\character\Character.cpp" />
     <ClCompile Include="src\game\field\character\Characters.cpp" />
+    <ClCompile Include="src\game\field\character\Magic.cpp" />
     <ClCompile Include="src\game\field\character\Status.cpp" />
     <ClCompile Include="src\game\field\effect\DamageEffect.cpp" />
     <ClCompile Include="src\game\field\effect\DamageEffects.cpp" />
@@ -59,6 +61,7 @@
   <ItemGroup>
     <ClInclude Include="src\assets\AssetsManager.hpp" />
     <ClInclude Include="src\assets\Data.hpp" />
+    <ClInclude Include="src\assets\data\MagicData.hpp" />
     <ClInclude Include="src\assets\data\TerrainBoxData.hpp" />
     <ClInclude Include="src\assets\data\TerrainData.hpp" />
     <ClInclude Include="src\assets\Images.hpp" />
@@ -68,6 +71,7 @@
     <ClInclude Include="src\game\field\camera\Camera.hpp" />
     <ClInclude Include="src\game\field\character\Character.hpp" />
     <ClInclude Include="src\game\field\character\Characters.hpp" />
+    <ClInclude Include="src\game\field\character\Magic.hpp" />
     <ClInclude Include="src\game\field\character\Status.hpp" />
     <ClInclude Include="src\game\field\effect\DamageEffect.hpp" />
     <ClInclude Include="src\game\field\effect\DamageEffects.hpp" />
