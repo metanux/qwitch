@@ -20,6 +20,8 @@ public:
 
     /// HPを減らす
     void reduceHp(int aValue);
+    /// MPを減らす
+    void reduceMp(int aValue);
 
     /// 死亡判定
     bool isDeath() const;

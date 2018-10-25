@@ -41,6 +41,16 @@ void Character::receiveDamage(int aDamage)
 //  
 // 
 //
+void Character::reduceMp(int aValue)
+{
+    mStatus.reduceMp(aValue);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 int Character::image() const
 {
     int dire = direction() / 2;

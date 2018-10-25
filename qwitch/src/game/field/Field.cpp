@@ -315,13 +315,17 @@ void Field::characterMagic(int aCharaIndex, int aMagicIndex)
     //-----
     const Character& attackChara = mCharacters.character(aCharaIndex);
 
-    //----- 攻撃可能判定
+    //----- 魔法発動判定
     if (isMagic(attackChara) == false) {
         return;
     }
 
     //----- 魔法
     const Magic& magic = attackChara.activeMagic(aMagicIndex);
+
+    //----- MP消費
+    int mp = magic.mp();
+    mCharacters.reduceMp(aCharaIndex, mp);
 
     //----- 攻撃処理
     mBullets.add(

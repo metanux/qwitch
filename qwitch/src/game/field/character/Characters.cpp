@@ -136,6 +136,16 @@ void Characters::receiveDamage(int aIndex, int aDamage)
 //  
 // 
 //
+void Characters::reduceMp(int aIndex, int aValue)
+{
+    mCharacters[aIndex].reduceMp(aValue);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Characters::setAnimation(int aIndex, Animation::Kind aKind)
 {
     mCharacters[aIndex].setAnimation(aKind);

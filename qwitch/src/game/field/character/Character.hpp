@@ -24,6 +24,8 @@ public:
 
     /// ダメージ処理
     void receiveDamage(int aDamage);
+    /// MPの消費
+    void reduceMp(int aValue);
 
     /// getter
     int image() const;

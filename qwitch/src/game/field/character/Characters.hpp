@@ -37,7 +37,8 @@ public:
 
     /// ダメージ処理
     void receiveDamage(int aIndex, int aDamage);
-
+    /// MP消費
+    void reduceMp(int aIndex, int aValue);
 
     /// アニメーションの変更
     void setAnimation(int aIndex, Animation::Kind aKind);
