@@ -77,10 +77,27 @@ void Field::updateCharacter(int aIndex)
     double gravity = 0.5;
     mCharacters.addForce(aIndex, Vector3d(0, 0, gravity * -1));
 
+    //----- 摩擦
+    if (isGround(aIndex)) {
+        double friction = 0.20;
+        double fx = chara.force().x();
+        double fy = chara.force().y();
+        double dx = (fx >= 0) ? friction * -1 : friction;
+        double dy = (fy >= 0) ? friction * -1 : friction;
+        /*
+        if ((fx >= 0) && ((fx + dx) < 0)) { dx = 0; }
+        else if ((fx < 0) && ((fx + dx) >= 0)) { dx = 0; }
+        if ((fy >= 0) && ((fy + dy) < 0)) { dy = 0; }
+        else if ((fy < 0) && ((fy + dy) >= 0)) { dy = 0; }
+        */
+        mCharacters.addForce(aIndex, Vector3d(dx, dy, 0));
+    }
+
     //----- 外力更新
     double forceX = chara.force().x();
     double forceY = chara.force().y();
     double forceZ = chara.force().z();
+    printf("%lf %lf %lf\n", forceX, forceY, forceZ);
     characterMove(aIndex, Vector3d(forceX, forceY, forceZ));
 
     //----- アニメーション更新
@@ -193,7 +210,7 @@ void Field::load(int aFieldIndex)
 //
 void Field::playerWalk(int aX, int aY)
 {
-    characterWalk(FieldParameter::PlayerIndex, Vector3d(aX, aY, 0));
+    characterWalk(FieldParameter::PlayerIndex, aX, aY);
 }
 
 //---------------------------------------------------------------------
@@ -221,7 +238,7 @@ void Field::playerMagic(int aMagicIndex)
 //  
 // 
 //
-void Field::characterWalk(int aIndex, const Vector3d& aPos)
+void Field::characterWalk(int aIndex, int aX, int aY)
 {
     //----- キャラクター
     const Character& chara = mCharacters.character(aIndex);
@@ -231,15 +248,38 @@ void Field::characterWalk(int aIndex, const Vector3d& aPos)
         return;
     }
 
+    //----- 移動速度設定
+    double x = aX;
+    double y = aY;
+    if (aX >= 2) { x = 1.5; }
+    if (aX <= -2) { x = -1.5; }
+    if (aY >= 2) { y = 1.5; }
+    if (aY <= -2) { y = -1.5; }
+    double accel = 0.4;
+    double dx = x * accel;
+    double dy = y * accel;
+    double speedMax = 3;
+    double speedMaxX = speedMax * x;
+    double speedMaxY = speedMax * y;
+    speedMaxX = (speedMaxX >= 0) ? speedMaxX : speedMaxX * -1;
+    speedMaxY = (speedMaxY >= 0) ? speedMaxY : speedMaxY * -1;
+    double fx = chara.force().x() + dx;
+    double fy = chara.force().y() + dy;
+    fx = (fx < 0) ? fx * -1 : fx;
+    fy = (fy < 0) ? fy * -1 : fy;
+    if (fx >= speedMaxX) { dx = 0; }
+    if (fy >= speedMaxY) { dy = 0; }
+    if ((fx + fy) >= (speedMaxX + speedMaxY)) {
+        dx = 0;
+        dy = 0;
+    }
+    mCharacters.addForce(FieldParameter::PlayerIndex, Vector3d(dx, dy, 0));
+
     //----- プレイヤーオブジェクトの移動
-    double speed = chara.status().moveSpeed();
-    double dx = aPos.x() * speed;
-    double dy = aPos.y() * speed;
-    double dz = aPos.z();
-    characterMove(aIndex, Vector3d(dx, dy, dz));
+    //characterMove(aIndex, Vector3d(dx, dy, dz));
 
     //----- 向きの更新
-    mCharacters.setDirection(aIndex, dx, dy, dz);
+    mCharacters.setDirection(aIndex, aX, aY, 0);
 
     //----- アニメーションの更新
     mCharacters.setAnimation(aIndex, Animation::Kind_Walk);

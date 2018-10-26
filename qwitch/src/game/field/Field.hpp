@@ -50,7 +50,7 @@ private:
     void updateBullet(int aIndex);
 
     /// キャラクターの移動処理
-    void characterWalk(int aIndex, const Vector3d& aPos);
+    void characterWalk(int aIndex, int aX, int aY);
     void characterMove(int aIndex, const Vector3d& aPos);
     void characterMoveX(int aIndex, double aX);
     void characterMoveY(int aIndex, double aY);
