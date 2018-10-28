@@ -49,7 +49,7 @@ void FieldRender::renderObjects(
 
     // 地形ブロック
     const Terrain& terrain = aField.terrain();
-    int countBlocks = terrain.blockNum();
+    int countBlocks = terrain.countBlock();
     //printf("blockNum: %d\n", countBlocks);
     for (int i = 0; i < countBlocks; i++) {
         const Block& block = terrain.block(i);
@@ -75,6 +75,15 @@ void FieldRender::renderObjects(
         index.push_back(countObjects++);
     }
 
+    // 構造物
+    const Structures& structures = aField.structures();
+    int countStructures = structures.countDisplayStructure();
+    for (int i = 0; i < countStructures; i++) {
+        const Structure& structure = structures.displayStructure(i);
+        objects.push_back(structure);
+        index.push_back(countObjects++);
+    }
+
     //----- 描画オブジェクトを描画順にソート
     // とりあえず挿入ソート
     // O(n^2)なので変更する必要がある
@@ -84,21 +93,30 @@ void FieldRender::renderObjects(
             int i2 = index[j - 1];
             const FieldObject& object1 = objects[i1];
             const FieldObject& object2 = objects[i2];
+            //int x1 = (int)(object1.pos().x());
+            //int y1 = (int)(object1.pos().y());
+            //int z1 = (int)(object1.pos().z());
             int x1 = (int)(object1.pos().x() + object1.size().x());
             int y1 = (int)(object1.pos().y() + object1.size().y());
             int z1 = (int)(object1.pos().z() + object1.size().z());
             int x2 = (int)(object2.pos().x());
             int y2 = (int)(object2.pos().y());
             int z2 = (int)(object2.pos().z());
-            // 先に描画
+            //int x2 = (int)(object2.pos().x() + object2.size().x());
+            //int y2 = (int)(object2.pos().y() + object2.size().y());
+            //int z2 = (int)(object2.pos().z() + object2.size().z());
+            // 1を先に描画
+            //if ((x1+y1+z1) <= (x2+y2+z2)) {
             if (x1 <= x2 || y1 <= y2 || z1 <= z2) {
                 std::swap(index[j - 1], index[j]);
             }
             else {
+                printf("%d ", j);
                 break;
             }
         }
     }
+    printf("\n");
 
     //----- オブジェクトの描画
     for (int i = 0; i < countObjects; i++) {

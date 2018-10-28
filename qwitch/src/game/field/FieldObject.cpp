@@ -134,7 +134,7 @@ double FieldObject::convertWindowPosX() const
     double posX = 0;
     posX += mPos.x();
     posX -= mPos.y();
-    posX -= mSize.x();
+    posX -= mSize.y();
     return posX;
 }
 //---------------------------------------------------------------------

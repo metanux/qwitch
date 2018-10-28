@@ -14,22 +14,22 @@ namespace qwitch {
 //  
 // 
 //
-class TerrainBoxData {
+class StructureData {
 public:
-    /// 指定エリアの反対側のindexを取得する
-    static int reverseAreaIndex(int aAreaIndex);
+    /// コンストラクタ
+    StructureData(
+        int aSizeX,
+        int aSizeY,
+        int aSizeZ);
 
-    /// 
-    static const int* surfaceXY(int aZ);
-    static const int* surfaceXZ(int aY);
-    static const int* surfaceYZ(int aX);
+    /// size
+    const Vector3d& size() const;
+    int sizeX() const;
+    int sizeY() const;
+    int sizeZ() const;
 
 private:
-    /// コンストラクタ
-    TerrainBoxData();
-
-    /// member
-
+    Vector3d mSize;
 };
 
 } // namespace qwitch

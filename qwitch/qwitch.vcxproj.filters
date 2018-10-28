@@ -29,7 +29,6 @@
     <ClCompile Include="src\util\FileReader.cpp" />
     <ClCompile Include="src\assets\Data.cpp" />
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
-    <ClCompile Include="src\assets\data\TerrainBoxData.cpp" />
     <ClCompile Include="src\game\field\character\Status.cpp" />
     <ClCompile Include="src\game\field\FieldParameter.cpp" />
     <ClCompile Include="src\game\field\animation\Animation.cpp" />
@@ -40,6 +39,11 @@
     <ClCompile Include="src\game\field\character\Magic.cpp" />
     <ClCompile Include="src\assets\data\MagicData.cpp" />
     <ClCompile Include="src\game\ui\UIRender.cpp" />
+    <ClCompile Include="src\game\field\structure\Structure.cpp" />
+    <ClCompile Include="src\game\field\structure\Structures.cpp" />
+    <ClCompile Include="src\game\field\area\Area.cpp" />
+    <ClCompile Include="src\assets\data\AreaData.cpp" />
+    <ClCompile Include="src\assets\data\StructureData.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\system\SystemManager.hpp" />
@@ -69,7 +73,6 @@
     <ClInclude Include="src\util\FileReader.hpp" />
     <ClInclude Include="src\assets\Data.hpp" />
     <ClInclude Include="src\assets\data\TerrainData.hpp" />
-    <ClInclude Include="src\assets\data\TerrainBoxData.hpp" />
     <ClInclude Include="src\game\field\character\Status.hpp" />
     <ClInclude Include="src\game\field\FieldParameter.hpp" />
     <ClInclude Include="src\game\field\animation\Animation.hpp" />
@@ -80,6 +83,11 @@
     <ClInclude Include="src\game\field\character\Magic.hpp" />
     <ClInclude Include="src\assets\data\MagicData.hpp" />
     <ClInclude Include="src\game\ui\UIRender.hpp" />
+    <ClInclude Include="src\game\field\structure\Structure.hpp" />
+    <ClInclude Include="src\game\field\structure\Structures.hpp" />
+    <ClInclude Include="src\game\field\area\Area.hpp" />
+    <ClInclude Include="src\assets\data\AreaData.hpp" />
+    <ClInclude Include="src\assets\data\StructureData.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="common.props" />

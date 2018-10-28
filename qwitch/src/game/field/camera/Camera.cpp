@@ -7,6 +7,7 @@
 #include "system/System.hpp"
 #include "DxLib.h"
 #include "game/field/terrain/Block.hpp"
+#include "game/field/FieldParameter.hpp"
 
 namespace qwitch {
 namespace game {
@@ -21,7 +22,7 @@ Camera::Camera()
     , mScrollPos()
     , mWindowPos()
 {
-    mFieldPos.move(768, 768, 32);
+    mFieldPos.move(64, 64, 32);
 }
 
 //---------------------------------------------------------------------
@@ -77,6 +78,20 @@ void Camera::updatePos()
     posY -= mFieldPos.z();
     posY -= System::ins().windowSizeY() / 2;
     mWindowPos.setY(posY);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool Camera::isRender(const FieldObject& aObject) const
+{
+    int size = 0;
+    size += abs((int)(mFieldPos.x() - aObject.pos().x()));
+    size += abs((int)(mFieldPos.y() - aObject.pos().y()));
+    size += abs((int)(mFieldPos.z() - aObject.pos().z()));
+    return (size < FieldParameter::RenderAreaSize);
 }
 
 //---------------------------------------------------------------------

@@ -47,6 +47,17 @@ void GameRender::render(const Game& aGame) const
 //
 void GameRender::renderDebug(const Game& aGame) const
 {
+    // 表示オブジェクト数
+    int objectNum = aGame.field().terrain().countBlock();
+    objectNum += aGame.field().characters().countDisplayCharacter();
+    objectNum += aGame.field().bullets().count();
+    DxLib::DrawFormatString(
+        0,
+        15,
+        GetColor(255, 0, 0),
+        "objects (%d)",
+        objectNum
+    );
     // カメラ座標
     const Camera& camera = aGame.field().camera();
     DxLib::DrawFormatString(
@@ -64,7 +75,7 @@ void GameRender::renderDebug(const Game& aGame) const
         0,
         45,
         GetColor(255, 0, 0),
-        "playerPos (x:%d, y:%d, z:%d)",
+        "player (x:%d, y:%d, z:%d)",
         (int)player.pos().x(),
         (int)player.pos().y(),
         (int)player.pos().z()

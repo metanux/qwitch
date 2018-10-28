@@ -18,7 +18,7 @@ Characters::Characters()
     : mCharacters()
 {
     Character player;
-    player.setPos(Vector3d(768, 768, 32));
+    player.setPos(Vector3d(64, 64, 32));
     player.setSize(Vector3d(32, 32, 64));
     player.setRelation(FieldObject::Relation_Friend);
     player.setKind(0);

@@ -16,6 +16,7 @@ namespace qwitch {
 Images::Images()
     : mBlock()
     , mCharacter()
+    , mStructure()
     , mBullet()
     , mIconMagic()
     , mTitleBack()
@@ -44,6 +45,8 @@ void Images::load()
     loadBlock();
     //----- キャラクター
     loadCharacter();
+    //----- 構造物
+    loadStructure();
     //----- 攻撃オブジェクト
     loadBullet();
     //----- スキルアイコン
@@ -62,7 +65,7 @@ void Images::loadBlock()
 {
     char url[100];
 
-    int blockNum = 2;
+    int blockNum = 14;
     mBlock.resize(blockNum);
     for (int i = 0; i < blockNum; i++) {
         sprintf_s(url, "assets/images/block/%d.png", i);
@@ -97,6 +100,23 @@ void Images::loadCharacter()
             animeImages.push_back(images);
         }
         mCharacter.push_back(animeImages);
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Images::loadStructure()
+{
+    char url[100];
+
+    int structureNum = 2;
+    for (int kind = 0; kind < structureNum; kind++) {
+        sprintf_s(url, "assets/images/structure/%d.png", kind);
+        int image = DxLib::LoadGraph(url);
+        mStructure.push_back(image);
     }
 }
 
@@ -157,6 +177,11 @@ int Images::character(int aKind, int aAnime, int aDirection, int aIndex) const
 {
     int index = aDirection * 4 + aIndex;
     return mCharacter[aKind][aAnime][index];
+}
+//---------------------------------------------------------------------
+int Images::structure(int aKind) const
+{
+    return mStructure[aKind];
 }
 //---------------------------------------------------------------------
 int Images::bullet(int aKind, int aDirection, int aIndex) const

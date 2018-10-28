@@ -7,6 +7,7 @@
 #include "DxLib.h"
 #include "system/System.hpp"
 #include "game/field/FieldParameter.hpp"
+#include "assets/data/AreaData.hpp"
 
 namespace qwitch {
 namespace game {
@@ -20,6 +21,7 @@ Field::Field()
     : mCamera()
     , mTerrain()
     , mCharacters()
+    , mStructures()
     , mDamageEffects()
     , mBullets()
 {
@@ -32,8 +34,14 @@ Field::Field()
 //
 void Field::update()
 {
+    //----- エリアの更新
+    updateArea();
+
     //----- キャラクターの更新
     updateCharacters();
+
+    //----- 構造物の更新
+    mStructures.update();
 
     //----- カメラの更新
     updateCamera();
@@ -46,6 +54,15 @@ void Field::update()
 
     //----- 攻撃オブジェクトの更新
     updateBullets();
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Field::updateArea()
+{
 }
 
 //---------------------------------------------------------------------
@@ -84,12 +101,6 @@ void Field::updateCharacter(int aIndex)
         double fy = chara.force().y();
         double dx = (fx >= 0) ? friction * -1 : friction;
         double dy = (fy >= 0) ? friction * -1 : friction;
-        /*
-        if ((fx >= 0) && ((fx + dx) < 0)) { dx = 0; }
-        else if ((fx < 0) && ((fx + dx) >= 0)) { dx = 0; }
-        if ((fy >= 0) && ((fy + dy) < 0)) { dy = 0; }
-        else if ((fy < 0) && ((fy + dy) >= 0)) { dy = 0; }
-        */
         mCharacters.addForce(aIndex, Vector3d(dx, dy, 0));
     }
 
@@ -97,7 +108,6 @@ void Field::updateCharacter(int aIndex)
     double forceX = chara.force().x();
     double forceY = chara.force().y();
     double forceZ = chara.force().z();
-    printf("%lf %lf %lf\n", forceX, forceY, forceZ);
     characterMove(aIndex, Vector3d(forceX, forceY, forceZ));
 
     //----- アニメーション更新
@@ -133,6 +143,29 @@ void Field::updateCamera()
     //----- 状態更新
     const Character& player = mCharacters.player();
     mCamera.update(player);
+
+    //----- エリアのスクロール
+    // スクロール判定
+    int dx = Area::ins().calcScrollX(mCamera);
+    int dy = Area::ins().calcScrollY(mCamera);
+    int dz = Area::ins().calcScrollZ(mCamera);
+    int nextCenterIndex = AreaData::centerAreaIndex(dx, dy, dz);
+    int nextCenterId = Area::ins().id(nextCenterIndex);
+    if (nextCenterId == -1) { return; }
+
+    // スクロール処理
+    if (dx != 0) {
+        Area::ins().scroll(dx, 0, 0);
+        mTerrain.scroll(dx, 0, 0);
+    }
+    if (dy != 0) {
+        Area::ins().scroll(0, dy, 0);
+        mTerrain.scroll(0, dy, 0);
+    }
+    if (dz != 0) {
+        Area::ins().scroll(0, 0, dz);
+        mTerrain.scroll(0, 0, dz);
+    }
 }
 
 //---------------------------------------------------------------------
@@ -198,9 +231,11 @@ void Field::updateBullet(int aIndex)
 //  
 // 
 //
-void Field::load(int aFieldIndex)
+void Field::load(int aAreaId)
 {
-    mTerrain.load(0);
+    Area::ins().load(aAreaId);
+    mTerrain.load(aAreaId);
+    mStructures.load(aAreaId);
 }
 
 //---------------------------------------------------------------------
@@ -273,10 +308,9 @@ void Field::characterWalk(int aIndex, int aX, int aY)
         dx = 0;
         dy = 0;
     }
+    
+    //----- 移動処理
     mCharacters.addForce(FieldParameter::PlayerIndex, Vector3d(dx, dy, 0));
-
-    //----- プレイヤーオブジェクトの移動
-    //characterMove(aIndex, Vector3d(dx, dy, dz));
 
     //----- 向きの更新
     mCharacters.setDirection(aIndex, aX, aY, 0);
@@ -408,6 +442,10 @@ bool Field::isCollision(const FieldObject& aObject) const
     if (mCharacters.isCollision(aObject)) {
         return true;
     }
+    //----- 構造物との当たり判定
+    if (mStructures.isCollision(aObject)) {
+        return true;
+    }
 
     return false;
 }
@@ -515,6 +553,11 @@ const Terrain& Field::terrain() const
 const Characters& Field::characters() const
 {
     return mCharacters;
+}
+//---------------------------------------------------------------------
+const Structures& Field::structures() const
+{
+    return mStructures;
 }
 //---------------------------------------------------------------------
 const DamageEffects& Field::damageEffects() const

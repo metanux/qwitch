@@ -26,6 +26,9 @@ public:
     /// 引数のオブジェクトを追跡する
     void update(const FieldObject& aObject);
 
+    /// オブジェクトが描画範囲内か
+    bool isRender(const FieldObject& aObject) const;
+
     /// getter
     const Vector3d& windowPos() const;
     const Vector3d& fieldPos() const;

@@ -4,9 +4,11 @@
 // 
 //
 #pragma once
+#include "game/field/area/Area.hpp"
 #include "game/field/camera/Camera.hpp"
 #include "game/field/terrain/Terrain.hpp"
-#include "game/field/character/characters.hpp"
+#include "game/field/character/Characters.hpp"
+#include "game/field/structure/Structures.hpp"
 #include "game/field/effect/DamageEffects.hpp"
 #include "game/field/bullet/Bullets.hpp"
 
@@ -25,7 +27,7 @@ public:
     /// 更新処理
     void update();
     /// フィールドのローディング
-    void load(int aFieldIndex);
+    void load(int aAreaId);
 
     /// プレイキャラクターの移動処理
     void playerWalk(int aX, int aY);
@@ -38,11 +40,13 @@ public:
     const Camera& camera() const;
     const Terrain& terrain() const;
     const Characters& characters() const;
+    const Structures& structures() const;
     const DamageEffects& damageEffects() const;
     const Bullets& bullets() const;
 
 private:
     /// 更新処理
+    void updateArea();
     void updateCharacters();
     void updateCharacter(int aIndex);
     void updateCamera();
@@ -84,6 +88,8 @@ private:
     Terrain mTerrain;
     /// キャラクター
     Characters mCharacters;
+    /// 構造物
+    Structures mStructures;
     /// ダメージエフェクト
     DamageEffects mDamageEffects;
     /// 攻撃オブジェクト
