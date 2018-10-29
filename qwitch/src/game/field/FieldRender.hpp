@@ -31,7 +31,7 @@ private:
     /// オブジェクトを描画する
     void renderObject(
         const Field& aField,
-        const FieldObject& aObject) const;
+        const FieldObject& aObject,int order) const;
 
     /// ダメージエフェクトの描画
     void renderDamageEffect(
@@ -56,6 +56,25 @@ private:
     int calcRenderPosY(
         const Field& aField,
         int aY) const;
+
+    /// 2オブジェクト間の順序関係を判定
+    /// オブジェクト1を先に描画：true
+    /// オブジェクト2を先に描画：false
+    bool isPreRenderObject(
+        const FieldObject& aObject1,
+        const FieldObject& aObject2) const;
+
+    /// オブジェクトのソート
+    void sortObjects(
+        std::vector<std::reference_wrapper<const FieldObject>>& aObjects,
+        std::vector<int>& aIndex) const;
+    ///
+    void sortObjectsVisit(
+        int aI,
+        int aN,
+        std::vector<int>& aA,
+        std::vector<int>& aV,
+        std::vector<int>& aIndex) const;
 };
 
 } // namespace game

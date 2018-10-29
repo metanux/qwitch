@@ -50,7 +50,7 @@ void FieldRender::renderObjects(
     // 地形ブロック
     const Terrain& terrain = aField.terrain();
     int countBlocks = terrain.countBlock();
-    //printf("blockNum: %d\n", countBlocks);
+    printf("blockNum: %d\n", countBlocks);
     for (int i = 0; i < countBlocks; i++) {
         const Block& block = terrain.block(i);
         objects.push_back(block);
@@ -87,40 +87,13 @@ void FieldRender::renderObjects(
     //----- 描画オブジェクトを描画順にソート
     // とりあえず挿入ソート
     // O(n^2)なので変更する必要がある
-    for (int i = countBlocks; i < countObjects; i++) {
-        for (int j = i; j > 0; j--) {
-            int i1 = index[j];
-            int i2 = index[j - 1];
-            const FieldObject& object1 = objects[i1];
-            const FieldObject& object2 = objects[i2];
-            //int x1 = (int)(object1.pos().x());
-            //int y1 = (int)(object1.pos().y());
-            //int z1 = (int)(object1.pos().z());
-            int x1 = (int)(object1.pos().x() + object1.size().x());
-            int y1 = (int)(object1.pos().y() + object1.size().y());
-            int z1 = (int)(object1.pos().z() + object1.size().z());
-            int x2 = (int)(object2.pos().x());
-            int y2 = (int)(object2.pos().y());
-            int z2 = (int)(object2.pos().z());
-            //int x2 = (int)(object2.pos().x() + object2.size().x());
-            //int y2 = (int)(object2.pos().y() + object2.size().y());
-            //int z2 = (int)(object2.pos().z() + object2.size().z());
-            // 1を先に描画
-            //if ((x1+y1+z1) <= (x2+y2+z2)) {
-            if (x1 <= x2 || y1 <= y2 || z1 <= z2) {
-                std::swap(index[j - 1], index[j]);
-            }
-            else {
-                printf("%d ", j);
-                break;
-            }
-        }
-    }
-    printf("\n");
+    sortObjects(objects, index);
 
     //----- オブジェクトの描画
-    for (int i = 0; i < countObjects; i++) {
-        renderObject(aField, objects[index[i]]);
+    int count = (int)index.size();
+    for (int i = 0; i < count; i++) {
+    //for (int i = count - 1; i >= 0; i--) {
+        renderObject(aField, objects[index[i]], i);
     }
 }
 
@@ -131,12 +104,13 @@ void FieldRender::renderObjects(
 //
 void FieldRender::renderObject(
     const Field& aField,
-    const FieldObject& aObject) const
+    const FieldObject& aObject,int order) const
 {
     int x = calcRenderPosX(aField, aObject);
     int y = calcRenderPosY(aField, aObject);
     int image = aObject.image();
     DxLib::DrawGraph(x, y, image, TRUE);
+    DxLib::DrawFormatString(x+16, y+8, GetColor(0, 0, 0), "%d", order);
 }
 
 //---------------------------------------------------------------------
@@ -218,6 +192,104 @@ int FieldRender::calcRenderPosY(
     y += aY;
     y -= (int)aField.camera().windowPos().y();
     return y;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool FieldRender::isPreRenderObject(
+    const FieldObject& aObject1,
+    const FieldObject& aObject2) const
+{
+    int x1 = (int)(aObject1.pos().x() + 1);
+    int y1 = (int)(aObject1.pos().y() + 1);
+    int z1 = (int)(aObject1.pos().z() + 1);
+    //int x1 = (int)(aObject1.pos().x() + aObject1.size().x());
+    //int y1 = (int)(aObject1.pos().y() + aObject1.size().y());
+    //int z1 = (int)(aObject1.pos().z() + aObject1.size().z());
+    //int x2 = (int)(aObject2.pos().x());
+    //int y2 = (int)(aObject2.pos().y());
+    //int z2 = (int)(aObject2.pos().z());
+    int x2 = (int)(aObject2.pos().x() + aObject2.size().x());
+    int y2 = (int)(aObject2.pos().y() + aObject2.size().y());
+    int z2 = (int)(aObject2.pos().z() + aObject2.size().z());
+    
+    //return ((x1+y1+z1) <= (x2+y2+z2));
+    return (x1 <= x2 && y1 <= y2 && z1 <= z2);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void FieldRender::sortObjects(
+    std::vector<std::reference_wrapper<const FieldObject>>& aObjects,
+    std::vector<int>& aIndex) const
+{
+    /*
+    //----- 隣接行列の構築
+    int n = (int)aObjects.size();
+    std::vector<int> a(n * n); // 隣接行列
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            const FieldObject& object1 = aObjects[i];
+            const FieldObject& object2 = aObjects[j];
+            if (isPreRenderObject(object1, object2)) {
+                a[i + j * n] = 1;
+            }
+            else {
+                a[j + i * n] = 1;
+            }
+        }
+    }
+
+    //----- 深さ優先探索 (DFS)
+    std::vector<int> v(n);           // 訪問フラグ
+    for (int i = 0; i < n; i++) {
+        if (v[i] == 0) {
+            sortObjectsVisit(i, n, a, v, aIndex);
+        }
+    }
+    */
+    int count = (int)aObjects.size();
+    for (int i = 0; i < count; i++) {
+        for (int j = i; j > 0; j--) {
+            int i1 = aIndex[j];
+            int i2 = aIndex[j - 1];
+            const FieldObject& object1 = aObjects[i1];
+            const FieldObject& object2 = aObjects[i2];
+            if (isPreRenderObject(object1, object2)) {
+                std::swap(aIndex[j - 1], aIndex[j]);
+            }
+            else {
+                break;
+            }
+        }
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void FieldRender::sortObjectsVisit(
+    int aI,
+    int aN,
+    std::vector<int>& aA,
+    std::vector<int>& aV,
+    std::vector<int>& aIndex) const
+{
+    aV[aI] = 1;
+    for (int j = 0; j < aN; j++) {
+        if (aA[aI + j * aN] == 1 && aV[j] == 0) {
+            sortObjectsVisit(j, aN, aA, aV, aIndex);
+        }
+    }
+    aIndex.push_back(aI);
 }
 
 } // namespace game
