@@ -7,6 +7,7 @@
 #include "assets/Data.hpp"
 #include "game/field/FieldParameter.hpp"
 #include "game/field/area/Area.hpp"
+#include <unordered_map>
 
 namespace qwitch {
 namespace game {
@@ -18,7 +19,6 @@ namespace game {
 //
 Terrain::Terrain()
     : mBlocks()
-    , mSortedBlocks()
     , mDisplayBlocks()
     , mCollision()
 {
@@ -46,6 +46,14 @@ Terrain::Terrain()
 //
 void Terrain::update(const Camera& camera)
 {
+    //----- ブロックの更新
+    for (int areaIndex = 0; areaIndex < AreaData::AreaNum; areaIndex++) {
+        int count = (int)mBlocks[areaIndex].size();
+        for (int i = 0; i < count; i++) {
+            mBlocks[areaIndex][i].update();
+        }
+    }
+
     //----- 表示ブロックの更新
     updateDisplayBlocks(camera);
 }
@@ -57,8 +65,12 @@ void Terrain::update(const Camera& camera)
 //
 void Terrain::updateDisplayBlocks(const Camera& camera)
 {
+    //-----
+    std::unordered_map<int, int> groupIndex;
+
     //----- 描画ブロックリストの初期化
     mDisplayBlocks.clear();
+    mGroups.clear();
 
     //----- 描画ブロックの構成
     int count = (int)mSortedBlocks.size();
@@ -69,6 +81,33 @@ void Terrain::updateDisplayBlocks(const Camera& camera)
         if (camera.isRender(block)) {
             // リストに追加
             mDisplayBlocks.push_back(block);
+            // グループに登録
+            int groupId = block.groupId();
+            if (groupIndex.count(groupId) != 0) {
+                // 既にグループがある
+                int index = groupIndex[groupId];
+                mGroups[index].add(block);
+            }
+            else {
+                int n = countGroup();
+                groupIndex[groupId] = n;
+                BlockGroup group;
+                const Vector3d& groupPos = block.groupPos();
+                const Vector3d& groupSize = block.groupSize();
+                group.setPos(groupPos);
+                group.setSize(groupSize);
+                mGroups.push_back(group);
+                mGroups[n].add(block);
+                /*
+                printf("%lf %lf %lf,%lf %lf %lf\n",
+                    groupPos.x(),
+                    groupPos.y(),
+                    groupPos.z(),
+                    groupSize.x(),
+                    groupSize.y(),
+                    groupSize.z());
+                */
+            }
         }
     }
 }
@@ -88,6 +127,7 @@ void Terrain::load(int aAreaId)
 
     //----- ブロックのソート
     sort();
+    determOrder();
     printf("terrain load\n");
 }
 
@@ -119,10 +159,17 @@ void Terrain::load(int aAreaIndex, int aAreaId)
     for (int i = 0; i < count; i++) {
         createBlock(
             aAreaIndex,
-            data.x(i),
-            data.y(i),
-            data.z(i),
-            data.kind(i)
+            data.blockX(i),
+            data.blockY(i),
+            data.blockZ(i),
+            data.blockKind(i),
+            data.blockGroupId(i),
+            data.blockGroupPosX(i),
+            data.blockGroupPosY(i),
+            data.blockGroupPosZ(i),
+            data.blockGroupSizeX(i),
+            data.blockGroupSizeY(i),
+            data.blockGroupSizeZ(i)
         );
     }
 }
@@ -144,6 +191,7 @@ void Terrain::scroll(int aX, int aY, int aZ)
 
     //----- 
     sort();
+    determOrder();
     printf("terrain scroll %d %d %d\n", aX, aY, aZ);
 }
 
@@ -157,7 +205,14 @@ void Terrain::createBlock(
     int aX,
     int aY,
     int aZ,
-    int aBlockKind)
+    int aBlockKind,
+    int aGroupId,
+    int aGroupPosX,
+    int aGroupPosY,
+    int aGroupPosZ,
+    int aGroupSizeX,
+    int aGroupSizeY,
+    int aGroupSizeZ)
 {
     //----- ブロック生成
     Block block;
@@ -171,6 +226,10 @@ void Terrain::createBlock(
     block.setPos(Vector3d(px, py, pz));
     block.setSize(Vector3d(sx, sy, sz));
     block.setKind(aBlockKind);
+    block.setGroup(
+        aGroupId,
+        Vector3d(aGroupPosX * sx, aGroupPosY * sy, aGroupPosZ * sz),
+        Vector3d(aGroupSizeX * sx, aGroupSizeY * sy, aGroupSizeZ * sz));
 
     //----- 配列に追加
     int index = Area::ins().arrayIndex(aAreaIndex);
@@ -257,7 +316,7 @@ void Terrain::insertSortedBlocks(const Block& aBlock)
         int x1 = (int)block.pos().x();
         int y1 = (int)block.pos().y();
         int z1 = (int)block.pos().z();
-        int order1 = x1 + y1 * 100 + z1*10000;
+        int order1 = x1 + y1 * 100 + z1 * 10000;
         if (order1 > order2) {
             ub = mid;
         }
@@ -266,6 +325,16 @@ void Terrain::insertSortedBlocks(const Block& aBlock)
         }
     }
     mSortedBlocks.insert(mSortedBlocks.begin() + lb, aBlock);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Terrain::determOrder()
+{
+
 }
 
 //---------------------------------------------------------------------
@@ -311,6 +380,11 @@ int Terrain::countBlock() const
 {
     return (int)mDisplayBlocks.size();
 }
+//---------------------------------------------------------------------
+int Terrain::countGroup() const
+{
+    return (int)mGroups.size();
+}
 
 //---------------------------------------------------------------------
 // 
@@ -321,7 +395,11 @@ const Block& Terrain::block(int aIndex) const
 {
     return mDisplayBlocks[aIndex];
 }
-
+//---------------------------------------------------------------------
+const BlockGroup& Terrain::group(int aIndex) const
+{
+    return mGroups[aIndex];
+}
 
 //---------------------------------------------------------------------
 // 

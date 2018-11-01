@@ -17,6 +17,7 @@ namespace game {
 Bullet::Bullet()
     : mFrame(0)
 {
+    addImage(0);
 }
 
 //---------------------------------------------------------------------
@@ -27,6 +28,11 @@ Bullet::Bullet()
 void Bullet::update()
 {
     FieldObject::update();
+
+    int handl = Images::ins().bullet(0, 0, 0);
+    setImageHandl(0, handl);
+    setImagePos(0, pos());
+    setImageSize(0, size());
 
     mFrame++;
 }
@@ -51,15 +57,6 @@ void Bullet::setAttackPower(int aAttackPower)
     mAttackPower = aAttackPower;
 }
 
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-int Bullet::image() const
-{
-    return Images::ins().bullet(0, 0, 0);
-}
 //---------------------------------------------------------------------
 int Bullet::attackPower() const
 {

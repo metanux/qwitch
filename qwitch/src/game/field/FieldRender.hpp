@@ -57,12 +57,16 @@ private:
         const Field& aField,
         int aY) const;
 
-    /// 2オブジェクト間の順序関係を判定
-    /// オブジェクト1を先に描画：true
-    /// オブジェクト2を先に描画：false
-    bool isPreRenderObject(
-        const FieldObject& aObject1,
-        const FieldObject& aObject2) const;
+    /// 画像の描画座標 x を算出する
+    int calcRenderPosX(
+        const Field& aField,
+        const ObjectImage& aImage) const;
+
+    /// 画像の描画座標 y を算出する
+    int calcRenderPosY(
+        const Field& aField,
+        const ObjectImage& aImage) const;
+
 
     /// オブジェクトのソート
     void sortObjects(

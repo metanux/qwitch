@@ -22,7 +22,7 @@ FieldParameter::FieldParameter()
 //  
 // 
 //
-const int FieldParameter::RenderAreaSize = 300;
+const int FieldParameter::RenderAreaSize = 600;
 const int FieldParameter::PlayerIndex = 0;
 
 } // namespace game

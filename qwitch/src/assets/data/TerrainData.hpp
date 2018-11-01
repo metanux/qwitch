@@ -18,32 +18,60 @@ class TerrainData {
 public:
     TerrainData();
 
+    /// グループの追加
+    void addGroup(
+        int aPosX,
+        int aPosY,
+        int aPosZ,
+        int aSizeX,
+        int aSizeY,
+        int aSizeZ);
+
     /// ブロックの追加
     void addBlock(
+        int a0GroupIndex,
         int aX,
         int aY,
         int aZ,
         int aKind);
 
     /// 
-    void setPos(const Vector3d& aPos);
-    void setId(int aAreaIndex, int aTerrainId);
 
     /// ブロック数のカウント
     int countBlock() const;
 
     /// getter
-    int x(int aIndex) const;
-    int y(int aIndex) const;
-    int z(int aIndex) const;
-    int kind(int aIndex) const;
+    int blockX(int aIndex) const;
+    int blockY(int aIndex) const;
+    int blockZ(int aIndex) const;
+    int blockKind(int aIndex) const;
+    int blockGroupId(int aIndex) const;
+    int blockGroupPosX(int aIndex) const;
+    int blockGroupPosY(int aIndex) const;
+    int blockGroupPosZ(int aIndex) const;
+    int blockGroupSizeX(int aIndex) const;
+    int blockGroupSizeY(int aIndex) const;
+    int blockGroupSizeZ(int aIndex) const;
 
 private:
+    /// どこのグループに所属しているか検索
+    /// 該当なし：-1
+    int findGroup(int aX, int aY, int aZ) const;
+
     /// member
-    std::vector<int> mX;
-    std::vector<int> mY;
-    std::vector<int> mZ;
-    std::vector<int> mKind;
+    std::vector<int> mGroupPosX;
+    std::vector<int> mGroupPosY;
+    std::vector<int> mGroupPosZ;
+    std::vector<int> mGroupSizeX;
+    std::vector<int> mGroupSizeY;
+    std::vector<int> mGroupSizeZ;
+    std::vector<int> mBlockX;
+    std::vector<int> mBlockY;
+    std::vector<int> mBlockZ;
+    std::vector<int> mBlockKind;
+    std::vector<int> mBlockGroup;
+    int mGroupNum;
+    int m0GroupIndex;
 };
 
 } // namespace qwitch

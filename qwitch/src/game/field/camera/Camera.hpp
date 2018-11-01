@@ -5,7 +5,7 @@
 //
 #pragma once
 #include "util/Vector3d.hpp"
-#include "game/field/FieldObject.hpp"
+#include "game/field/object/FieldObject.hpp"
 
 namespace qwitch {
 namespace game {

@@ -19,11 +19,34 @@ Character::Character()
     , mActiveMagic()
     , mPassiveMagic()
 {
+    addImage(0);
+
     /// デバッグ用
     Magic magic1;
     magic1.setId(1);
     magic1.setLevel(3);
     mActiveMagic.push_back(magic1);
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+void Character::update()
+{
+    FieldObject::update();
+
+    //----- 画像の更新
+    int dire = direction() / 2;
+    int handl = Images::ins().character(
+        kind(),
+        animation().animeIndex(),
+        dire,
+        animation().imageIndex());
+    setImageHandl(0, handl);
+    setImagePos(0, pos());
+    setImageSize(0, size());
 }
 
 //---------------------------------------------------------------------
@@ -66,20 +89,6 @@ void Character::setMagicIndex(int aIndex)
     mMagicIndex = aIndex;
 }
 
-//---------------------------------------------------------------------
-// 
-//  
-// 
-//
-int Character::image() const
-{
-    int dire = direction() / 2;
-    return Images::ins().character(
-        kind(),
-        animation().animeIndex(),
-        dire,
-        animation().imageIndex());
-}
 //---------------------------------------------------------------------
 const Status& Character::status() const
 {

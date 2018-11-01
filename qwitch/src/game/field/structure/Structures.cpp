@@ -26,9 +26,14 @@ Structures::Structures()
 //
 void Structures::update()
 {
-    mDisplayStructures.clear();
-
+    //----- 状態の更新
     int count = mStructures.size();
+    for (int i = 0; i < count; i++) {
+        mStructures[i].update();
+    }
+
+    //----- 表示オブジェクトの更新
+    mDisplayStructures.clear();
     for (int i = 0; i < count; i++) {
         const Structure& obj = mStructures[i];
         mDisplayStructures.push_back(obj);

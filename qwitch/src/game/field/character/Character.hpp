@@ -4,7 +4,7 @@
 // 
 //
 #pragma once
-#include "game/field/FieldObject.hpp"
+#include "game/field/object/FieldObject.hpp"
 #include "game/field/character/Status.hpp"
 #include "game/field/character/Magic.hpp"
 #include <vector>
@@ -22,6 +22,9 @@ public:
     /// コンストラクタ
     Character();
 
+    /// 更新処理
+    void update();
+
     /// ダメージ処理
     void receiveDamage(int aDamage);
     /// MPの消費
@@ -34,7 +37,6 @@ public:
     void setMagicIndex(int aIndex);
 
     /// getter
-    int image() const;
     const Status& status() const;
     const Magic& activeMagic(int aIndex) const;
     const Magic& passiveMagic(int aIndex) const;

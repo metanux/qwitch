@@ -112,6 +112,7 @@ void Data::loadTerrain()
 {
     //-----
     char url[100];
+    int groupSum = 0;
 
     //----- 地形データの読み込み
     int countTerrain = 1;
@@ -122,6 +123,19 @@ void Data::loadTerrain()
 
         //--- ファイル読込み
         TerrainData terrain;
+        // グループ
+        file.nextLine();
+        int countGroup = file.nextInteger();
+        for (int j = 0; j < countGroup; j++) {
+            file.nextLine();
+            int posX = file.nextInteger();
+            int posY = file.nextInteger();
+            int posZ = file.nextInteger();
+            int sizeX = file.nextInteger();
+            int sizeY = file.nextInteger();
+            int sizeZ = file.nextInteger();
+            terrain.addGroup(posX, posY, posZ, sizeX, sizeY, sizeZ);
+        }
         // ブロック
         file.nextLine();
         int countBlock = file.nextInteger();
@@ -131,11 +145,12 @@ void Data::loadTerrain()
             int y = file.nextInteger();
             int z = file.nextInteger();
             int kind = file.nextInteger();
-            terrain.addBlock(x, y, z, kind);
+            terrain.addBlock(groupSum, x, y, z, kind);
         }
 
         //-----
         mTerrain.push_back(terrain);
+        groupSum += countGroup;
     }
 }
 

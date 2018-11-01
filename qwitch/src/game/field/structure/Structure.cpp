@@ -17,6 +17,7 @@ namespace game {
 //
 Structure::Structure()
 {
+    addImage(0);
 }
 
 //---------------------------------------------------------------------
@@ -24,9 +25,14 @@ Structure::Structure()
 //  
 // 
 //
-int Structure::image() const
+void Structure::update()
 {
-    return Images::ins().structure(kind());
+    FieldObject::update();
+
+    int handl = Images::ins().structure(kind());
+    setImageHandl(0, handl);
+    setImagePos(0, pos());
+    setImageSize(0, size());
 }
 
 } // namespace game

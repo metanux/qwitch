@@ -48,6 +48,7 @@ void FieldRender::renderObjects(
     std::vector<int> index;
 
     // 地形ブロック
+    /*
     const Terrain& terrain = aField.terrain();
     int countBlocks = terrain.countBlock();
     printf("blockNum: %d\n", countBlocks);
@@ -55,6 +56,13 @@ void FieldRender::renderObjects(
         const Block& block = terrain.block(i);
         objects.push_back(block);
         //index.push_back(countObjects++);
+    }
+    */
+    const Terrain& terrain = aField.terrain();
+    int countGroups = terrain.countGroup();
+    for (int i = 0; i < countGroups; i++) {
+        const BlockGroup& group = terrain.group(i);
+        objects.push_back(group);
     }
 
     // 攻撃オブジェクト
@@ -92,8 +100,8 @@ void FieldRender::renderObjects(
 
     //----- オブジェクトの描画
     int count = (int)index.size();
+    printf("objects %d\n", count);
     for (int i = 0; i < count; i++) {
-    //for (int i = count - 1; i >= 0; i--) {
         renderObject(aField, objects[index[i]], i);
     }
 }
@@ -107,11 +115,17 @@ void FieldRender::renderObject(
     const Field& aField,
     const FieldObject& aObject,int order) const
 {
-    int x = calcRenderPosX(aField, aObject);
-    int y = calcRenderPosY(aField, aObject);
-    int image = aObject.image();
-    DxLib::DrawGraph(x, y, image, TRUE);
-    DxLib::DrawFormatString(x + 16, y + 8, GetColor(0, 0, 0), "%d", order);
+    const auto& images = aObject.images();
+    int count = (int)images.size();
+    for (int i = 0; i < count; i++) {
+        //int dx = (int)images[i].posX();
+        //int dy = (int)images[i].posY();
+        int posX = calcRenderPosX(aField, images[i]);
+        int posY = calcRenderPosY(aField, images[i]);
+        int handl = images[i].handl();
+        DxLib::DrawGraph(posX, posY, handl, TRUE);
+    }
+    //DxLib::DrawFormatString(x + 16, y + 8, GetColor(0, 0, 0), "%d", order);
 }
 
 //---------------------------------------------------------------------
@@ -200,27 +214,29 @@ int FieldRender::calcRenderPosY(
 //  
 // 
 //
-bool FieldRender::isPreRenderObject(
-    const FieldObject& aObject1,
-    const FieldObject& aObject2) const
+int FieldRender::calcRenderPosX(
+    const Field& aField,
+    const ObjectImage& aImage) const
 {
-    int x1min = (int)(aObject1.pos().x());
-    int y1min = (int)(aObject1.pos().y());
-    int z1min = (int)(aObject1.pos().z());
-    int x1max = (int)(aObject1.pos().x() + aObject1.size().x());
-    int y1max = (int)(aObject1.pos().y() + aObject1.size().y());
-    int z1max = (int)(aObject1.pos().z() + aObject1.size().z());
-    int x2min = (int)(aObject2.pos().x());
-    int y2min = (int)(aObject2.pos().y());
-    int z2min = (int)(aObject2.pos().z());
-    int x2max = (int)(aObject2.pos().x() + aObject2.size().x());
-    int y2max = (int)(aObject2.pos().y() + aObject2.size().y());
-    int z2max = (int)(aObject2.pos().z() + aObject2.size().z());
-    
-    //return ((x1+y1+z1) <= (x2+y2+z2));
-    //return ((x1 <= x2) && (y1 <= y2) && (z1 <= z2));
-    //return ((x1 <= x2) || (y1 <= y2) || (z1 <= z2));
-    return ((x1min < x2max) && (y1min < y2max) && (z1min < z2max));
+    int x = 0;
+    x += (int)aImage.convertWindowPosX();
+    x -= (int)aField.camera().windowPos().x();
+    return x;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+int FieldRender::calcRenderPosY(
+    const Field& aField,
+    const ObjectImage& aImage) const
+{
+    int y = 0;
+    y += (int)aImage.convertWindowPosY();
+    y -= (int)aField.camera().windowPos().y();
+    return y;
 }
 
 //---------------------------------------------------------------------
@@ -235,17 +251,16 @@ void FieldRender::sortObjects(
     //----- 隣接行列の構築
     int n = (int)aObjects.size();
     std::vector<int> a(n * n); // 隣接行列
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (i == j) { continue; }
+    for (int i = 0; i < (n - 1); i++) {
+        for (int j = (i + 1); j < n; j++) {
             const FieldObject& object1 = aObjects[i];
             const FieldObject& object2 = aObjects[j];
-            if (isPreRenderObject(object1, object2)) {
+            if (object1.isPreRender(object2)) {
                 a[i + j * n] = 1;
             }
-            //else {
-            //    a[j + i * n] = 1;
-            //}
+            if (object2.isPreRender(object1)) {
+                a[j + i * n] = 1;
+            }
         }
     }
 
