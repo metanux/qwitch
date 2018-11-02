@@ -65,7 +65,7 @@ void Images::loadBlock()
 {
     char url[100];
 
-    int blockNum = 14;
+    int blockNum = 4;
     mBlock.resize(blockNum);
     for (int i = 0; i < blockNum; i++) {
         sprintf_s(url, "assets/images/block/%d.png", i);
@@ -112,7 +112,7 @@ void Images::loadStructure()
 {
     char url[100];
 
-    int structureNum = 2;
+    int structureNum = 8;
     for (int kind = 0; kind < structureNum; kind++) {
         sprintf_s(url, "assets/images/structure/%d.png", kind);
         int image = DxLib::LoadGraph(url);
