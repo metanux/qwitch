@@ -87,7 +87,7 @@ void Images::loadCharacter()
         for (int anime = 0; anime < 1; anime++) {
             std::vector<int> images;
             int imageNumX = 1;    // 画像枚数
-            int imageNumY = 1;    // 方向数
+            int imageNumY = 8;    // 方向数
             int imageSizeX = 64;
             int imageSizeY = 128;
             int imageNum = imageNumX * imageNumY;
@@ -175,7 +175,8 @@ int Images::block(int aIndex) const
 //---------------------------------------------------------------------
 int Images::character(int aKind, int aAnime, int aDirection, int aIndex) const
 {
-    return mCharacter[0][0][0];
+    int index = aDirection;
+    return mCharacter[0][0][aDirection];
     /*
     int index = aDirection * 4 + aIndex;
     return mCharacter[aKind][aAnime][index];

@@ -67,6 +67,7 @@ void Terrain::updateDisplayBlocks(const Camera& aCamera)
 {
     //-----
     std::unordered_map<int, int> groupIndex;
+    std::unordered_map<int, bool> groupDisplay;
 
     //----- 描画ブロックリストの初期化
     mDisplayBlocks.clear();
@@ -79,16 +80,16 @@ void Terrain::updateDisplayBlocks(const Camera& aCamera)
     int count = (int)mSortedBlocks.size();
     for (int i = 0; i < count; i++) {
         const Block& block = mSortedBlocks[i];
-
-        // 表示領域か確認
-        if (Data::ins().isDisplay(displayId, block.pos()) == false) { continue; }
+        int groupId = block.groupId();
+        
         // 描画範囲外の確認
         if (aCamera.isRender(block) == false) { continue; }
+        // 表示領域か確認
+        if (Data::ins().isDisplay(displayId, block.pos()) == false) { continue; }
 
         // リストに追加
         mDisplayBlocks.push_back(block);
         // グループに登録
-        int groupId = block.groupId();
         if (groupIndex.count(groupId) != 0) {
             // 既にグループがある
             int index = groupIndex[groupId];
