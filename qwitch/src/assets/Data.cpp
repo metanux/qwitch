@@ -17,6 +17,7 @@ namespace qwitch {
 //
 Data::Data()
     : mArea()
+    , mAreaDisplay()
     , mTerrain()
     , mMagic()
     , mStructure()
@@ -43,6 +44,8 @@ void Data::load()
 {
     //----- エリアデータ読込み
     loadArea();
+    //-----
+    loadAreaDisplay();
     //----- 地形データの読込み
     loadTerrain();
     //----- 魔法データの読込み
@@ -62,7 +65,7 @@ void Data::loadArea()
     char url[100];
 
     //-----
-    int countArea = 1;
+    int countArea = 2;
     for (int i = 0; i < countArea; i++) {
         //--- ファイルオープン
         sprintf_s(url, "assets/data/area/%d.dat", i);
@@ -108,6 +111,41 @@ void Data::loadArea()
 //  
 // 
 //
+void Data::loadAreaDisplay()
+{
+    //----- ファイル読込み
+    char url[100];
+    sprintf_s(url, "assets/data/area/display.dat");
+    FileReader file(url);
+
+    //----- データ数
+    file.nextLine();
+    int count = file.nextInteger();
+
+    //----- データ
+    for (int i = 0; i < count; i++) {
+        AreaDisplayData data;
+        file.nextLine();
+        int countArea = file.nextInteger();
+        for (int j = 0; j < countArea; j++) {
+            file.nextLine();
+            int posX = file.nextInteger();
+            int posY = file.nextInteger();
+            int posZ = file.nextInteger();
+            int sizeX = file.nextInteger();
+            int sizeY = file.nextInteger();
+            int sizeZ = file.nextInteger();
+            data.add(posX, posY, posZ, sizeX, sizeY, sizeZ);
+        }
+        mAreaDisplay.push_back(data);
+    }
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 void Data::loadTerrain()
 {
     //-----
@@ -115,7 +153,7 @@ void Data::loadTerrain()
     int groupSum = 0;
 
     //----- 地形データの読み込み
-    int countTerrain = 1;
+    int countTerrain = 2;
     for (int i = 0; i < countTerrain; i++) {
         //--- ファイルオープン
         sprintf_s(url, "assets/data/terrain/%d.dat", i);
@@ -123,6 +161,7 @@ void Data::loadTerrain()
 
         //--- ファイル読込み
         TerrainData terrain;
+        terrain.set0GroupIndex(groupSum);
         // グループ
         file.nextLine();
         int countGroup = file.nextInteger();
@@ -224,6 +263,48 @@ void Data::loadStructure()
             sizeZ));
     }
 }
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+int Data::findAreaDisplayId(const Vector3d& aPos) const
+{
+    int count = (int)mAreaDisplay.size();
+    for (int i = 0; i < count; i++) {
+        const auto& data = areaDisplay(i);
+        if (data.isInclusion(aPos)) {
+            return i;
+        }
+    }
+    return -1;
+}
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
+bool Data::isDisplay(int aId, const Vector3d& aPos) const
+{
+    if (aId == -1) {
+        int count = (int)mAreaDisplay.size();
+        for (int i = 0; i < count; i++) {
+            const auto& data = areaDisplay(i);
+            if (data.isInclusion(aPos)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    else {
+        const auto& data = areaDisplay(aId);
+        if (data.isInclusion(aPos)) {
+            return true;
+        }
+        return false;
+    }
+    return false;
+}
 
 //---------------------------------------------------------------------
 // 
@@ -233,6 +314,11 @@ void Data::loadStructure()
 const AreaData& Data::area(int aId) const
 {
     return mArea[aId];
+}
+//---------------------------------------------------------------------
+const AreaDisplayData& Data::areaDisplay(int aId) const
+{
+    return mAreaDisplay[aId];
 }
 //---------------------------------------------------------------------
 const TerrainData& Data::terrain(int aId) const

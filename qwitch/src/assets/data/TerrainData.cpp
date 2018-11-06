@@ -101,6 +101,16 @@ int TerrainData::findGroup(int aX, int aY, int aZ) const
 //  
 // 
 //
+void TerrainData::set0GroupIndex(int aIndex)
+{
+    m0GroupIndex = aIndex;
+}
+
+//---------------------------------------------------------------------
+// 
+//  
+// 
+//
 int TerrainData::countBlock() const
 {
     return (int)mBlockKind.size();
@@ -128,7 +138,7 @@ int TerrainData::blockKind(int aIndex) const
 //---------------------------------------------------------------------
 int TerrainData::blockGroupId(int aIndex) const
 {
-    return mBlockGroup[aIndex];
+    return (mBlockGroup[aIndex] - m0GroupIndex);
 }
 //---------------------------------------------------------------------
 int TerrainData::blockGroupPosX(int aIndex) const

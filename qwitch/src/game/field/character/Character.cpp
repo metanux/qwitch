@@ -38,11 +38,10 @@ void Character::update()
     FieldObject::update();
 
     //----- 画像の更新
-    int dire = direction() / 2;
     int handl = Images::ins().character(
         kind(),
         animation().animeIndex(),
-        dire,
+        direction(),
         animation().imageIndex());
     setImageHandl(0, handl);
     setImagePos(0, pos());

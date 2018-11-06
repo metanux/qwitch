@@ -8,6 +8,7 @@
 #include "DxLib.h"
 #include "game/field/terrain/Block.hpp"
 #include "game/field/FieldParameter.hpp"
+#include "assets/Data.hpp"
 
 namespace qwitch {
 namespace game {
@@ -87,11 +88,15 @@ void Camera::updatePos()
 //
 bool Camera::isRender(const FieldObject& aObject) const
 {
+    //----- 描画範囲外の確認
     int size = 0;
     size += abs((int)(mFieldPos.x() - aObject.pos().x()));
     size += abs((int)(mFieldPos.y() - aObject.pos().y()));
     size += abs((int)(mFieldPos.z() - aObject.pos().z()));
-    return (size < FieldParameter::RenderAreaSize);
+    if (size >= FieldParameter::RenderAreaSize) { return false; }
+
+    //----- 表示領域か確認
+    return true;
 }
 
 //---------------------------------------------------------------------

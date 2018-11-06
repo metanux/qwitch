@@ -5,6 +5,7 @@
 //
 #pragma once
 #include "game/field/structure/Structure.hpp"
+#include "game/field/camera/Camera.hpp"
 #include <vector>
 
 namespace qwitch {
@@ -20,7 +21,7 @@ public:
     /// コンストラクタ
     Structures();
     /// 更新処理
-    void update();
+    void update(const Camera& aCamera);
     /// 読込み処理
     void load(int aAreaId);
     /// 当たり判定

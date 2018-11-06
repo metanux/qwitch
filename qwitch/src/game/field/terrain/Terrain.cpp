@@ -63,7 +63,7 @@ void Terrain::update(const Camera& camera)
 //  
 // 
 //
-void Terrain::updateDisplayBlocks(const Camera& camera)
+void Terrain::updateDisplayBlocks(const Camera& aCamera)
 {
     //-----
     std::unordered_map<int, int> groupIndex;
@@ -72,42 +72,38 @@ void Terrain::updateDisplayBlocks(const Camera& camera)
     mDisplayBlocks.clear();
     mGroups.clear();
 
+    // 表示領域
+    int displayId = Data::ins().findAreaDisplayId(aCamera.fieldPos());
+
     //----- 描画ブロックの構成
     int count = (int)mSortedBlocks.size();
     for (int i = 0; i < count; i++) {
         const Block& block = mSortedBlocks[i];
 
+        // 表示領域か確認
+        if (Data::ins().isDisplay(displayId, block.pos()) == false) { continue; }
         // 描画範囲外の確認
-        if (camera.isRender(block)) {
-            // リストに追加
-            mDisplayBlocks.push_back(block);
-            // グループに登録
-            int groupId = block.groupId();
-            if (groupIndex.count(groupId) != 0) {
-                // 既にグループがある
-                int index = groupIndex[groupId];
-                mGroups[index].add(block);
-            }
-            else {
-                int n = countGroup();
-                groupIndex[groupId] = n;
-                BlockGroup group;
-                const Vector3d& groupPos = block.groupPos();
-                const Vector3d& groupSize = block.groupSize();
-                group.setPos(groupPos);
-                group.setSize(groupSize);
-                mGroups.push_back(group);
-                mGroups[n].add(block);
-                /*
-                printf("%lf %lf %lf,%lf %lf %lf\n",
-                    groupPos.x(),
-                    groupPos.y(),
-                    groupPos.z(),
-                    groupSize.x(),
-                    groupSize.y(),
-                    groupSize.z());
-                */
-            }
+        if (aCamera.isRender(block) == false) { continue; }
+
+        // リストに追加
+        mDisplayBlocks.push_back(block);
+        // グループに登録
+        int groupId = block.groupId();
+        if (groupIndex.count(groupId) != 0) {
+            // 既にグループがある
+            int index = groupIndex[groupId];
+            mGroups[index].add(block);
+        }
+        else {
+            int n = countGroup();
+            groupIndex[groupId] = n;
+            BlockGroup group;
+            const Vector3d& groupPos = block.groupPos();
+            const Vector3d& groupSize = block.groupSize();
+            group.setPos(groupPos);
+            group.setSize(groupSize);
+            mGroups.push_back(group);
+            mGroups[n].add(block);
         }
     }
 }

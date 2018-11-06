@@ -82,14 +82,14 @@ void Images::loadCharacter()
 {
     char url[100];
 
-    for (int kind = 0; kind < 2; kind++) {
+    for (int kind = 0; kind < 1; kind++) {
         std::vector<std::vector<int>> animeImages;
-        for (int anime = 0; anime < 6; anime++) {
+        for (int anime = 0; anime < 1; anime++) {
             std::vector<int> images;
-            int imageNumX = 4;    // 画像枚数
-            int imageNumY = 4;    // 方向数
+            int imageNumX = 1;    // 画像枚数
+            int imageNumY = 1;    // 方向数
             int imageSizeX = 64;
-            int imageSizeY = 96;
+            int imageSizeY = 128;
             int imageNum = imageNumX * imageNumY;
             sprintf_s(url, "assets/images/character/%d/%d.png", kind, anime);
             int imageTmp[30];
@@ -112,7 +112,7 @@ void Images::loadStructure()
 {
     char url[100];
 
-    int structureNum = 8;
+    int structureNum = 10;
     for (int kind = 0; kind < structureNum; kind++) {
         sprintf_s(url, "assets/images/structure/%d.png", kind);
         int image = DxLib::LoadGraph(url);
@@ -175,8 +175,11 @@ int Images::block(int aIndex) const
 //---------------------------------------------------------------------
 int Images::character(int aKind, int aAnime, int aDirection, int aIndex) const
 {
+    return mCharacter[0][0][0];
+    /*
     int index = aDirection * 4 + aIndex;
     return mCharacter[aKind][aAnime][index];
+    */
 }
 //---------------------------------------------------------------------
 int Images::structure(int aKind) const

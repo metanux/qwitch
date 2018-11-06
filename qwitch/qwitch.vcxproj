@@ -22,6 +22,7 @@
     <ClCompile Include="src\assets\AssetsManager.cpp" />
     <ClCompile Include="src\assets\Data.cpp" />
     <ClCompile Include="src\assets\data\AreaData.cpp" />
+    <ClCompile Include="src\assets\data\AreaDisplayData.cpp" />
     <ClCompile Include="src\assets\data\MagicData.cpp" />
     <ClCompile Include="src\assets\data\StructureData.cpp" />
     <ClCompile Include="src\assets\data\TerrainData.cpp" />
@@ -69,6 +70,7 @@
     <ClInclude Include="src\assets\AssetsManager.hpp" />
     <ClInclude Include="src\assets\Data.hpp" />
     <ClInclude Include="src\assets\data\AreaData.hpp" />
+    <ClInclude Include="src\assets\data\AreaDisplayData.hpp" />
     <ClInclude Include="src\assets\data\MagicData.hpp" />
     <ClInclude Include="src\assets\data\StructureData.hpp" />
     <ClInclude Include="src\assets\data\TerrainData.hpp" />

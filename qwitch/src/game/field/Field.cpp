@@ -41,7 +41,7 @@ void Field::update()
     updateCharacters();
 
     //----- 構造物の更新
-    mStructures.update();
+    mStructures.update(mCamera);
 
     //----- カメラの更新
     updateCamera();

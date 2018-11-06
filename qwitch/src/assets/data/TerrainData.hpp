@@ -35,7 +35,8 @@ public:
         int aZ,
         int aKind);
 
-    /// 
+    ///
+    void set0GroupIndex(int aIndex);
 
     /// ブロック数のカウント
     int countBlock() const;

@@ -24,7 +24,7 @@ Structures::Structures()
 //  
 // 
 //
-void Structures::update()
+void Structures::update(const Camera& aCamera)
 {
     //----- 状態の更新
     int count = mStructures.size();
@@ -33,9 +33,12 @@ void Structures::update()
     }
 
     //----- 表示オブジェクトの更新
+    int id = Data::ins().findAreaDisplayId(aCamera.fieldPos());
     mDisplayStructures.clear();
     for (int i = 0; i < count; i++) {
         const Structure& obj = mStructures[i];
+        if (Data::ins().isDisplay(id, obj.pos()) == false) { continue; }
+        if (aCamera.isRender(obj) == false) { continue; }
         mDisplayStructures.push_back(obj);
     }
 }

@@ -13,10 +13,10 @@ namespace qwitch {
 //  
 // 
 //
-//const int System::DefaultWindowSizeX = 1280;
-//const int System::DefaultWindowSizeY = 720;
-const int System::DefaultWindowSizeX = 960;
-const int System::DefaultWindowSizeY = 540;
+const int System::DefaultWindowSizeX = 1280;
+const int System::DefaultWindowSizeY = 720;
+//const int System::DefaultWindowSizeX = 960;
+//const int System::DefaultWindowSizeY = 540;
 const int System::DefaultWindowDepthColor = 32;
 
 //---------------------------------------------------------------------
